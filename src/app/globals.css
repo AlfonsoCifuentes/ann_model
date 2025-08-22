@@ -1,0 +1,905 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Variables */
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+  
+  /* Dark color scheme - enigmatic and elegant */
+  --bg-primary: #0A0A0A;          /* Pure black */
+  --bg-secondary: #1A1A1A;        /* Deep charcoal */
+  --bg-tertiary: #2A2A2A;         /* Medium charcoal */
+  --bg-accent: #1F1F1F;           /* Dark gray */
+  --bg-card: #151515;             /* Card background */
+  
+  /* Text colors */
+  --text-primary: #FFFFFF;        /* Pure white */
+  --text-secondary: #E0E0E0;      /* Light gray */
+  --text-muted: #B0B0B0;          /* Medium gray */
+  --text-subtle: #808080;         /* Subtle gray */
+  
+  /* Copper accent colors */
+  --fashion-rose: #D2691E;        /* Primary copper */
+  --fashion-gold: #CD853F;        /* Auburn copper */
+  --fashion-accent: #D2691E;      /* Accent copper */
+  --fashion-deep-copper: #A0522D; /* Dark copper */
+  --fashion-mauve: #B8860B;       /* Golden copper */
+  
+  /* Dark theme specific */
+  --glass-bg: rgba(0, 0, 0, 0.4);
+  --glass-border: rgba(210, 105, 30, 0.2);
+  --glow-copper: rgba(210, 105, 30, 0.3);
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-accent: rgba(210, 105, 30, 0.4);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-inter);
+  font-weight: 300;
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Remove default link colors and use custom copper/orange colors */
+a, a:visited, a:hover, a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Specific overrides for visited links to prevent purple color */
+a:visited {
+  color: inherit !important;
+}
+
+/* Custom link colors for interactive elements */
+.link-copper:visited {
+  color: #D2691E !important;
+}
+
+.link-copper:hover {
+  color: #CD853F !important;
+}
+
+/* Navbar links should never show purple */
+nav a:visited, 
+.navbar a:visited,
+[class*="navbar"] a:visited {
+  color: inherit !important;
+}
+
+/* Typography */
+.font-playfair {
+  font-family: var(--font-playfair);
+}
+
+/* Navbar Style Typography - para usar en todo el sitio */
+.navbar-style {
+  font-family: var(--font-inter);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.navbar-style-heading {
+  font-family: var(--font-inter);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+}
+
+.navbar-style-bold {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Utility Classes */
+.container-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding: 0 3rem;
+  }
+}
+
+/* Hover Effects */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Image Transitions */
+.image-hover {
+  transition: transform 0.7s ease;
+}
+
+.image-hover:hover {
+  transform: scale(1.05);
+}
+
+/* Button Styles */
+.btn-minimal {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border: 1px solid #000;
+  color: #000;
+  background: transparent;
+  text-decoration: none;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-minimal:hover {
+  background: #000;
+  color: #fff;
+}
+
+.btn-filled {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-filled:hover {
+  background: #333;
+}
+
+/* Grid Layouts */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 0;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Spacing Utilities */
+.section-padding {
+  padding: 4rem 0;
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: 6rem 0;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Sidebar Specific */
+.sidebar-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Luxury Fashion Design System */
+:root {
+  --fashion-bg: #0B0A0F;
+  --fashion-bg-secondary: #16151C;
+  --fashion-bg-tertiary: #1F1E26;
+  --fashion-bg-card: #252530;
+  --fashion-fg: #FEFEFE;
+  --fashion-rose: #D2691E;
+  --fashion-gold: #CD853F;
+  --fashion-platinum: #E5E4E2;
+  --fashion-champagne: #F7E7CE;
+  --fashion-blush: #DEB887;
+  --fashion-accent: #D2691E;
+  --fashion-deep-copper: #A0522D;
+  --fashion-mauve: #B8860B;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(210, 105, 30, 0.15);
+  --glow-rose: rgba(210, 105, 30, 0.6);
+  --glow-gold: rgba(205, 133, 63, 0.5);
+  --glow-mauve: rgba(184, 134, 11, 0.4);
+  --card-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  --card-glow: 0 0 50px rgba(210, 105, 30, 0.1);
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Tenor Sans', sans-serif;
+  background: var(--fashion-bg);
+  color: var(--fashion-fg);
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+/* Artistic Luxury Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at 15% 20%, rgba(232, 180, 203, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 10%, rgba(177, 156, 217, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 90%, rgba(244, 194, 194, 0.04) 0%, transparent 55%),
+    conic-gradient(from 180deg at 50% 50%, rgba(45, 27, 61, 0.8) 0deg, rgba(22, 21, 28, 0.9) 120deg, rgba(31, 30, 38, 0.8) 240deg, rgba(45, 27, 61, 0.8) 360deg);
+  background-size: 1200px 800px, 900px 600px, 1500px 1000px, 800px 500px, 100% 100%;
+  animation: luxuryGradientFlow 30s ease infinite;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Floating luxury particles */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 25% 40%, rgba(232, 180, 203, 0.15) 2px, transparent 2px),
+    radial-gradient(circle at 75% 70%, rgba(212, 175, 55, 0.12) 1px, transparent 1px),
+    radial-gradient(circle at 45% 85%, rgba(177, 156, 217, 0.1) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 80% 20%, rgba(244, 194, 194, 0.08) 1px, transparent 1px);
+  background-size: 120px 120px, 180px 180px, 90px 90px, 150px 150px;
+  background-position: 0 0, 50px 80px, 30px 40px, 100px 20px;
+  animation: floatLuxuryParticles 40s linear infinite;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes luxuryGradientFlow {
+  0%, 100% { 
+    background-position: 0% 0%, 100% 100%, 50% 50%, 25% 75%, 0% 0%; 
+    filter: hue-rotate(0deg) saturate(1);
+  }
+  25% { 
+    background-position: 100% 0%, 0% 100%, 75% 25%, 50% 50%, 0% 0%; 
+    filter: hue-rotate(3deg) saturate(1.1);
+  }
+  50% { 
+    background-position: 100% 100%, 0% 0%, 25% 75%, 75% 25%, 0% 0%; 
+    filter: hue-rotate(6deg) saturate(1.2);
+  }
+  75% { 
+    background-position: 0% 100%, 100% 0%, 50% 50%, 25% 75%, 0% 0%; 
+    filter: hue-rotate(3deg) saturate(1.1);
+  }
+}
+
+@keyframes floatLuxuryParticles {
+  0% { 
+    transform: translateY(0px) rotateZ(0deg); 
+    opacity: 0.6;
+  }
+  50% { 
+    transform: translateY(-15px) rotateZ(180deg); 
+    opacity: 0.8;
+  }
+  100% { 
+    transform: translateY(-30px) rotateZ(360deg); 
+    opacity: 0.6;
+  }
+}
+
+/* Luxury Typography System */
+.text-luxury-hero {
+  font-family: 'Italiana', serif;
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 400;
+  line-height: 0.75;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, 
+    #FEFEFE 0%, 
+    var(--fashion-rose) 30%, 
+    var(--fashion-gold) 60%, 
+    var(--fashion-champagne) 90%, 
+    var(--fashion-mauve) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 80px var(--glow-rose);
+  filter: drop-shadow(0 0 30px rgba(232, 180, 203, 0.4));
+}
+
+.text-luxury-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0.15em;
+  color: var(--fashion-platinum);
+  text-shadow: 0 0 25px rgba(229, 228, 226, 0.3);
+  text-transform: uppercase;
+}
+
+.text-luxury-elegant {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, 
+    var(--fashion-fg) 0%, 
+    var(--fashion-rose) 40%, 
+    var(--fashion-gold) 80%, 
+    var(--fashion-mauve) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-luxury-body {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  color: var(--fashion-platinum);
+}
+
+.text-luxury-glow {
+  text-shadow: 0 0 40px var(--glow-rose), 0 0 80px var(--glow-mauve);
+  animation: luxuryTextGlow 5s ease-in-out infinite;
+}
+
+/* Luxury Animation Keyframes */
+@keyframes luxuryTextGlow {
+  0%, 100% { 
+    text-shadow: 
+      0 0 40px var(--glow-rose), 
+      0 0 80px var(--glow-mauve),
+      0 0 120px rgba(232, 180, 203, 0.1);
+  }
+  50% { 
+    text-shadow: 
+      0 0 60px var(--glow-rose), 
+      0 0 120px var(--glow-mauve),
+      0 0 180px rgba(232, 180, 203, 0.2);
+  }
+}
+
+@keyframes luxuryPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+@keyframes luxuryFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(-5px) rotate(-1deg); }
+}
+
+@keyframes luxuryShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Fashion Button System */
+.btn-fashion {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 3rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 50px;
+  background: var(--glass-bg);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px var(--glass-border);
+  transform: translateZ(0);
+}
+
+.btn-fashion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--glow-rose), transparent);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-fashion:hover::before {
+  left: 100%;
+}
+
+.btn-fashion-primary {
+  background: linear-gradient(135deg, var(--fashion-rose) 0%, var(--fashion-gold) 50%, var(--fashion-champagne) 100%);
+  color: var(--fashion-bg);
+  border: 1px solid var(--fashion-rose);
+  box-shadow: 
+    0 15px 60px rgba(232, 164, 200, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-fashion-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 
+    0 20px 80px rgba(232, 164, 200, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-fashion-secondary {
+  background: var(--glass-bg);
+  color: var(--fashion-fg);
+  border: 1px solid var(--glass-border);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(15, 11, 20, 0.4),
+    0 0 0 1px var(--glass-border),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.btn-fashion-secondary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 40px rgba(15, 11, 20, 0.6),
+    0 0 0 1px var(--fashion-rose),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: var(--fashion-rose);
+}
+
+/* Fashion Glass Morphism Effects */
+.glass-fashion {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 
+    0 12px 48px rgba(15, 11, 20, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 0 1px var(--glass-border);
+  border-radius: 24px;
+}
+
+.glass-fashion-elevated {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 
+    0 20px 80px rgba(15, 11, 20, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 0 1px var(--glass-border),
+    0 0 60px rgba(232, 164, 200, 0.1);
+  border-radius: 32px;
+}
+
+.glass-fashion-hero {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(232, 164, 200, 0.05) 50%, 
+    rgba(212, 175, 55, 0.05) 100%);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 
+    0 25px 100px rgba(15, 11, 20, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(232, 164, 200, 0.1),
+    0 0 80px rgba(232, 164, 200, 0.15);
+  border-radius: 40px;
+}
+
+/* Fashion Animations */
+@keyframes fashionGlow {
+  0%, 100% { 
+    text-shadow: 0 0 30px var(--glow-rose); 
+  }
+  50% { 
+    text-shadow: 0 0 50px var(--glow-rose), 0 0 80px var(--glow-gold); 
+  }
+}
+
+@keyframes fashionPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scale(1.05); 
+    opacity: 0.8; 
+  }
+}
+
+@keyframes fashionFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-10px) rotate(2deg); 
+  }
+}
+
+@keyframes shimmer {
+  0% { 
+    background-position: -200% center; 
+  }
+  100% { 
+    background-position: 200% center; 
+  }
+}
+
+/* Fashion Utility Classes */
+.fashion-section-spacing {
+  padding: 8rem 0;
+}
+
+.fashion-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Fashion Glass for Navbar */
+.fashion-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 164, 200, 0.1);
+}
+
+/* Navbar specific improvements */
+.navbar-height {
+  height: 4rem;
+}
+
+/* Text utilities for better navbar display */
+.text-navbar-logo {
+  font-size: 1.125rem;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.text-navbar-subtitle {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+
+.text-navbar-link {
+  font-size: 0.875rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .navbar-height {
+    height: 4.5rem;
+  }
+  
+  .text-navbar-logo {
+    font-size: 1.25rem;
+  }
+  
+  .text-navbar-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .text-navbar-link {
+    font-size: 0.9rem;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .fashion-section-spacing {
+    padding: 4rem 0;
+  }
+  
+  .fashion-container {
+    padding: 0 1rem;
+  }
+  
+  .btn-fashion {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+  
+  .text-fashion-hero {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+  }
+}
+
+/* Luxury Card Design System */
+.luxury-card {
+  background: linear-gradient(135deg, 
+    rgba(45, 27, 61, 0.4) 0%,
+    rgba(177, 156, 217, 0.15) 30%, 
+    rgba(232, 180, 203, 0.1) 70%,
+    rgba(212, 175, 55, 0.05) 100%);
+  backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(232, 180, 203, 0.2);
+  border-radius: 24px;
+  padding: 3rem;
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 60px rgba(45, 27, 61, 0.3),
+    0 8px 24px rgba(232, 180, 203, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  animation: luxuryFloat 8s ease-in-out infinite;
+}
+
+.luxury-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 30px 80px rgba(45, 27, 61, 0.4),
+    0 12px 32px rgba(232, 180, 203, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(232, 180, 203, 0.4);
+}
+
+.luxury-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(232, 180, 203, 0.05) 50%, 
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.luxury-card:hover::before {
+  opacity: 1;
+}
+
+.luxury-card-elegant {
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(232, 180, 203, 0.12) 25%,
+    rgba(177, 156, 217, 0.08) 50%,
+    rgba(212, 175, 55, 0.04) 75%,
+    rgba(45, 27, 61, 0.15) 100%);
+  backdrop-filter: blur(25px) saturate(1.3);
+  border: 2px solid;
+  border-image: linear-gradient(135deg, 
+    rgba(232, 180, 203, 0.3) 0%,
+    rgba(212, 175, 55, 0.2) 50%,
+    rgba(177, 156, 217, 0.3) 100%) 1;
+  border-radius: 32px;
+  padding: 4rem;
+  position: relative;
+  box-shadow: 
+    0 25px 70px rgba(45, 27, 61, 0.35),
+    0 10px 28px rgba(232, 180, 203, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 0 rgba(45, 27, 61, 0.1);
+}
+
+.luxury-card-gallery {
+  background: linear-gradient(135deg, 
+    rgba(11, 10, 15, 0.85) 0%,
+    rgba(45, 27, 61, 0.75) 30%,
+    rgba(177, 156, 217, 0.1) 70%,
+    rgba(232, 180, 203, 0.05) 100%);
+  backdrop-filter: blur(30px) saturate(1.4);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  padding: 2rem;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 
+    0 15px 50px rgba(11, 10, 15, 0.6),
+    0 6px 20px rgba(232, 180, 203, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.5s ease;
+}
+
+.luxury-section-spacing {
+  padding-top: 8rem;
+  padding-bottom: 6rem;
+  margin-bottom: 4rem;
+}
+
+.luxury-header-spacing {
+  padding-top: 10rem;
+  margin-bottom: 6rem;
+}
+
+.luxury-content-spacing {
+  padding: 4rem 0;
+  margin: 3rem 0;
+}
+
+/* Botones Luxury */
+.luxury-button-primary {
+  background: linear-gradient(135deg, 
+    rgba(232, 180, 203, 0.9) 0%,
+    rgba(212, 175, 55, 0.8) 50%,
+    rgba(177, 156, 217, 0.9) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: rgba(11, 10, 15, 0.9);
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-tenor);
+  letter-spacing: 0.025em;
+}
+
+.luxury-button-primary:hover {
+  background: linear-gradient(135deg, 
+    rgba(232, 180, 203, 1) 0%,
+    rgba(212, 175, 55, 0.95) 50%,
+    rgba(177, 156, 217, 1) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(232, 180, 203, 0.3);
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+.luxury-button-secondary {
+  background: rgba(11, 10, 15, 0.8);
+  border: 1px solid rgba(232, 180, 203, 0.4);
+  color: rgba(232, 180, 203, 0.9);
+  font-weight: 500;
+  padding: 0.875rem 2rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-tenor);
+  letter-spacing: 0.025em;
+}
+
+.luxury-button-secondary:hover {
+  background: rgba(232, 180, 203, 0.1);
+  border-color: rgba(232, 180, 203, 0.6);
+  color: rgba(255, 245, 235, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(232, 180, 203, 0.2);
+}
+
+/* Force override for ANY purple/violet colors from browser defaults */
+* {
+  /* Override browser default visited link colors */
+}
+
+a:visited {
+  color: inherit !important;
+}
+
+a:link {
+  color: inherit !important;
+}
+
+/* Specifically target navigation and ensure no purple */
+nav a:visited,
+nav a:link,
+[class*="nav"] a:visited,
+[class*="nav"] a:link,
+.navbar a:visited,
+.navbar a:link {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+/* Global override for any accidental purple */
+*[style*="purple"],
+*[style*="#800080"],
+*[style*="#551A8B"] {
+  color: #D2691E !important;
+}

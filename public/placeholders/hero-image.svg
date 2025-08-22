@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#1a1a1a"/>
+  <rect x="460" y="340" width="1000" height="400" fill="#2a2a2a" stroke="#D9B06A" stroke-width="2"/>
+  <text x="960" y="520" text-anchor="middle" fill="#D9B06A" font-size="48" font-family="serif">HERO IMAGE</text>
+  <text x="960" y="580" text-anchor="middle" fill="#9A9A9A" font-size="24" font-family="sans-serif">Replace with professional portrait</text>
+</svg>

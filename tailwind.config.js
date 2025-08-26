@@ -6,7 +6,6 @@ module.exports = {
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -76,7 +75,6 @@ module.exports = {
           // Dramatic accent colors
           crimson: '#DC143C',     // Deep red
           emerald: '#50C878',     // Emerald green
-          sapphire: '#0F52BA',    // Sapphire blue
           amethyst: '#9966CC',    // Purple
         },
         glass: {

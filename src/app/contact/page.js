@@ -28,22 +28,47 @@ export default function ContactPage() {
     // Track form submission attempt
     trackContactAttempt(`contact_form_${formData.type}`)
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-      // Reset form after 3 seconds
+    try {
+      // Crear el enlace mailto con toda la información del formulario
+      const subject = encodeURIComponent(formData.subject || `Consulta desde el sitio web - ${formData.type}`)
+      const body = encodeURIComponent(
+        `Nombre: ${formData.name}
+Correo electrónico: ${formData.email}
+Tipo de consulta: ${formData.type}
+
+Mensaje:
+${formData.message}
+
+---
+Enviado desde el formulario de contacto de ananicoleta.com`
+      )
+      
+      const mailtoLink = `mailto:anngsesiones@gmail.com?subject=${subject}&body=${body}`
+      
+      // Abrir el cliente de correo
+      window.location.href = mailtoLink
+      
+      // Mostrar confirmación y limpiar formulario
       setTimeout(() => {
-        setIsSubmitted(false)
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-          type: 'general'
-        })
-      }, 3000)
-    }, 1500)
+        setIsSubmitting(false)
+        setIsSubmitted(true)
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setIsSubmitted(false)
+          setFormData({
+            name: '',
+            email: '',
+            subject: '',
+            message: '',
+            type: 'general'
+          })
+        }, 3000)
+      }, 1000)
+      
+    } catch (error) {
+      console.error('Error al preparar el correo:', error)
+      setIsSubmitting(false)
+    }
   }
 
   const handleInputChange = (e) => {
@@ -65,7 +90,7 @@ export default function ContactPage() {
             <div className="max-w-lg">
               <FadeInUp>
                 <h1 className="font-inter font-light tracking-widest text-3xl lg:text-4xl mb-8 uppercase">
-                  Work with me
+                  Trabajemos Juntos
                 </h1>
               </FadeInUp>
               
@@ -73,17 +98,17 @@ export default function ContactPage() {
                 <StaggerItem>
                   <div>
                     <h3 className="font-inter font-light tracking-wider text-lg mb-4 uppercase">
-                      General Inquiries
+                      Consultas Generales
                     </h3>
-                    <p className="text-fashion-muted font-light mb-2 tracking-wide">
-                      For bookings, collaborations, and general inquiries
+                    <p className="font-inter text-fashion-fg-secondary font-light mb-2 tracking-wide">
+                      Para reservas, colaboraciones y consultas generales
                     </p>
                     <a 
-                      href="mailto:contact@ananicoleta.com"
-                      className="text-fashion-secondary hover:text-orange-400 transition-colors font-light tracking-wide"
+                      href="mailto:anngsesiones@gmail.com"
+                      className="font-inter text-fashion-secondary hover:text-orange-400 transition-colors font-light tracking-wide"
                       onClick={() => trackContactAttempt('email_click')}
                     >
-                      contact@ananicoleta.com
+                      anngsesiones@gmail.com
                     </a>
                   </div>
                 </StaggerItem>
@@ -91,29 +116,11 @@ export default function ContactPage() {
                 <StaggerItem>
                   <div>
                     <h3 className="font-inter font-light tracking-wider text-lg mb-4 uppercase">
-                      Press & Media
+                      Ubicación
                     </h3>
-                    <p className="text-gray-600 font-light mb-2 font-inter tracking-wide">
-                      For press releases and media inquiries
-                    </p>
-                    <a 
-                      href="mailto:press@ananicoleta.com"
-                      className="text-black hover:text-gray-600 transition-colors font-light font-inter tracking-wide"
-                      onClick={() => trackContactAttempt('press_email_click')}
-                    >
-                      press@ananicoleta.com
-                    </a>
-                  </div>
-                </StaggerItem>
-
-                <StaggerItem>
-                  <div>
-                    <h3 className="font-inter font-light tracking-wider text-lg mb-4 uppercase">
-                      Location
-                    </h3>
-                    <p className="text-gray-600 font-light font-inter tracking-wide">
-                      Based in Spain<br />
-                      Available worldwide for projects
+                    <p className="text-fashion-fg-secondary font-light font-inter tracking-wide">
+                      Con base en España<br />
+                      Disponible en todo el mundo para proyectos
                     </p>
                   </div>
                 </StaggerItem>
@@ -121,21 +128,21 @@ export default function ContactPage() {
                 <StaggerItem>
                   <div>
                     <h3 className="font-inter font-light tracking-wider text-lg mb-4 uppercase">
-                      Social Media
+                      Redes Sociales
                     </h3>
                     <div className="flex space-x-4">
                       <a 
                         href="https://instagram.com/ann__siedad.7"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-gray-600 hover:text-black transition-colors"
+                        className="text-fashion-fg-secondary hover:text-fashion-rose transition-colors"
                         onClick={() => trackContactAttempt('instagram_click')}
                       >
                         <Instagram size={20} />
                       </a>
                       <a 
-                        href="mailto:contact@ananicoleta.com"
-                        className="text-gray-600 hover:text-black transition-colors"
+                        href="mailto:anngsesiones@gmail.com"
+                        className="text-fashion-fg-secondary hover:text-fashion-rose transition-colors"
                         onClick={() => trackContactAttempt('social_email_click')}
                       >
                         <Mail size={20} />
@@ -148,134 +155,26 @@ export default function ContactPage() {
           </div>
 
           {/* Right Column - Image */}
-          <div className="relative bg-gray-50 overflow-hidden">
+          <div className="relative bg-fashion-bg-secondary overflow-hidden min-h-[400px] lg:min-h-[600px]">
             <Image
               src="/photos/SVM05620.jpg"
               alt="Ana Nicoleta - Contact"
               fill
-              className="object-cover"
+              className="object-contain sm:object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
         </div>
 
-        {/* Services Section */}
-        <div className="py-16 lg:py-24 bg-gray-50">
-          <div className="max-w-6xl mx-auto px-8 lg:px-16">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-crimson">
-                Services
-              </h2>
-              <p className="text-gray-600 font-light max-w-xl mx-auto">
-                Professional modeling and acting services available worldwide
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              
-              <div className="text-center">
-                <h3 className="text-lg font-light tracking-wide mb-3 font-crimson">
-                  Editorial Photography
-                </h3>
-                <p className="text-gray-600 font-light text-sm">
-                  High-fashion editorial shoots for magazines and publications
-                </p>
-              </div>
-
-              <div className="text-center">
-                <h3 className="text-lg font-light tracking-wide mb-3 font-crimson">
-                  Commercial Campaigns
-                </h3>
-                <p className="text-gray-600 font-light text-sm">
-                  Brand campaigns and commercial photography projects
-                </p>
-              </div>
-
-              <div className="text-center">
-                <h3 className="text-lg font-light tracking-wide mb-3 font-crimson">
-                  Runway Shows
-                </h3>
-                <p className="text-fashion-muted font-light text-sm">
-                  Fashion week runway shows and designer presentations
-                </p>
-              </div>
-
-              <div className="text-center">
-                <h3 className="text-lg font-light tracking-wide mb-3 font-crimson">
-                  Acting Projects
-                </h3>
-                <p className="text-gray-600 font-light text-sm">
-                  Film, television, and commercial acting roles
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Portfolio Preview */}
-        <div className="py-16 lg:py-24">
-          <div className="max-w-6xl mx-auto px-8 lg:px-16">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-crimson">
-                Recent Work
-              </h2>
-              <p className="text-gray-600 font-light max-w-xl mx-auto">
-                A selection of recent projects and collaborations
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="relative aspect-[3/4] overflow-hidden group">
-                <Image
-                  src="/photos/SVM05631.jpg"
-                  alt="Recent Work"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-              </div>
-              
-              <div className="relative aspect-[3/4] overflow-hidden group">
-                <Image
-                  src="/photos/SVM05660.jpg"
-                  alt="Recent Work"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-              </div>
-              
-              <div className="relative aspect-[3/4] overflow-hidden group">
-                <Image
-                  src="/photos/SVM05675.jpg"
-                  alt="Recent Work"
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-              </div>
-            </div>
-
-            <div className="text-center mt-12">
-              <a 
-                href="/portfolio"
-                className="inline-block px-8 py-3 bg-black text-white hover:bg-gray-800 transition-colors tracking-wide font-light"
-              >
-                VIEW FULL PORTFOLIO
-              </a>
-            </div>
-          </div>
-        </div>
-
         {/* Contact Form Section */}
-        <div className="bg-black text-white py-16 lg:py-24">
+        <div className="bg-fashion-bg text-fashion-fg py-16 lg:py-24">
           <div className="max-w-4xl mx-auto px-8 lg:px-16">
             <div className="text-center mb-12">
-              <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-crimson">
-                Get in Touch
+              <h2 className="font-playfair text-3xl lg:text-4xl font-light tracking-wider mb-4">
+                Ponte en Contacto
               </h2>
-              <p className="text-gray-300 font-light max-w-xl mx-auto">
-                Ready to start a project? Send me a message and let's discuss your vision.
+              <p className="font-inter text-fashion-fg-secondary font-light max-w-xl mx-auto">
+                ¿Listo para comenzar un proyecto? Envíame un mensaje y hablemos sobre tu visión.
               </p>
             </div>
 
@@ -285,15 +184,15 @@ export default function ContactPage() {
                   <div>
                     <input
                       type="text"
-                      placeholder="Name"
-                      className="w-full px-4 py-3 bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors font-light"
+                      placeholder="Nombre"
+                      className="font-inter w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light rounded-full"
                     />
                   </div>
                   <div>
                     <input
                       type="email"
                       placeholder="Email"
-                      className="w-full px-4 py-3 bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors font-light"
+                      className="font-inter w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light rounded-full"
                     />
                   </div>
                 </div>
@@ -301,25 +200,25 @@ export default function ContactPage() {
                 <div>
                   <input
                     type="text"
-                    placeholder="Subject"
-                    className="w-full px-4 py-3 bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors font-light"
+                    placeholder="Asunto"
+                    className="w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light rounded-full"
                   />
                 </div>
                 
                 <div>
                   <textarea
                     rows={6}
-                    placeholder="Message"
-                    className="w-full px-4 py-3 bg-transparent border border-gray-600 text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors font-light resize-none"
+                    placeholder="Mensaje"
+                    className="w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light resize-none rounded-3xl"
                   ></textarea>
                 </div>
                 
                 <div className="text-center">
                   <button
                     type="submit"
-                    className="px-8 py-3 border border-white text-white hover:bg-white hover:text-black transition-colors tracking-wide font-light"
+                    className="btn-fashion btn-fashion-primary"
                   >
-                    SEND MESSAGE
+                    ENVIAR MENSAJE
                   </button>
                 </div>
               </form>

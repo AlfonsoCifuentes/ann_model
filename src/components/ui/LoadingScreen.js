@@ -71,6 +71,15 @@ export default function LoadingScreen() {
               <h1 className="font-inter text-4xl md:text-5xl font-light tracking-widest text-fashion-fg">
                 ANA<span className="font-bold">NICOLETA</span>
               </h1>
+              <p 
+                className="font-inter text-sm font-thin text-fashion-fg-muted uppercase text-center mt-1"
+                style={{ 
+                  letterSpacing: '0.3em',
+                  transform: 'scaleX(1.05)'
+                }}
+              >
+                DE PEDRO SANCHEZ
+              </p>
               <p className="font-inter text-sm font-light tracking-wider mt-2 text-fashion-fg-muted uppercase">
                 Model & Actress
               </p>

@@ -1,84 +1,57 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import MainLayout from '../../components/MainLayout'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { FadeInUp, StaggerContainer, StaggerItem, HoverLift } from '../../components/animations/MicroAnimations'
 
 export default function BlogPage() {
   const { t } = useLanguage()
+  const [blogPosts, setBlogPosts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
-  const blogPosts = [
-    {
-      id: 1,
-      title: 'Behind the Scenes: Editorial Shoot in Barcelona',
-      excerpt: 'A glimpse into my recent fashion editorial shoot with renowned photographer Marc Stevens in the beautiful streets of Barcelona.',
-      date: 'March 15, 2024',
-      readTime: '5 min read',
-      image: '/photos/editorial_1.jpg',
-      slug: 'editorial-shoot-barcelona'
-    },
-    {
-      id: 2,
-      title: 'The Art of Posing: Tips for Aspiring Models',
-      excerpt: 'Years of experience have taught me the subtle art of posing. Here are my top tips for creating compelling photographs.',
-      date: 'March 8, 2024',
-      readTime: '7 min read',
-      image: '/photos/fashion_model_1.jpg',
-      slug: 'posing-tips-aspiring-models'
-    },
-    {
-      id: 3,
-      title: 'Fashion Week Highlights: Milan 2024',
-      excerpt: 'Reflecting on my experiences walking for emerging designers during Milan Fashion Week 2024.',
-      date: 'February 28, 2024',
-      readTime: '6 min read',
-      image: '/photos/fashion_model_2.jpg',
-      slug: 'milan-fashion-week-2024'
-    },
-    {
-      id: 4,
-      title: 'Building Confidence in Front of the Camera',
-      excerpt: 'Confidence is key to great photography. Learn how I developed my on-camera presence and overcome initial nervousness.',
-      date: 'February 20, 2024',
-      readTime: '4 min read',
-      image: '/photos/portrait_1.jpg',
-      slug: 'building-camera-confidence'
-    },
-    {
-      id: 5,
-      title: 'Sustainable Fashion: My Personal Journey',
-      excerpt: 'How I\'ve embraced sustainable fashion choices in my modeling career and personal life.',
-      date: 'February 12, 2024',
-      readTime: '8 min read',
-      image: '/photos/studio_1.jpg',
-      slug: 'sustainable-fashion-journey'
-    },
-    {
-      id: 6,
-      title: 'Working with Different Photographers: Adaptability',
-      excerpt: 'Each photographer has their unique style. Here\'s how I adapt my approach to bring their vision to life.',
-      date: 'February 5, 2024',
-      readTime: '5 min read',
-      image: '/photos/studio_2.jpg',
-      slug: 'working-with-photographers'
+  useEffect(() => {
+    fetchPosts()
+  }, [])
+
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch('/api/blog?status=published')
+      const result = await response.json()
+      
+      if (result.success) {
+        setBlogPosts(result.data)
+      } else {
+        setError('Error al cargar los artículos')
+      }
+    } catch (error) {
+      console.error('Error fetching posts:', error)
+      setError('Error de conexión')
+    } finally {
+      setLoading(false)
     }
-  ]
+  }
+
+  const featuredPost = blogPosts.find(post => post.featured) || blogPosts[0]
+  const otherPosts = blogPosts.filter(post => post._id !== featuredPost?._id)
   
   return (
     <MainLayout>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-black text-white">
         
         {/* Hero Section */}
         <div className="py-16 lg:py-24">
           <div className="max-w-6xl mx-auto px-8 lg:px-16">
             <div className="text-center mb-16">
               <FadeInUp>
-                <h1 className="text-4xl lg:text-5xl font-light tracking-wider mb-6 font-playfair">
-                  {t('blogTitle')}
+                <h1 className="text-4xl lg:text-5xl font-light tracking-wider mb-6 font-inter text-white">
+                  Blog
                 </h1>
-                <p className="text-gray-600 font-light max-w-2xl mx-auto leading-relaxed font-inter">
-                  {t('blogDescription')}
+                <p className="text-gray-300 font-light max-w-2xl mx-auto leading-relaxed font-inter">
+                  Perspectivas detrás de escena, consejos de modelaje y reflexiones personales de mi trayectoria en la industria de la moda.
                 </p>
               </FadeInUp>
             </div>
@@ -86,111 +59,164 @@ export default function BlogPage() {
         </div>
 
         {/* Featured Post */}
-        <div className="pb-16">
-          <div className="max-w-6xl mx-auto px-8 lg:px-16">
-            <FadeInUp>
-              <div className="bg-gray-50 p-8 lg:p-12 rounded-lg">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
-                    <Image
-                      src={blogPosts[0].image}
-                      alt={blogPosts[0].title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      priority
-                    />
-                  </div>
-
-                  <div>
-                    <div className="text-sm text-gray-500 font-light tracking-wide mb-2">
-                      {t('featuredPost')}
-                    </div>
-                    <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-playfair">
-                      {blogPosts[0].title}
-                    </h2>
-                    <p className="text-gray-600 font-light mb-6 leading-relaxed font-inter">
-                      {blogPosts[0].excerpt}
-                    </p>
-                    <div className="flex items-center text-sm text-gray-500 font-light mb-6">
-                      <span>{blogPosts[0].date}</span>
-                      <span className="mx-2">•</span>
-                      <span>{blogPosts[0].readTime}</span>
-                    </div>
-                    <button className="px-6 py-3 border border-black text-black hover:bg-black hover:text-white transition-colors tracking-wide font-light rounded-lg">
-                      {t('readMore')}
-                    </button>
+        {loading && (
+          <div className="pb-16">
+            <div className="max-w-6xl mx-auto px-8 lg:px-16">
+              <div className="bg-gray-900 p-8 lg:p-12 rounded-lg border border-gray-800 animate-pulse">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  <div className="aspect-[4/5] bg-gray-800 rounded-lg"></div>
+                  <div className="space-y-4">
+                    <div className="h-4 bg-gray-800 rounded w-1/4"></div>
+                    <div className="h-8 bg-gray-800 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-800 rounded w-full"></div>
+                    <div className="h-4 bg-gray-800 rounded w-2/3"></div>
                   </div>
                 </div>
               </div>
-            </FadeInUp>
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Blog Grid */}
-        <div className="pb-16 lg:pb-24">
+        {error && (
+          <div className="pb-16">
+            <div className="max-w-6xl mx-auto px-8 lg:px-16">
+              <div className="bg-red-900 border border-red-700 text-red-300 px-6 py-4 rounded-lg text-center">
+                {error}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {!loading && !error && featuredPost && (
+          <div className="pb-16">
+            <div className="max-w-6xl mx-auto px-8 lg:px-16">
+              <FadeInUp>
+                <div className="bg-gray-900 p-8 lg:p-12 rounded-lg border border-gray-800">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
+                      <Image
+                        src={featuredPost.image}
+                        alt={featuredPost.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="mb-4">
+                        <span className="text-orange-400 text-sm font-light tracking-wide uppercase">
+                          Artículo Destacado
+                        </span>
+                      </div>
+                      <h2 className="text-3xl lg:text-4xl font-light tracking-wide mb-4 font-inter text-white">
+                        {featuredPost.title}
+                      </h2>
+                      <p className="text-gray-300 font-light mb-6 leading-relaxed font-inter">
+                        {featuredPost.excerpt}
+                      </p>
+                      <div className="flex items-center text-sm text-gray-400 mb-6 font-light">
+                        <span>{new Date(featuredPost.createdAt).toLocaleDateString('es-ES')}</span>
+                        <span className="mx-2">•</span>
+                        <span>{featuredPost.readTime}</span>
+                      </div>
+                      <Link
+                        href={`/blog/${featuredPost.slug}`}
+                        className="btn-fashion btn-fashion-primary"
+                      >
+                        Leer Artículo Completo
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </FadeInUp>
+            </div>
+          </div>
+        )}
+
+        {/* Blog Posts Grid */}
+        <div className="py-16 border-t border-gray-800">
           <div className="max-w-6xl mx-auto px-8 lg:px-16">
-            
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.slice(1).map((post, index) => (
-                <StaggerItem key={post.id}>
-                  <HoverLift>
-                    <article className="group cursor-pointer">
-                      
-                      <div className="relative aspect-[4/5] overflow-hidden mb-4 rounded-lg">
-                        <Image
-                          src={post.image}
-                          alt={post.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          loading="lazy"
-                        />
-                      </div>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-inter text-white">
+                {otherPosts.length > 0 ? 'Más Artículos' : 'Próximamente'}
+              </h2>
+              <p className="text-gray-400 font-light font-inter">
+                {otherPosts.length > 0 ? 'Descubre más contenido' : 'Más artículos y reflexiones en desarrollo'}
+              </p>
+            </div>
 
-                      <div>
-                        <h3 className="text-xl font-light tracking-wide mb-3 font-playfair group-hover:text-gray-600 transition-colors">
-                          {post.title}
-                        </h3>
-                        <p className="text-gray-600 font-light mb-4 leading-relaxed text-sm font-inter">
-                          {post.excerpt}
-                        </p>
-                        <div className="flex items-center text-xs text-gray-500 font-light">
-                          <span>{post.date}</span>
-                          <span className="mx-2">•</span>
-                          <span>{post.readTime}</span>
-                        </div>
+            {otherPosts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {otherPosts.map((post) => (
+                  <Link 
+                    key={post._id} 
+                    href={`/blog/${post.slug}`}
+                    className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-orange-400 transition-colors cursor-pointer block"
+                  >
+                    <div className="aspect-video relative">
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-light tracking-wide mb-3 font-inter text-white">
+                        {post.title}
+                      </h3>
+                      <p className="text-gray-300 font-light mb-4 leading-relaxed text-sm font-inter">
+                        {post.excerpt}
+                      </p>
+                      <div className="flex items-center text-xs text-gray-400 font-light">
+                        <span>{new Date(post.createdAt).toLocaleDateString('es-ES')}</span>
+                        <span className="mx-2">•</span>
+                        <span>{post.readTime}</span>
                       </div>
-                    </article>
-                  </HoverLift>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Placeholder para futuros artículos */}
+                {[1, 2, 3].map((placeholder) => (
+                  <div key={placeholder} className="bg-gray-900 border border-gray-800 rounded-lg p-6 opacity-50">
+                    <div className="aspect-video bg-gray-800 rounded-lg mb-4"></div>
+                    <div className="h-4 bg-gray-800 rounded mb-2"></div>
+                    <div className="h-3 bg-gray-800 rounded w-3/4 mb-4"></div>
+                    <div className="h-3 bg-gray-800 rounded w-1/2"></div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         {/* Newsletter Section */}
-        <div className="py-16 lg:py-24 bg-gray-50">
+        <div className="py-16 lg:py-24 bg-gray-900 border-t border-gray-800">
           <div className="max-w-4xl mx-auto px-8 lg:px-16 text-center">
             
             <FadeInUp>
-              <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-playfair">
-                {t('stayUpdated')}
+              <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-inter text-white">
+                Mantente Actualizada
               </h2>
-              <p className="text-gray-600 font-light mb-8 leading-relaxed font-inter">
-                {t('newsletterDescription')}
+              <p className="text-gray-300 font-light mb-8 leading-relaxed font-inter">
+                Suscríbete para recibir las últimas actualizaciones sobre mis proyectos y reflexiones del mundo de la moda.
               </p>
 
               <div className="max-w-md mx-auto">
                 <div className="flex">
                   <input
                     type="email"
-                    placeholder={t('enterEmail')}
-                    className="flex-1 px-4 py-3 border border-gray-300 font-light text-sm focus:outline-none focus:border-black rounded-l-lg"
+                    placeholder="Tu correo electrónico"
+                    className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 text-white font-light text-sm focus:outline-none focus:border-orange-400 rounded-l-full placeholder-gray-400"
                   />
-                  <button className="px-6 py-3 bg-black text-white hover:bg-gray-800 transition-colors tracking-wide font-light text-sm rounded-r-lg">
-                    {t('subscribe')}
+                  <button className="btn-fashion btn-fashion-primary" style={{borderRadius: '0 50px 50px 0'}}>
+                    Suscribirse
                   </button>
                 </div>
               </div>

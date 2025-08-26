@@ -1,189 +1,298 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import MainLayout from '../../components/MainLayout'
 import Lightbox from '../../components/Lightbox'
-import { useLanguage } from '../../contexts/LanguageContext'
-import { FadeInUp, StaggerContainer, StaggerItem, HoverLift } from '../../components/animations/MicroAnimations'
+import OptimizedImage from '../../components/OptimizedImage'
 
 export default function PortfolioPage() {
-  const { t } = useLanguage()
+  const searchParams = useSearchParams()
+  const filterParam = searchParams.get('filter')
+  
   const [activeCategory, setActiveCategory] = useState('all')
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
+  const [workCollections, setWorkCollections] = useState([])
+  const [currentLightboxPhotos, setCurrentLightboxPhotos] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [initialFilterApplied, setInitialFilterApplied] = useState(false)
 
-  const portfolioImages = [
-    { src: '/photos/SVM05701.jpg', category: 'editorial', title: 'Editorial Campaign', photographer: 'Marc Stevens' },
-    { src: '/photos/SVM05620.jpg', category: 'editorial', title: 'Magazine Editorial', photographer: 'Studio Session' },
-    { src: '/photos/SVM05631.jpg', category: 'portrait', title: 'Professional Portrait', photographer: 'Portrait Session' },
-    { src: '/photos/SVM05660.jpg', category: 'fashion', title: 'Fashion Campaign', photographer: 'Commercial Work' },
-    { src: '/photos/SVM05675.jpg', category: 'fashion', title: 'Style Editorial', photographer: 'Fashion Studio' },
-    { src: '/photos/SVM05706.jpg', category: 'editorial', title: 'Creative Editorial', photographer: 'Art Direction' },
-    { src: '/photos/SVM05702.jpg', category: 'portrait', title: 'Beauty Portrait', photographer: 'Beauty Session' },
-    { src: '/photos/SVM05720.jpg', category: 'editorial', title: 'Editorial Story', photographer: 'Editorial Team' },
-    { src: '/photos/SVM05728.jpg', category: 'fashion', title: 'Fashion Story', photographer: 'Fashion Team' },
-    { src: '/photos/SVM05734.jpg', category: 'portrait', title: 'Professional Headshot', photographer: 'Portrait Studio' },
-    { src: '/photos/SVM05741.jpg', category: 'portrait', title: 'Character Portrait', photographer: 'Creative Session' },
-    { src: '/photos/SVM05651.jpg', category: 'fashion', title: 'Fashion Portrait', photographer: 'Style Session' },
-    { src: '/photos/SVM05670.jpg', category: 'editorial', title: 'Creative Direction', photographer: 'Editorial Session' },
-    { src: '/photos/SVM05678.jpg', category: 'fashion', title: 'Fashion Editorial', photographer: 'Fashion Team' },
-    { src: '/photos/SVM05716.jpg', category: 'portrait', title: 'Portrait Series', photographer: 'Portrait Studio' },
-    { src: '/photos/SVM05718.jpg', category: 'editorial', title: 'Magazine Cover', photographer: 'Editorial Team' }
-  ]
+  useEffect(() => {
+    const fetchWorkCollections = async () => {
+      try {
+        const response = await fetch('/api/photos?portfolioSection=portfolio&status=active')
+        const result = await response.json()
+        
+        if (result.success) {
+          // Agrupar fotos por workCollection
+          const collections = new Map()
+          
+          result.data.forEach(photo => {
+            if (photo.workCollection) {
+              if (!collections.has(photo.workCollection)) {
+                collections.set(photo.workCollection, {
+                  id: photo.workCollection,
+                  title: photo.title?.split(' ').slice(0, -1).join(' ') || formatCollectionName(photo.workCollection),
+                  description: photo.description || 'Colección de fotografías artísticas',
+                  category: photo.category,
+                  photos: [],
+                  coverImage: photo.imageUrl
+                })
+              }
+              collections.get(photo.workCollection).photos.push(photo)
+            }
+          })
+          
+          // Ordenar fotos dentro de cada colección por order
+          collections.forEach(collection => {
+            collection.photos.sort((a, b) => (a.order || 0) - (b.order || 0))
+          })
+          
+          const collectionsArray = Array.from(collections.values())
+          setWorkCollections(collectionsArray)
+          
+          // Si hay un filtro específico y solo hay una colección, abrirla automáticamente
+          if (filterParam && collectionsArray.length > 0) {
+            const targetCollection = collectionsArray.find(collection => 
+              collection.id === filterParam || 
+              collection.title.toLowerCase().includes(filterParam.toLowerCase()) ||
+              collection.id.toLowerCase().includes(filterParam.toLowerCase())
+            )
+            
+            if (targetCollection && targetCollection.photos.length > 0) {
+              setTimeout(() => {
+                openLightbox(0, targetCollection)
+              }, 500)
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching photos:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    fetchWorkCollections()
+  }, [filterParam])
 
-  const categories = [
-    { id: 'all', label: t('allWork') },
-    { id: 'editorial', label: t('editorial') },
-    { id: 'fashion', label: t('fashion') },
-    { id: 'portrait', label: t('portrait') }
-  ]
+  const formatCollectionName = (collectionId) => {
+    // Casos especiales de nombres
+    const specialNames = {
+      'polaroids-vintage': 'Polas',
+      'body-paint-japones': 'Body Paint Japonés',
+      'body-paint-natural': 'Body Paint Natural',
+      'body-paint-urbano': 'Body Paint Urbano',
+      'maquillaje-artistico': 'Maquillaje Artístico',
+      'elegancia-clasica': 'Elegancia Clásica',
+      'sesion-profesional': 'Sesión Profesional'
+    }
+    
+    if (specialNames[collectionId]) {
+      return specialNames[collectionId]
+    }
+    
+    return collectionId
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
 
-  const filteredImages = activeCategory === 'all' 
-    ? portfolioImages 
-    : portfolioImages.filter(img => img.category === activeCategory)
+  const categories = ['all', 'editorial', 'fashion', 'portrait', 'commercial']
 
-  const openLightbox = (index) => {
-    setLightboxIndex(index)
+  const filteredCollections = (() => {
+    // Filtrar por categoría normalmente
+    let collections = activeCategory === 'all' 
+      ? workCollections 
+      : workCollections.filter(collection => collection.category === activeCategory)
+    
+    // Solo aplicar el filtro de URL si no se ha aplicado aún ningún filtro manual
+    // y si hay un parámetro de filtro en la URL
+    if (filterParam && !initialFilterApplied && activeCategory === 'all') {
+      const filteredByParam = collections.filter(collection => 
+        collection.id === filterParam || 
+        collection.title.toLowerCase().includes(filterParam.toLowerCase()) ||
+        collection.id.toLowerCase().includes(filterParam.toLowerCase())
+      )
+      if (filteredByParam.length > 0) {
+        return filteredByParam
+      }
+    }
+    
+    return collections
+  })()
+
+  const openLightbox = (photoIndex, collection) => {
+    setCurrentLightboxPhotos(collection.photos)
+    setLightboxIndex(photoIndex)
     setLightboxOpen(true)
+  }
+
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category)
+    setInitialFilterApplied(true) // Marcar que el usuario ha interactuado con los filtros
+  }
+
+  const getCategoryLabel = (category) => {
+    const labels = {
+      editorial: 'Editorial',
+      fashion: 'Moda',
+      portrait: 'Retrato',
+      commercial: 'Comercial'
+    }
+    return labels[category] || category
   }
 
   return (
     <MainLayout>
-      <div className="min-h-screen bg-fashion-bg text-fashion-fg">
-        
-        {/* Hero Section */}
-        <section className="py-20 lg:py-32">
-          <div className="max-w-6xl mx-auto px-8 lg:px-16">
-            <FadeInUp>
-              <div className="text-center">
-                <h1 className="font-playfair text-5xl lg:text-6xl font-light tracking-wider mb-6">
-                  {t('portfolioTitle')}
-                </h1>
-                <p className="font-inter text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                  {t('portfolioDescription')}
-                </p>
-              </div>
-            </FadeInUp>
-          </div>
-        </section>
+      <div className="min-h-screen bg-fashion-bg text-fashion-fg pt-24">
+        {/* Header */}
+        <div className="container mx-auto px-8 py-16">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="font-inter text-5xl md:text-6xl font-light mb-6 text-fashion-fg tracking-wide">
+              Portfolio
+            </h1>
+            <p className="font-inter text-xl text-fashion-fg-secondary max-w-3xl mx-auto">
+              Una colección curada de mis trabajos más representativos, organizados por proyectos y estilos artísticos.
+            </p>
+          </motion.div>
 
-        {/* Filter Navigation */}
-        <section className="py-8 border-b border-gray-200">
-          <div className="max-w-6xl mx-auto px-8 lg:px-16">
-            <FadeInUp delay={0.2}>
-              <div className="flex flex-wrap justify-center gap-4">
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => setActiveCategory(category.id)}
-                    className={`px-6 py-3 font-medium tracking-wide transition-colors duration-300 ${
-                      activeCategory === category.id
-                        ? 'bg-fashion-secondary text-fashion-bg'
-                        : 'text-fashion-muted hover:text-fashion-secondary border border-fashion-secondary/30 hover:border-fashion-secondary'
-                    }`}
-                  >
-                    {category.label}
-                  </button>
-                ))}
-              </div>
-            </FadeInUp>
-          </div>
-        </section>
+          {/* Category Filter */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-4 mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => handleCategoryChange(category)}
+                className={`font-inter px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                  activeCategory === category
+                    ? 'bg-fashion-rose text-fashion-bg shadow-lg'
+                    : 'bg-fashion-bg-secondary text-fashion-fg-secondary hover:bg-fashion-bg-tertiary'
+                }`}
+              >
+                {category === 'all' ? 'Todos los Trabajos' : getCategoryLabel(category)}
+              </button>
+            ))}
+          </motion.div>
+        </div>
 
-        {/* Portfolio Grid */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-8">
+        {/* Loading State */}
+        {loading && (
+          <div className="container mx-auto px-8 pb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} className="space-y-4">
+                  <div className="aspect-[4/5] bg-fashion-bg-secondary animate-pulse rounded-lg" />
+                  <div className="h-6 bg-fashion-bg-secondary animate-pulse rounded" />
+                  <div className="h-4 bg-fashion-bg-secondary animate-pulse rounded w-2/3" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Work Collections */}
+        {!loading && (
+          <div className="container mx-auto px-8 pb-16">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCategory}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                transition={{ duration: 0.4 }}
               >
-                {filteredImages.map((image, index) => (
+                {filteredCollections.map((collection, index) => (
                   <motion.div
-                    key={`${activeCategory}-${index}`}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    key={collection.id}
+                    className="group"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
-                    <HoverLift scale={1.03}>
-                      <div 
-                        className="group cursor-pointer"
-                        onClick={() => openLightbox(index)}
-                      >
-                        <div className="relative aspect-[3/4] overflow-hidden mb-4">
-                          <Image
-                            src={image.src}
-                            alt={image.title}
-                            fill
-                            className="object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                            loading={index < 8 ? "eager" : "lazy"}
-                            priority={index < 4}
-                          />
-                          
-                          {/* Overlay */}
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
-                          
-                          {/* Content */}
-                          <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h3 className="font-playfair text-lg font-medium mb-1">
-                              {image.title}
-                            </h3>
-                            <p className="font-inter text-sm opacity-90">
-                              {image.photographer}
-                            </p>
-                          </div>
-                        </div>
+                    {/* Collection Cover */}
+                    <div 
+                      className="relative aspect-[4/5] overflow-hidden rounded-lg bg-fashion-bg-secondary mb-6 cursor-pointer"
+                      onClick={() => openLightbox(0, collection)}
+                    >
+                      <OptimizedImage
+                        src={collection.coverImage}
+                        thumbnails={collection.photos[0]?.thumbnails}
+                        alt={collection.title}
+                        className="w-full h-full transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        objectFit="cover"
+                        quality={80}
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                      
+                      {/* Photo count badge */}
+                      <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                        {collection.photos.length} fotos
                       </div>
-                    </HoverLift>
+                      
+                      {/* Always visible info overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                        <p className="text-white text-sm mb-2 uppercase tracking-wide">
+                          {getCategoryLabel(collection.category)}
+                        </p>
+                        <h3 className="font-inter text-white font-medium text-lg">
+                          {formatCollectionName(collection.id)}
+                        </h3>
+                      </div>
+                    </div>
+
+                    {/* Collection Info - Always visible */}
+                    <div className="text-center">
+                      <h3 className="font-inter text-xl font-medium text-fashion-fg mb-2 tracking-wide">
+                        {formatCollectionName(collection.id)}
+                      </h3>
+                      <p className="font-inter text-sm text-fashion-rose uppercase tracking-wide mb-3">
+                        {getCategoryLabel(collection.category)} • {collection.photos.length} fotos
+                      </p>
+                      <p className="font-inter text-fashion-fg-secondary text-sm leading-relaxed">
+                        {collection.description}
+                      </p>
+                    </div>
                   </motion.div>
                 ))}
               </motion.div>
             </AnimatePresence>
-          </div>
-        </section>
 
-        {/* Call to Action */}
-        <section className="py-20 bg-fashion-bg-secondary">
-          <div className="max-w-4xl mx-auto px-8 text-center">
-            <FadeInUp>
-              <h2 className="font-playfair text-3xl lg:text-4xl font-light mb-6">
-                {t('discussProject')}
-              </h2>
-              <p className="text-lg text-fashion-muted mb-12 max-w-2xl mx-auto">
-                {t('contactDescription')}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/contact"
-                  className="px-8 py-4 bg-fashion-secondary text-fashion-bg font-medium tracking-wide hover:bg-orange-600 transition-colors"
-                >
-                  {t('contactMe')}
-                </Link>
-                <Link 
-                  href="/prints"
-                  className="px-8 py-4 border-2 border-fashion-secondary text-fashion-secondary font-medium tracking-wide hover:bg-fashion-secondary hover:text-fashion-bg transition-colors"
-                >
-                  {t('viewPrints')}
-                </Link>
+            {filteredCollections.length === 0 && !loading && (
+              <div className="text-center py-16">
+                <p className="text-fashion-fg-secondary text-lg">
+                  No hay trabajos disponibles en esta categoría.
+                </p>
               </div>
-            </FadeInUp>
+            )}
           </div>
-        </section>
+        )}
 
         {/* Lightbox */}
         <Lightbox
-          images={filteredImages}
           isOpen={lightboxOpen}
           onClose={() => setLightboxOpen(false)}
-          initialIndex={lightboxIndex}
+          images={currentLightboxPhotos.map(photo => ({
+            src: photo.imageUrl,
+            title: photo.title,
+            description: photo.description
+          }))}
+          currentIndex={lightboxIndex}
+          onNext={() => setLightboxIndex((prev) => (prev + 1) % currentLightboxPhotos.length)}
+          onPrev={() => setLightboxIndex((prev) => (prev - 1 + currentLightboxPhotos.length) % currentLightboxPhotos.length)}
         />
       </div>
     </MainLayout>

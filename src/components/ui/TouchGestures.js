@@ -389,7 +389,7 @@ export function ResponsiveCardStack({ cards = [], className = "" }) {
               </p>
               
               {card.action && (
-                <button className="mt-4 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors font-inter text-sm">
+                <button className="mt-4 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors font-inter text-sm">
                   {card.action}
                 </button>
               )}

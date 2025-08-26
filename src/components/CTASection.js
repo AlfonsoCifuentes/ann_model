@@ -22,10 +22,10 @@ export default function CTASection() {
             and see how we can bring your vision to life.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link href="/booking" className="luxury-card inline-block px-8 py-4 text-luxury-body font-medium rounded-2xl hover:scale-105 transition-all duration-300 bg-gradient-to-r from-fashion-rose/20 to-fashion-gold/20">
+            <Link href="/booking" className="w-full sm:w-auto luxury-card inline-block px-8 py-4 text-luxury-body font-medium rounded-full hover:scale-105 transition-all duration-300 bg-gradient-to-r from-fashion-rose/20 to-fashion-gold/20 text-center">
               Book a Session
             </Link>
-            <Link href="/contact" className="luxury-card inline-block px-8 py-4 text-luxury-body font-medium rounded-2xl hover:scale-105 transition-all duration-300">
+            <Link href="/contact" className="w-full sm:w-auto luxury-card inline-block px-8 py-4 text-luxury-body font-medium rounded-full hover:scale-105 transition-all duration-300 text-center">
               Get in Touch
             </Link>
           </div>

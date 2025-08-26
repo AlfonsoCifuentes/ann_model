@@ -40,24 +40,29 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-fashion-bg text-fashion-fg">
-        <div className="max-w-6xl mx-auto px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <footer className="bg-fashion-bg text-fashion-fg mt-auto">
+        {/* Padding left en desktop para compensar el sidebar, padding normal en móviles */}
+        <div className="w-full pl-4 pr-4 lg:pl-72 lg:pr-8 py-2 lg:py-3">
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-3 lg:gap-6">
             
-            {/* Brand Column */}
+            {/* Brand Section - Más compacta */}
             <FadeInUp>
-              <div className="lg:col-span-2">
-                <Link href="/" className="inline-block mb-6">
+              <div className="flex-shrink-0 lg:max-w-sm">
+                <Link href="/" className="inline-block mb-2">
                   <div className="flex flex-col items-start">
+                    <h1 className="text-base lg:text-lg font-light tracking-widest text-white">
+                      ANA<span className="font-bold">NICOLETA</span>
+                    </h1>
                     <span 
-                      className="text-xl lg:text-2xl font-bold bg-clip-text text-transparent"
-                      style={{
-                        backgroundImage: 'linear-gradient(to right, #D2691E, #CD853F, #B8860B)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent'
+                      className="text-xs font-thin text-white/80 uppercase"
+                      style={{ 
+                        letterSpacing: '0.3em',
+                        transform: 'scaleX(1.05)',
+                        marginTop: '-2px',
+                        marginBottom: '2px'
                       }}
                     >
-                      Ana Nicoleta
+                      DE PEDRO SANCHEZ
                     </span>
                     <span className="text-xs text-fashion-muted uppercase tracking-widest">
                       {t('heroSubtitle')}
@@ -65,98 +70,122 @@ export default function Footer() {
                   </div>
                 </Link>
                 
-                <p className="text-fashion-muted leading-relaxed mb-8 max-w-md">
+                <p className="text-fashion-muted leading-relaxed text-xs mb-3 max-w-xs">
                   {t('aboutDescription')}
                 </p>
                 
                 {/* Social Links */}
-                <div className="flex gap-4">
+                <div className="flex gap-2">
                   <motion.a
                     href="https://instagram.com/ann__siedad.7"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-10 h-10 bg-fashion-secondary/20 rounded-full flex items-center justify-center hover:bg-orange-600/30 transition-colors"
+                    className="w-7 h-7 bg-fashion-secondary/20 rounded-full flex items-center justify-center hover:bg-orange-600/30 transition-colors"
                   >
-                    <Instagram size={18} />
+                    <Instagram size={14} />
                   </motion.a>
                   
                   <motion.a
                     href="mailto:contact@ananicoleta.com"
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-10 h-10 bg-fashion-secondary/20 rounded-full flex items-center justify-center hover:bg-orange-600/30 transition-colors"
+                    className="w-7 h-7 bg-fashion-secondary/20 rounded-full flex items-center justify-center hover:bg-orange-600/30 transition-colors"
                   >
-                    <Mail size={18} />
+                    <Mail size={14} />
                   </motion.a>
                 </div>
               </div>
             </FadeInUp>
 
-            {/* Quick Links */}
-            <FadeInUp delay={0.2}>
-              <div>
-                <h4 className="font-medium text-lg mb-6 tracking-wide">
-                  {t('quickLinks')}
-                </h4>
-                <AnimatedLine width="50px" delay={0.3} />
-                <nav className="mt-6 space-y-3">
-                  {quickLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="block text-fashion-muted hover:text-fashion-fg transition-colors hover:translate-x-1 transform duration-200"
-                      style={{ color: 'inherit' }}
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            </FadeInUp>
-
-            {/* Services */}
-            <FadeInUp delay={0.4}>
-              <div>
-                <h4 className="font-medium text-lg mb-6 tracking-wide">
-                  {t('services')}
-                </h4>
-                <AnimatedLine width="50px" delay={0.5} />
-                <div className="mt-6 space-y-3">
-                  {services.map((service, index) => (
-                    <p
-                      key={index}
-                      className="text-fashion-muted text-sm"
-                    >
-                      {service}
-                    </p>
-                  ))}
+            {/* Navigation & Services - Distribuidos ocupando TODO el resto del ancho hasta el borde */}
+            <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
+              
+              {/* Quick Links */}
+              <FadeInUp delay={0.2}>
+                <div>
+                  <h4 className="font-medium text-sm mb-2 tracking-wide text-white">
+                    {t('quickLinks')}
+                  </h4>
+                  <nav className="space-y-1">
+                    {quickLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="block text-fashion-muted hover:text-fashion-fg transition-colors text-xs"
+                        style={{ color: 'inherit' }}
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </nav>
                 </div>
-              </div>
-            </FadeInUp>
-          </div>
+              </FadeInUp>
 
-          {/* Bottom Section */}
-          <FadeInUp delay={0.6}>
-            <div className="border-t border-fashion-secondary/20 mt-12 pt-8">
-              <div className="flex flex-col md:flex-row justify-between items-center">
-                <p className="text-fashion-muted text-sm">
-                  {t('copyright')}
-                </p>
-                
-                <div className="flex items-center gap-6 mt-4 md:mt-0">
-                  <p className="text-fashion-muted text-sm">
-                    {t('basedInSpain')} • {t('availableWorldwide')}
-                  </p>
-                  <div className="flex items-center gap-1 text-fashion-muted">
-                    <Globe size={14} />
-                    <span className="text-xs">{t('fluentLanguages')}</span>
+              {/* Services */}
+              <FadeInUp delay={0.3}>
+                <div>
+                  <h4 className="font-medium text-sm mb-2 tracking-wide text-white">
+                    {t('services')}
+                  </h4>
+                  <div className="space-y-1">
+                    {services.map((service, index) => (
+                      <p
+                        key={index}
+                        className="text-fashion-muted text-xs"
+                      >
+                        {service}
+                      </p>
+                    ))}
                   </div>
                 </div>
-              </div>
+              </FadeInUp>
+
+              {/* Contact Info */}
+              <FadeInUp delay={0.4}>
+                <div>
+                  <h4 className="font-medium text-sm mb-2 tracking-wide text-white">
+                    Contacto
+                  </h4>
+                  <div className="space-y-1">
+                    <p className="text-fashion-muted text-xs flex items-center">
+                      <MapPin size={10} className="mr-1" />
+                      España
+                    </p>
+                    <p className="text-fashion-muted text-xs flex items-center">
+                      <Globe size={10} className="mr-1" />
+                      Mundial
+                    </p>
+                    <p className="text-fashion-muted text-xs flex items-center">
+                      <Mail size={10} className="mr-1" />
+                      contact@ananicoleta.com
+                    </p>
+                  </div>
+                </div>
+              </FadeInUp>
+
+              {/* Legal */}
+              <FadeInUp delay={0.5}>
+                <div>
+                  <h4 className="font-medium text-sm mb-2 tracking-wide text-white">
+                    Legal
+                  </h4>
+                  <div className="space-y-1">
+                    <p className="text-fashion-muted text-xs">
+                      {t('copyright')}
+                    </p>
+                    <p className="text-fashion-muted text-xs">
+                      Todos los derechos reservados
+                    </p>
+                    <p className="text-fashion-muted text-xs">
+                      {t('fluentLanguages')}
+                    </p>
+                  </div>
+                </div>
+              </FadeInUp>
             </div>
-          </FadeInUp>
+          </div>
         </div>
       </footer>
 

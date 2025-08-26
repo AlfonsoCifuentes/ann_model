@@ -6,20 +6,19 @@ import { ScrollProgress } from './ui/IntelligentNavigation'
 
 export default function MainLayout({ children }) {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-900 flex flex-col">
       <ScrollProgress />
       <Sidebar />
       
-      {/* Main Content */}
-      <main className="lg:ml-64 min-h-screen">
+      {/* Main Content with sidebar offset */}
+      <main className="flex-1 lg:ml-64">
         <div className="max-w-none">
           {children}
         </div>
       </main>
       
-      <div className="lg:ml-64">
-        <Footer />
-      </div>
+      {/* Footer ocupando TODO el ancho de la pantalla, sin offset del sidebar */}
+      <Footer />
     </div>
   )
 }

@@ -10,7 +10,6 @@ const translations = {
     about: 'Acerca de',
     portfolio: 'Portafolio',
     contact: 'Contacto',
-    prints: 'Impresiones',
     blog: 'Blog',
     
     // Common
@@ -23,7 +22,6 @@ const translations = {
     heroTitle: 'Ana Nicoleta',
     heroSubtitle: 'Modelo y Actriz Profesional',
     heroDescription: 'Aportando elegancia, sofisticación y versatilidad a proyectos editoriales, de moda y comerciales en todo el mundo',
-    photographerCredit: 'FOT: Marc Stevens',
     
     // About
     aboutTitle: 'Acerca de',
@@ -50,7 +48,6 @@ const translations = {
     yearsExperience: 'Años de Experiencia',
     photoshoots: 'Sesiones Fotográficas',
     collaborations: 'Colaboraciones',
-    countries: 'Países',
     
     // Portfolio
     portfolioTitle: 'Portafolio',
@@ -64,42 +61,19 @@ const translations = {
     browseComplete: 'Explora mi colección completa de portafolio',
     discussProject: 'Discutir Proyecto',
     
-    // Contact
-    contactTitle: 'Contacto',
-    contactDescription: 'Ponte en contacto conmigo para oportunidades de colaboración, proyectos de modelaje o consultas profesionales.',
-    getInTouch: 'Ponte en Contacto',
-    name: 'Nombre',
-    email: 'Email',
-    subject: 'Asunto',
-    message: 'Mensaje',
-    sendMessage: 'Enviar Mensaje',
+    // Services
     services: 'Servicios',
+    servicesSubtitle: 'Servicios profesionales de modelaje especializados en fotografía editorial, campañas de moda y proyectos comerciales',
     modelingServices: 'Servicios de Modelaje',
     editorialWork: 'Trabajo Editorial',
     fashionCampaigns: 'Campañas de Moda',
     commercialProjects: 'Proyectos Comerciales',
     portraitSessions: 'Sesiones de Retrato',
     
-    // Prints
-    printsTitle: 'Impresiones',
-    printsDescription: 'Impresiones de alta calidad y edición limitada de mis sesiones fotográficas profesionales.',
-    editorialCollection: 'Colección Editorial',
-    editorialCollectionDesc: 'Impresiones de edición limitada de sesiones editoriales profesionales',
-    fashionSeries: 'Serie de Moda',
-    fashionSeriesDesc: 'Selección curada de impresiones de fotografía de moda',
-    portraitCollection: 'Colección de Retratos',
-    portraitCollectionDesc: 'Fotografía íntima y artística de retratos',
-    fromPrice: 'Desde',
-    viewCollection: 'Ver Colección',
-    printInformation: 'Información de Impresiones',
-    qualityMaterials: 'Calidad y Materiales',
-    sizingPricing: 'Tamaños y Precios',
-    museumQuality: '• Papel de archivo de calidad museo',
-    professionalInks: '• Tintas pigmentadas profesionales',
-    acidFree: '• Materiales libres de ácido y lignina',
-    uvResistant: '• Recubrimiento resistente a UV',
-    handSigned: '• Firmado y numerado a mano',
-    inquireAboutPrints: 'Consultar sobre Impresiones',
+    // Recent Work
+    recentWork: 'Trabajo Reciente',
+    recentWorkSubtitle: 'Una selección de mis proyectos más recientes que destacan mi versatilidad y profesionalismo en diferentes estilos fotográficos',
+    viewAllWork: 'Ver Todo el Trabajo',
     
     // Blog
     blogTitle: 'Blog',
@@ -121,7 +95,6 @@ const translations = {
     copyright: '© 2024 Ana Nicoleta. Todos los derechos reservados.',
     
     // Additional
-    viewPrints: 'Ver Impresiones',
     discussProject: 'Discutir Proyecto',
     allWork: 'Todo el Trabajo',
     quickLinks: 'Enlaces Rápidos',
@@ -137,7 +110,6 @@ const translations = {
     about: 'About',
     portfolio: 'Portfolio',
     contact: 'Contact',
-    prints: 'Prints',
     blog: 'Blog',
     
     // Common
@@ -150,7 +122,6 @@ const translations = {
     heroTitle: 'Ana Nicoleta',
     heroSubtitle: 'Professional Model & Actress',
     heroDescription: 'Bringing elegance, sophistication and versatility to editorial, fashion and commercial projects worldwide',
-    photographerCredit: 'PH: Marc Stevens',
     
     // About
     aboutTitle: 'About',
@@ -177,7 +148,6 @@ const translations = {
     yearsExperience: 'Years Experience',
     photoshoots: 'Photoshoots',
     collaborations: 'Collaborations',
-    countries: 'Countries',
     
     // Portfolio
     portfolioTitle: 'Portfolio',
@@ -191,42 +161,19 @@ const translations = {
     browseComplete: 'Browse through my complete portfolio collection',
     discussProject: 'Discuss Project',
     
-    // Contact
-    contactTitle: 'Contact',
-    contactDescription: 'Get in touch with me for collaboration opportunities, modeling projects, or professional inquiries.',
-    getInTouch: 'Get in Touch',
-    name: 'Name',
-    email: 'Email',
-    subject: 'Subject',
-    message: 'Message',
-    sendMessage: 'Send Message',
+    // Services
     services: 'Services',
+    servicesSubtitle: 'Professional modeling services specialized in editorial photography, fashion campaigns and commercial projects',
     modelingServices: 'Modeling Services',
     editorialWork: 'Editorial Work',
     fashionCampaigns: 'Fashion Campaigns',
     commercialProjects: 'Commercial Projects',
     portraitSessions: 'Portrait Sessions',
     
-    // Prints
-    printsTitle: 'Prints',
-    printsDescription: 'High-quality, limited edition prints from my professional photography sessions.',
-    editorialCollection: 'Editorial Collection',
-    editorialCollectionDesc: 'Limited edition prints from professional editorial shoots',
-    fashionSeries: 'Fashion Series',
-    fashionSeriesDesc: 'Curated selection of fashion photography prints',
-    portraitCollection: 'Portrait Collection',
-    portraitCollectionDesc: 'Intimate and artistic portrait photography',
-    fromPrice: 'From',
-    viewCollection: 'View Collection',
-    printInformation: 'Print Information',
-    qualityMaterials: 'Quality & Materials',
-    sizingPricing: 'Sizes & Pricing',
-    museumQuality: '• Museum-quality archival paper',
-    professionalInks: '• Professional pigment inks',
-    acidFree: '• Acid-free and lignin-free materials',
-    uvResistant: '• UV-resistant coating',
-    handSigned: '• Hand-signed and numbered',
-    inquireAboutPrints: 'Inquire About Prints',
+    // Recent Work
+    recentWork: 'Recent Work',
+    recentWorkSubtitle: 'A selection of my most recent projects showcasing versatility and professionalism across different photographic styles',
+    viewAllWork: 'View All Work',
     
     // Blog
     blogTitle: 'Blog',
@@ -248,7 +195,6 @@ const translations = {
     copyright: '© 2024 Ana Nicoleta. All rights reserved.',
     
     // Additional
-    viewPrints: 'View Prints',
     discussProject: 'Discuss Project',
     allWork: 'All Work',
     quickLinks: 'Quick Links',

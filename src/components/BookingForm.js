@@ -112,7 +112,7 @@ export default function BookingForm() {
               {...register('name')}
               type="text"
               id="name"
-              className="w-full px-4 py-3 bg-brand-bg border border-brand-muted/20 rounded-lg focus:border-brand-accent focus:ring-1 focus:ring-brand-accent focus:outline-none transition-colors"
+              className="w-full px-4 py-3 bg-brand-bg border border-brand-muted/20 rounded-full focus:border-brand-accent focus:ring-1 focus:ring-brand-accent focus:outline-none transition-colors"
               placeholder="Your full name"
             />
             {errors.name && (

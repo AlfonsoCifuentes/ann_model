@@ -51,7 +51,7 @@ export default function Navbar() {
               <Link href="/" className="block" style={{ color: 'inherit' }}>
                 <div className="flex flex-col items-start">
                   <span 
-                    className="text-xl lg:text-2xl font-bold bg-clip-text text-transparent"
+                    className="text-xl lg:text-2xl font-playfair font-light bg-clip-text text-transparent"
                     style={{
                       backgroundImage: 'linear-gradient(to right, #D2691E, #CD853F, #B8860B)',
                       WebkitBackgroundClip: 'text',
@@ -61,7 +61,7 @@ export default function Navbar() {
                     Ana Nicoleta
                   </span>
                   <span 
-                    className="text-xs font-thin text-white/80 uppercase text-center"
+                    className="text-xs font-inter font-light text-white/80 uppercase tracking-widest text-center"
                     style={{ 
                       letterSpacing: '0.3em',
                       transform: 'scaleX(1.05)',
@@ -71,7 +71,7 @@ export default function Navbar() {
                   >
                     DE PEDRO SANCHEZ
                   </span>
-                  <span className="text-xs text-fashion-platinum/60 uppercase tracking-widest">
+                  <span className="text-xs font-inter text-fashion-platinum/60 uppercase tracking-widest">
                     Model & Actress
                   </span>
                 </div>
@@ -89,7 +89,7 @@ export default function Navbar() {
                 >
                   <Link 
                     href={item.href} 
-                    className="group relative flex items-center px-3 lg:px-4 py-2 transition-all duration-300 hover:bg-white/10 rounded-lg"
+                    className="group relative flex items-center px-3 lg:px-4 py-2 transition-all duration-300 hover:bg-white/10 rounded-full"
                     style={{ color: 'inherit', textDecoration: 'none' }}
                   >
                     <item.icon className="w-4 h-4 text-fashion-platinum/70 group-hover:text-orange-400 transition-colors duration-300" />

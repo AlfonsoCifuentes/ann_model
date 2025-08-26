@@ -159,7 +159,7 @@ function NotificationItem({ notification, position }) {
       success: 'bg-green-50 border-green-200 text-green-800',
       error: 'bg-red-50 border-red-200 text-red-800',
       warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
-      info: 'bg-blue-50 border-blue-200 text-blue-800'
+      info: 'bg-gray-50 border-gray-200 text-gray-800'
     }
     return colors[type] || colors.info
   }
@@ -169,7 +169,7 @@ function NotificationItem({ notification, position }) {
       success: 'bg-green-500',
       error: 'bg-red-500',
       warning: 'bg-yellow-500',
-      info: 'bg-blue-500'
+      info: 'bg-gray-500'
     }
     return colors[type] || colors.info
   }
@@ -366,7 +366,7 @@ export function StatusBanner({ type = 'info', message, actions, onDismiss }) {
       success: 'bg-green-600 text-white',
       error: 'bg-red-600 text-white',
       warning: 'bg-yellow-500 text-black',
-      info: 'bg-blue-600 text-white'
+      info: 'bg-gray-600 text-white'
     }
     return colors[type] || colors.info
   }

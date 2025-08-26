@@ -27,9 +27,10 @@ export default function PhotoUpload({ onUploadSuccess }) {
       file,
       id: Math.random().toString(36).substr(2, 9),
       preview: URL.createObjectURL(file),
-      category: 'portfolio',
+      category: 'portrait',
       title: file.name.split('.')[0],
-      description: ''
+      description: '',
+      workCollection: ''
     }))
 
     setSelectedFiles(prev => [...prev, ...newFiles])
@@ -60,11 +61,55 @@ export default function PhotoUpload({ onUploadSuccess }) {
     setUploadStatus(null)
 
     try {
-      // Simulate upload process
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      const uploadPromises = selectedFiles.map(async (fileData) => {
+        const formData = new FormData()
+        formData.append('file', fileData.file)
+        formData.append('upload_preset', 'ann_model_photos') // Configurar en Cloudinary
+        
+        // Upload to Cloudinary
+        const cloudinaryResponse = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'your-cloud-name'}/image/upload`, {
+          method: 'POST',
+          body: formData,
+        })
+        
+        if (!cloudinaryResponse.ok) {
+          throw new Error('Error al subir imagen a Cloudinary')
+        }
+        
+        const cloudinaryData = await cloudinaryResponse.json()
+        
+        // Save to database
+        const photoData = {
+          title: fileData.title,
+          description: fileData.description,
+          imageUrl: cloudinaryData.secure_url,
+          category: fileData.category,
+          workCollection: fileData.workCollection || `${fileData.category}-${Date.now()}`,
+          altText: fileData.title,
+          metadata: {
+            originalName: fileData.file.name,
+            size: fileData.file.size,
+            mimeType: fileData.file.type,
+            uploadedBy: 'Ana Nicoleta'
+          }
+        }
+        
+        const dbResponse = await fetch('/api/photos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(photoData),
+        })
+        
+        if (!dbResponse.ok) {
+          throw new Error('Error al guardar foto en la base de datos')
+        }
+        
+        return await dbResponse.json()
+      })
       
-      // Here you would implement the actual upload logic
-      // For now, we'll just simulate success
+      await Promise.all(uploadPromises)
       
       setUploadStatus({
         type: 'success',
@@ -78,9 +123,10 @@ export default function PhotoUpload({ onUploadSuccess }) {
       onUploadSuccess?.()
       
     } catch (error) {
+      console.error('Upload error:', error)
       setUploadStatus({
         type: 'error',
-        message: 'Error al subir las fotos. Inténtalo de nuevo.'
+        message: error.message || 'Error al subir las fotos. Inténtalo de nuevo.'
       })
     } finally {
       setUploading(false)
@@ -88,18 +134,19 @@ export default function PhotoUpload({ onUploadSuccess }) {
   }
 
   const categories = [
-    { value: 'portfolio', label: 'Portfolio' },
     { value: 'editorial', label: 'Editorial' },
+    { value: 'fashion', label: 'Fashion/Moda' },
+    { value: 'portrait', label: 'Retrato' },
     { value: 'commercial', label: 'Comercial' },
-    { value: 'runway', label: 'Pasarela' },
-    { value: 'behind-scenes', label: 'Behind the Scenes' }
+    { value: 'studio', label: 'Estudio' },
+    { value: 'lifestyle', label: 'Lifestyle' }
   ]
 
   return (
     <div className="space-y-6">
       {/* File Upload Area */}
       <div 
-        className="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center hover:border-orange-500 transition-colors cursor-pointer"
+        className="border-2 border-dashed border-fashion-rose/30 rounded-lg p-8 text-center hover:border-fashion-rose transition-colors cursor-pointer bg-fashion-bg-tertiary"
         onClick={() => fileInputRef.current?.click()}
       >
         <input
@@ -111,9 +158,9 @@ export default function PhotoUpload({ onUploadSuccess }) {
           className="hidden"
         />
         
-        <Upload className="mx-auto w-12 h-12 text-gray-400 mb-4" />
-        <p className="text-white text-lg mb-2">Arrastra fotos aquí o haz clic para seleccionar</p>
-        <p className="text-gray-400 text-sm">PNG, JPG, WEBP hasta 10MB cada una</p>
+        <Upload className="mx-auto w-12 h-12 text-fashion-fg-muted mb-4" />
+        <p className="text-fashion-fg text-lg mb-2">Arrastra fotos aquí o haz clic para seleccionar</p>
+        <p className="text-fashion-fg-secondary text-sm">PNG, JPG, WEBP hasta 10MB cada una</p>
       </div>
 
       {/* Upload Status */}
@@ -181,6 +228,14 @@ export default function PhotoUpload({ onUploadSuccess }) {
                     placeholder="Título de la foto"
                     value={fileData.title}
                     onChange={(e) => updateFileData(fileData.id, 'title', e.target.value)}
+                    className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white text-sm focus:border-orange-500 focus:outline-none"
+                  />
+                  
+                  <input
+                    type="text"
+                    placeholder="Nombre del trabajo/colección (ej: Editorial-Vogue-2024)"
+                    value={fileData.workCollection || ''}
+                    onChange={(e) => updateFileData(fileData.id, 'workCollection', e.target.value)}
                     className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white text-sm focus:border-orange-500 focus:outline-none"
                   />
                   

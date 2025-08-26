@@ -1,69 +1,98 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const highlights = [
-  {
-    id: 1,
-    title: 'Editorial Elegance',
-    category: 'Editorial',
-    image: '/photos/SVM05701.jpg',
-    slug: 'editorial-elegance-2024'
-  },
-  {
-    id: 2,
-    title: 'Fashion Portrait',
-    category: 'Retrato',
-    image: '/photos/SVM05620.jpg',
-    slug: 'fashion-portrait-session'
-  },
-  {
-    id: 3,
-    title: 'Artistic Vision',
-    category: 'Arte',
-    image: '/photos/SVM05631.jpg',
-    slug: 'artistic-vision-collection'
-  },
-  {
-    id: 4,
-    title: 'Contemporary Style',
-    category: 'Moda',
-    image: '/photos/SVM05660.jpg',
-    slug: 'contemporary-style-shoot'
-  },
-  {
-    id: 5,
-    title: 'Classic Beauty',
-    category: 'Belleza',
-    image: '/photos/SVM05675.jpg',
-    slug: 'classic-beauty-series'
-  },
-  {
-    id: 6,
-    title: 'Professional Look',
-    category: 'Comercial',
-    image: '/photos/SVM05706.jpg',
-    slug: 'professional-commercial'
-  },
-  {
-    id: 7,
-    title: 'Luxury Campaign',
-    category: 'Lujo',
-    image: '/photos/SVM05722.jpg',
-    slug: 'luxury-brand-campaign'
-  },
-  {
-    id: 8,
-    title: 'Natural Grace',
-    category: 'Natural',
-    image: '/photos/SVM05736.jpg',
-    slug: 'natural-grace-session'
-  }
-]
-
 export default function PortfolioHighlights() {
+  const [highlights, setHighlights] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchHighlights()
+  }, [])
+
+  const fetchHighlights = async () => {
+    try {
+      const response = await fetch('/api/photos?portfolioSection=highlights&featured=true&status=active&limit=8')
+      const result = await response.json()
+      
+      if (result.success && result.data.length > 0) {
+        const highlightsData = result.data.map((photo, index) => ({
+          id: photo._id,
+          title: photo.title || `Highlight ${index + 1}`,
+          category: photo.category === 'editorial' ? 'Editorial' :
+                   photo.category === 'fashion' ? 'Moda' :
+                   photo.category === 'portrait' ? 'Retrato' :
+                   photo.category === 'commercial' ? 'Comercial' :
+                   photo.category === 'studio' ? 'Estudio' :
+                   photo.category === 'lifestyle' ? 'Lifestyle' : 'Portfolio',
+          image: photo.imageUrl,
+          slug: photo.slug || `highlight-${index + 1}`
+        }))
+        setHighlights(highlightsData)
+      } else {
+        // Fallback a datos por defecto si no hay fotos destacadas
+        setHighlights([
+          {
+            id: 1,
+            title: 'Editorial Elegance',
+            category: 'Editorial',
+            image: '/photos/SVM05701.jpg',
+            slug: 'editorial-elegance-2024'
+          },
+          {
+            id: 2,
+            title: 'Fashion Portrait',
+            category: 'Retrato',
+            image: '/photos/SVM05620.jpg',
+            slug: 'fashion-portrait-session'
+          },
+          {
+            id: 3,
+            title: 'Artistic Vision',
+            category: 'Arte',
+            image: '/photos/SVM05631.jpg',
+            slug: 'artistic-vision-collection'
+          },
+          {
+            id: 4,
+            title: 'Contemporary Style',
+            category: 'Moda',
+            image: '/photos/SVM05660.jpg',
+            slug: 'contemporary-style-shoot'
+          }
+        ])
+      }
+    } catch (error) {
+      console.error('Error fetching highlights:', error)
+      // Fallback en caso de error
+      setHighlights([
+        {
+          id: 1,
+          title: 'Editorial Elegance',
+          category: 'Editorial',
+          image: '/photos/SVM05701.jpg',
+          slug: 'editorial-elegance-2024'
+        }
+      ])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <section className="luxury-header-spacing">
+        <div className="container-custom">
+          <div className="text-center py-20">
+            <div className="text-gray-600">Cargando highlights...</div>
+          </div>
+        </div>
+      </section>
+    )
+  }
   return (
     <section className="luxury-header-spacing">
       <div className="container-custom">

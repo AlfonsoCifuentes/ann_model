@@ -11,13 +11,11 @@ export default function Sidebar() {
   const { t, language, toggleLanguage } = useLanguage()
 
   const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Contact', href: '/contact' },
-    { name: 'Prints', href: '/prints' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Admin', href: '/admin' },
+    { name: t('home'), href: '/' },
+    { name: t('about'), href: '/about' },
+    { name: t('portfolio'), href: '/portfolio' },
+    { name: t('contact'), href: '/contact' },
+    { name: t('blog'), href: '/blog' },
   ]
 
   return (

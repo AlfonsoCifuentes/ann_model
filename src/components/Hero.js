@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import OptimizedImage from './OptimizedImage'
 
 // Función para calcular la edad
 const calculateAge = (birthDate) => {
@@ -234,13 +234,14 @@ export default function Hero() {
           transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
         >
           <div className="relative aspect-[3/4] w-full max-w-md mx-auto overflow-hidden rounded-2xl bg-gradient-to-br from-black/80 via-fashion-bg/90 to-fashion-mauve/20 border border-fashion-gold/30 backdrop-blur-xl">
-            <Image
+            <OptimizedImage
               src="/photos/SVM05701.jpg"
               alt="Ana Nicoleta - Professional Model"
-              fill
+              className="w-full h-full"
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
-              className="object-cover"
-              loading="lazy"
+              objectFit="cover"
+              priority={true}
+              quality={85}
             />
           </div>
           

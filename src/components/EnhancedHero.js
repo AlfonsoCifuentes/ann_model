@@ -4,32 +4,63 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Play, Pause, ChevronDown } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
-
-const heroImages = [
-  '/photos/SVM05701.jpg',
-  '/photos/SVM05720.jpg',
-  '/photos/SVM05728.jpg',
-  '/photos/SVM05734.jpg',
-  '/photos/SVM05741.jpg'
-]
 
 export default function EnhancedHero() {
   const { t } = useLanguage()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isVideoMode, setIsVideoMode] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [heroImages, setHeroImages] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  // Cargar imágenes del hero desde la base de datos
+  useEffect(() => {
+    fetchHeroImages()
+  }, [])
+
+  const fetchHeroImages = async () => {
+    try {
+      const response = await fetch('/api/photos?isHero=true&status=active&limit=5')
+      const result = await response.json()
+      
+      if (result.success && result.data.length > 0) {
+        const imageUrls = result.data.map(photo => photo.url || photo.imageUrl)
+        setHeroImages(imageUrls)
+      } else {
+        // Fallback a imágenes por defecto si no hay imágenes en la BD
+        setHeroImages([
+          '/photos/SVM05701.jpg',
+          '/photos/SVM05720.jpg',
+          '/photos/SVM05728.jpg',
+          '/photos/SVM05734.jpg',
+          '/photos/SVM05741.jpg'
+        ])
+      }
+    } catch (error) {
+      console.error('Error fetching hero images:', error)
+      // Fallback en caso de error
+      setHeroImages([
+        '/photos/SVM05701.jpg',
+        '/photos/SVM05720.jpg',
+        '/photos/SVM05728.jpg',
+        '/photos/SVM05734.jpg',
+        '/photos/SVM05741.jpg'
+      ])
+    } finally {
+      setLoading(false)
+    }
+  }
 
   // Slideshow automático
   useEffect(() => {
-    if (!isVideoMode) {
+    if (heroImages.length > 0) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prev) => (prev + 1) % heroImages.length)
       }, 5000)
       return () => clearInterval(interval)
     }
-  }, [isVideoMode])
+  }, [heroImages.length])
 
   useEffect(() => {
     setIsLoaded(true)
@@ -69,13 +100,21 @@ export default function EnhancedHero() {
     }
   }
 
+  if (loading) {
+    return (
+      <div className="relative min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-lg">Cargando...</div>
+      </div>
+    )
+  }
+
   return (
     <section className="relative min-h-screen overflow-hidden">
       
-      {/* Background Images/Video */}
+      {/* Background Images */}
       <div className="absolute inset-0 transform scale-110 translate-x-[5%]">
         <AnimatePresence mode="popLayout">
-          {!isVideoMode ? (
+          {heroImages.length > 0 && (
             <motion.div
               key={currentImageIndex}
               variants={imageVariants}
@@ -97,56 +136,42 @@ export default function EnhancedHero() {
                 quality={95}
                 sizes="100vw"
               />
-            </motion.div>
-          ) : (
-            <motion.div
-              variants={imageVariants}
-              initial="hidden"
-              animate="visible"
-              className="absolute inset-0"
-            >
-              {/* Placeholder para video - se puede reemplazar con video real */}
-              <div className="w-full h-full bg-black flex items-center justify-center">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  className="w-16 h-16 border-2 border-white border-t-transparent rounded-full"
-                />
-              </div>
+              {/* Overlay para mejorar contraste - Reducido */}
+              <div className="absolute inset-0 bg-black/15" />
             </motion.div>
           )}
         </AnimatePresence>
         
-        {/* Overlay gradiente mejorado para legibilidad */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+        {/* Overlay gradiente mejorado para legibilidad - Reducido */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/15 to-transparent portrait:bg-gradient-to-b portrait:from-black/30 portrait:via-black/20 portrait:to-black/30" />
         
-        {/* Overlay adicional en el área del texto */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/50 via-transparent to-black/60" />
+        {/* Overlay adicional en el área del texto - Reducido */}
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/25 via-transparent to-black/30 portrait:from-black/20 portrait:via-black/10 portrait:to-black/25" />
       </div>
 
-      {/* Contenido Principal - Reposicionado a la izquierda */}
-      <div className="relative z-10 min-h-screen flex items-center">
+      {/* Contenido Principal - Centrado en móvil, izquierda en desktop */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center portrait:justify-center landscape:md:justify-start">
         <div className="w-full max-w-7xl mx-auto px-8 lg:px-16">
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate={isLoaded ? "visible" : "hidden"}
-            className="text-left text-white"
+            className="text-center portrait:text-center landscape:md:text-left text-white w-full portrait:flex portrait:flex-col portrait:items-center landscape:md:block"
           >
           
             {/* Título y Apellidos en el mismo contenedor para mismo ancho */}
             <motion.div 
               variants={itemVariants}
-              className="mb-6 inline-block"
+              className="mb-6 inline-block portrait:mx-auto landscape:md:mx-0 portrait:text-center landscape:md:text-left"
             >
               {/* Título Principal */}
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-widest mb-2 text-white">
-                ANA<span className="font-bold">NICOLETA</span>
+              <h1 className="font-inter text-4xl md:text-6xl lg:text-7xl font-light tracking-widest mb-2 text-white">
+                ANA<span className="font-inter font-bold">NICOLETA</span>
               </h1>
               
               {/* Apellidos - centrados debajo del título */}
               <p 
-                className="font-sans text-base md:text-xl lg:text-2xl font-thin text-white/80 uppercase text-center"
+                className="font-inter text-base md:text-xl lg:text-2xl font-thin text-white/80 uppercase text-center"
                 style={{ 
                   letterSpacing: '0.65em',
                   transform: 'scaleX(1.05)'
@@ -159,23 +184,23 @@ export default function EnhancedHero() {
             {/* Subtítulo - Alineado con el título */}
             <motion.p 
               variants={itemVariants}
-              className="text-lg md:text-xl font-light tracking-wider mb-4 text-white/90 uppercase"
+              className="font-inter text-lg md:text-xl font-light tracking-wider mb-4 text-white/90 uppercase"
             >
               {t('heroSubtitle')}
             </motion.p>
             
-            {/* Descripción - Limitada al ancho del título */}
+            {/* Descripción - Centrada en móvil, limitada al ancho en desktop */}
             <motion.p 
               variants={itemVariants}
-              className="text-base md:text-lg font-light max-w-lg mb-12 text-white/80 leading-relaxed tracking-wide"
+              className="font-inter text-base md:text-lg font-light max-w-lg mb-12 text-white/80 leading-relaxed tracking-wide portrait:mx-auto landscape:md:mx-0"
             >
               {t('heroDescription')}
             </motion.p>
             
-            {/* Botones CTA - Alineados con el contenido */}
+            {/* Botones CTA - Centrados en móvil, alineados en desktop */}
             <motion.div 
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 mb-16"
+              className="flex flex-col sm:flex-row gap-4 mb-16 portrait:justify-center portrait:items-center landscape:md:justify-start landscape:md:items-start"
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -183,9 +208,9 @@ export default function EnhancedHero() {
               >
                 <Link
                   href="/contact"
-                  className="px-8 py-4 bg-fashion-secondary text-fashion-bg font-light tracking-widest hover:bg-orange-600 transition-colors inline-block uppercase text-sm shadow-lg"
+                  className="btn-fashion btn-fashion-dark font-inter"
                 >
-                  {t('contactMe')}
+                  Contáctame
                 </Link>
               </motion.div>
               
@@ -195,39 +220,29 @@ export default function EnhancedHero() {
               >
                 <Link
                   href="/portfolio"
-                  className="px-8 py-4 border-2 border-white text-white font-light tracking-widest hover:bg-white hover:text-black transition-colors inline-block uppercase text-sm backdrop-blur-sm"
+                  className="btn-fashion btn-fashion-primary font-inter"
                 >
-                  {t('viewPortfolio')}
+                  Ver Portfolio
                 </Link>
               </motion.div>
             </motion.div>
             
-            {/* Controles de Media - Alineados con el contenido */}
+            {/* Controles de Fotos - Centrados en móvil, alineados en desktop */}
             <motion.div 
               variants={itemVariants}
-              className="flex items-center gap-4 mb-8"
+              className="flex items-center gap-4 mb-8 portrait:justify-center landscape:md:justify-start"
             >
-              <button
-                onClick={() => setIsVideoMode(!isVideoMode)}
-                className="flex items-center gap-2 px-4 py-2 bg-black/30 backdrop-blur-sm text-white rounded-full hover:bg-black/50 transition-colors"
-              >
-                {isVideoMode ? <Pause size={16} /> : <Play size={16} />}
-                <span className="text-sm font-light tracking-wider uppercase">{isVideoMode ? 'Photos' : 'Reel'}</span>
-              </button>
-              
-              {!isVideoMode && (
-                <div className="flex gap-2">
-                  {heroImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        currentImageIndex === index ? 'bg-white' : 'bg-white/40'
-                      }`}
-                    />
-                  ))}
-                </div>
-              )}
+              <div className="flex gap-2">
+                {heroImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      currentImageIndex === index ? 'bg-white' : 'bg-white/40'
+                    }`}
+                  />
+                ))}
+              </div>
             </motion.div>
             
           </motion.div>
@@ -249,18 +264,6 @@ export default function EnhancedHero() {
           <span className="font-inter text-xs font-light tracking-widest mb-2 opacity-80 uppercase">Scroll</span>
           <ChevronDown size={20} className="opacity-60" />
         </motion.div>
-      </motion.div>
-
-      {/* Photographer Credits */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 right-8 text-white/60"
-      >
-        <p className="font-inter text-xs font-light tracking-widest uppercase">
-          PH: Marc Stevens
-        </p>
       </motion.div>
     </section>
   )

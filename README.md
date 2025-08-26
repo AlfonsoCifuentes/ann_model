@@ -1,33 +1,199 @@
 # 🌟 Ana Nicoleta - Portfolio Profesional
 
-<div align="center">
-
-![Ana Nicoleta](https://img.shields.io/badge/Modelo-Profesional-orange?style=for-the-badge)
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
-![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)
-![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
-
-*Portfolio digital elegante y sofisticado para modelo y actriz profesional*
-
-[🌐 Ver Demo](https://ana-nicoleta.vercel.app) • [📸 Portfolio](#características) • [👩‍💼 Admin](#sistema-de-administración)
-
-</div>
-
----
-
-## 📖 Descripción
-
-**Ana Nicoleta Portfolio** es una plataforma web premium diseñada específicamente para mostrar el trabajo profesional de una modelo y actriz internacional. Con un diseño minimalista y elegante, el sitio combina funcionalidad avanzada con una estética sofisticada que refleja la calidad del trabajo artístico.
-
-### 🎯 Objetivo
-Crear una presencia digital profesional que destaque la versatilidad y elegancia de Ana Nicoleta en proyectos editoriales, comerciales, pasarela y actuación.
-
----
+Portfolio web profesional para modelo y actriz Ana Nicoleta de Pedro Sanchez. Sitio web moderno con gestión de contenido, galería de fotos, blog personal y panel de administración completo.
 
 ## ✨ Características Principales
 
-### 🖼️ **Galería Visual Impactante**
-- **Hero dinámico** con slideshow automático de 5 fotos profesionales
+### 🎭 Para Visitantes
+- **Hero Dinámico**: Carrusel de 5 fotos que rotan automáticamente
+- **Portfolio Organizado**: Fotos agrupadas por trabajos/sesiones
+- **Galería Responsive**: Optimizada para móvil y desktop
+- **Blog Personal**: Artículos y experiencias
+- **Información Profesional**: Contacto, prensa, booking
+
+### 🔧 Para Ana (Panel Admin)
+- **Subida de Fotos**: Upload directo a Cloudinary con organización automática
+- **Gestión del Hero**: Selecciona las 5 fotos principales del carrusel
+- **Trabajos Destacados**: Marca colecciones para mostrar en inicio
+- **Galería Completa**: Vista y gestión de todas las fotos
+- **Blog Management**: Crear, editar y publicar artículos
+- **Control Total**: Administración completa desde una interfaz intuitiva
+
+## 🚀 Configuración Rápida
+
+### 1. Clonar e Instalar
+```bash
+git clone [url-del-repositorio]
+cd ann_model
+npm install
+```
+
+### 2. Configurar Variables de Entorno
+Crea `.env.local` con:
+```bash
+# Base de datos
+MONGODB_URI=tu-url-de-mongodb
+
+# Cloudinary (para fotos)
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=tu-cloud-name
+CLOUDINARY_API_KEY=tu-api-key
+CLOUDINARY_API_SECRET=tu-api-secret
+
+# URLs
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
+
+### 3. Inicializar Base de Datos
+```bash
+# Verificar sistema
+node scripts/systemCheck.js
+
+# Poblar con fotos de ejemplo
+node scripts/checkAndPopulateDB.js
+
+# Iniciar desarrollo
+npm run dev
+```
+
+### 4. Acceder
+- **Sitio**: http://localhost:3000
+- **Admin**: http://localhost:3000/admin
+- **Portfolio**: http://localhost:3000/portfolio
+
+## 📱 Características Técnicas
+
+### Frontend
+- **Next.js 14**: Framework React con App Router
+- **Tailwind CSS**: Diseño responsive y moderno
+- **Framer Motion**: Animaciones fluidas y profesionales
+- **Responsive Design**: Optimizado para todos los dispositivos
+
+### Backend
+- **MongoDB**: Base de datos NoSQL escalable
+- **Cloudinary**: Gestión y optimización de imágenes
+- **API Routes**: Endpoints RESTful para todas las operaciones
+
+### Admin Panel
+- **Upload Masivo**: Sube múltiples fotos simultáneamente
+- **Organización Automática**: Agrupa fotos por nombre de trabajo
+- **Gestión Visual**: Interfaz intuitiva con previsualización
+- **Estados**: Control de visibilidad y featured status
+
+## 🎨 Estructura del Portfolio
+
+### Organización de Fotos
+```
+Hero Principal (5 fotos)
+├── Rotan automáticamente cada 5 segundos
+└── Seleccionables desde el admin
+
+Trabajos Destacados (máximo 2)
+├── Aparecen en "Trabajos Recientes"
+└── Promocionan trabajos importantes
+
+Portfolio Completo
+├── Agrupado por workCollection
+├── Categorías: Editorial, Fashion, Retrato, Comercial, Estudio, Lifestyle
+└── Navegable por categorías
+```
+
+### Categorías Disponibles
+- **Editorial**: Sesiones artísticas y editoriales
+- **Fashion**: Moda y pasarela
+- **Retrato**: Headshots y retratos profesionales
+- **Comercial**: Trabajos publicitarios
+- **Estudio**: Sesiones en estudio
+- **Lifestyle**: Fotografía de estilo de vida
+
+## 🛠️ Guías de Uso
+
+### Para Ana - Subir Nuevo Trabajo
+1. Ve al **Panel Admin** → **Subir Fotos**
+2. Selecciona todas las fotos de la sesión
+3. **Importante**: Usa el mismo "Nombre del trabajo" para todas
+   - Ejemplo: `Editorial-Vogue-2024`
+4. Asigna categoría y descripción
+5. Las fotos se agrupan automáticamente en el portfolio
+
+### Gestionar Hero Principal
+1. **Hero Principal** → **Seleccionar Fotos para el Hero**
+2. Haz clic en las fotos que quieres agregar
+3. Máximo 5 fotos (las mejores que representen tu estilo)
+4. Se muestran en el carrusel principal del sitio
+
+### Destacar Trabajos
+1. **Trabajos Destacados** → Busca la colección
+2. Clic en "Destacar" (máximo 2 trabajos)
+3. Aparecerán en "Trabajos Recientes" en la página principal
+
+## 📂 Estructura del Proyecto
+
+```
+src/
+├── app/                    # Páginas principales
+│   ├── admin/             # Panel de administración
+│   ├── portfolio/         # Galería de trabajos
+│   ├── blog/              # Blog personal
+│   └── api/               # Endpoints de API
+├── components/            # Componentes reutilizables
+│   ├── PhotoUpload.js     # Subida de fotos
+│   ├── PhotoGallery.js    # Galería responsive
+│   ├── EnhancedHero.js    # Hero con carrusel
+│   └── Navbar.js          # Navegación principal
+├── lib/                   # Configuración
+│   └── mongodb.js         # Conexión a BD
+└── models/                # Modelos de datos
+    └── Photo.js           # Esquema de fotos
+```
+
+## 🔒 Seguridad y Rendimiento
+
+- **Optimización de Imágenes**: Cloudinary maneja compresión automática
+- **Responsive Images**: Carga adaptativa según dispositivo
+- **Lazy Loading**: Carga progresiva para mejor rendimiento
+- **SEO Optimizado**: Meta tags y estructura semántica
+- **Accesibilidad**: Alt texts y navegación por teclado
+
+## 🌐 Deployment
+
+### Vercel (Recomendado)
+```bash
+npm run build
+# Conectar repositorio con Vercel
+# Configurar variables de entorno en Vercel dashboard
+```
+
+### Variables de Entorno en Producción
+Configurar en el dashboard de hosting:
+- `MONGODB_URI`
+- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+- `NEXT_PUBLIC_BASE_URL`
+
+## 📞 Soporte
+
+### Archivos de Ayuda
+- [`DATABASE-SETUP.md`](./DATABASE-SETUP.md) - Configuración completa de la base de datos
+- [`IMPLEMENTATION-SUMMARY.md`](./IMPLEMENTATION-SUMMARY.md) - Resumen técnico del proyecto
+
+### Scripts Útiles
+```bash
+node scripts/systemCheck.js        # Verificar configuración
+node scripts/checkAndPopulateDB.js # Inicializar base de datos
+npm run dev                        # Desarrollo
+npm run build                      # Compilar para producción
+```
+
+### Troubleshooting
+1. **Fotos no se suben**: Verifica configuración de Cloudinary
+2. **Error de BD**: Comprueba `MONGODB_URI` y conexión
+3. **Fotos no aparecen**: Verifica que tengan `status: active`
+
+---
+
+**Desarrollado para Ana Nicoleta de Pedro Sanchez**  
+Portfolio profesional con gestión de contenido completa y diseño responsive moderno.
 - **Transiciones suaves** con animaciones Framer Motion
 - **Diseño responsive** adaptado a todos los dispositivos
 - **Posicionamiento optimizado** para cada imagen

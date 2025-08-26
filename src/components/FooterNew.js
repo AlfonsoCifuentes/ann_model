@@ -28,7 +28,7 @@ export default function Footer() {
     { name: t('home'), href: '/' },
     { name: t('about'), href: '/about' },
     { name: t('portfolioTitle'), href: '/portfolio' },
-    { name: t('contactTitle'), href: '/contact' }
+    { name: t('contact'), href: '/contact' }
   ]
 
   const services = [
@@ -74,7 +74,7 @@ export default function Footer() {
                   </motion.a>
                   
                   <motion.a
-                    href="mailto:contact@ananicoleta.com"
+                    href="mailto:anngsesiones@gmail.com"
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors"

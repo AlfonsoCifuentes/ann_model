@@ -11,34 +11,35 @@ export default function HomeContent() {
   const { t } = useLanguage()
 
   const stats = [
-    { number: "10+", label: t('yearsExperience') },
-    { number: "50+", label: t('photoshoots') },
-    { number: "80+", label: t('collaborations') },
+    { number: "8+", label: t('yearsExperience') },
+    { number: "200+", label: t('photoshoots') },
+    { number: "50+", label: t('collaborations') },
+    { number: "15+", label: t('countries') }
   ]
 
   const services = [
     {
       title: t('editorialPhotography'),
       description: t('editorialDescription'),
-  image: '/photos/bodypaint_tree-2.JPG'
+      image: '/photos/SVM05651.jpg'
     },
     {
       title: t('fashion'),
       description: t('fashionDescription'),
-  image: '/photos/classy-3.jpg'
+      image: '/photos/SVM05670.jpg'
     },
     {
       title: t('portrait'),
       description: t('portraitDescription'),
-  image: '/photos/makeup2-portrait1.jpg'
+      image: '/photos/SVM05675.jpg'
     }
   ]
 
   return (
     <div className="min-h-screen">
-  {/* Enhanced Hero Section (restored) */}
-  <EnhancedHero />
-      
+      {/* Enhanced Hero Section */}
+      <EnhancedHero />
+
       {/* Stats Section */}
       <section className="py-20 bg-fashion-bg-secondary">
         <div className="container mx-auto px-8">
@@ -47,22 +48,20 @@ export default function HomeContent() {
               {t('professionalDetails')}
             </h2>
           </FadeInUp>
-          
-          <StaggerContainer className="w-full">
-      <div className="w-full flex justify-evenly items-center">
-              {stats.map((stat, index) => (
-        <StaggerItem key={index}>
-                  <div className="text-center w-full">
-                    <div className="font-inter text-4xl md:text-5xl font-light text-fashion-rose mb-2 tracking-wider">
-                      {stat.number}
-                    </div>
-                    <div className="font-inter text-sm tracking-widest text-fashion-fg-muted uppercase">
-                      {stat.label}
-                    </div>
+
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <StaggerItem key={index}>
+                <div className="text-center">
+                  <div className="font-inter text-4xl md:text-5xl font-light text-fashion-rose mb-2 tracking-wider">
+                    {stat.number}
                   </div>
-                </StaggerItem>
-              ))}
-            </div>
+                  <div className="font-inter text-sm tracking-widest text-fashion-fg-muted uppercase">
+                    {stat.label}
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
           </StaggerContainer>
         </div>
       </section>
@@ -94,7 +93,6 @@ export default function HomeContent() {
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                         priority={index === 0}
                         loading={index === 0 ? "eager" : "lazy"}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
                     </div>
@@ -112,9 +110,9 @@ export default function HomeContent() {
 
           <FadeInUp delay={0.6}>
             <div className="text-center mt-16">
-              <Link 
+              <Link
                 href="/portfolio"
-                className="btn btn-secondary uppercase text-sm tracking-widest"
+                className="inline-block px-8 py-4 border border-fashion-rose text-fashion-rose font-inter font-light tracking-widest hover:bg-fashion-rose hover:text-fashion-bg transition-colors duration-300 uppercase text-sm"
               >
                 {t('viewFullPortfolio')}
               </Link>
@@ -134,22 +132,21 @@ export default function HomeContent() {
             </div>
           </FadeInUp>
 
-          <StaggerContainer className="grid md:grid-cols-3 gap-8">
+          <StaggerContainer className="grid md:grid-cols-2 gap-8">
             <StaggerItem>
               <HoverLift>
                 <div className="relative h-96 group cursor-pointer overflow-hidden">
                   <Image
-                    src="/photos/street_body_paint-2.jpeg"
-                    alt="Body Paint Artístico"
+                    src="/photos/SVM05701.jpg"
+                    alt="Recent Editorial Work"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
                   <div className="absolute bottom-6 left-6 text-white">
-                    <h3 className="font-inter font-light tracking-wider text-2xl mb-2 uppercase">BODY PAINT ARTÍSTICO</h3>
-                    <p className="font-inter text-sm opacity-90">Editorial • Colección: Body Paint Artístico</p>
+                    <h3 className="font-inter font-light tracking-wider text-2xl mb-2 uppercase">Editorial Campaign</h3>
+                    <p className="font-inter text-sm opacity-90">2024</p>
                   </div>
                 </div>
               </HoverLift>
@@ -159,37 +156,16 @@ export default function HomeContent() {
               <HoverLift>
                 <div className="relative h-96 group cursor-pointer overflow-hidden">
                   <Image
-                    src="/photos/PolasAna03031.jpg"
-                    alt="Moda y Estilo"
+                    src="/photos/SVM05719.jpg"
+                    alt="Fashion Portrait"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
                   <div className="absolute bottom-6 left-6 text-white">
-                    <h3 className="font-inter font-light tracking-wider text-2xl mb-2 uppercase">MODA Y ESTILO</h3>
-                    <p className="font-inter text-sm opacity-90">Fashion • Colección: Moda y Estilo</p>
-                  </div>
-                </div>
-              </HoverLift>
-            </StaggerItem>
-
-            <StaggerItem>
-              <HoverLift>
-                <div className="relative h-96 group cursor-pointer overflow-hidden">
-                  <Image
-                    src="/photos/make-up_close_up-1.JPG"
-                    alt="Maquillaje Profesional"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    loading="lazy"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
-                  <div className="absolute bottom-6 left-6 text-white">
-                    <h3 className="font-inter font-light tracking-wider text-2xl mb-2 uppercase">MAQUILLAJE PROFESIONAL</h3>
-                    <p className="font-inter text-sm opacity-90">Retrato • Colección: Maquillaje Profesional</p>
+                    <h3 className="font-inter font-light tracking-wider text-2xl mb-2 uppercase">Fashion Portrait</h3>
+                    <p className="font-inter text-sm opacity-90">Studio Session • 2024</p>
                   </div>
                 </div>
               </HoverLift>
@@ -209,15 +185,15 @@ export default function HomeContent() {
               {t('contactDescription')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
+              <Link
                 href="/contact"
-                className="btn btn-primary mr-4"
+                className="px-8 py-4 bg-fashion-rose text-fashion-bg font-inter font-medium tracking-wide hover:bg-fashion-copper-dark transition-colors rounded-lg mr-4"
               >
                 {t('contactMe')}
               </Link>
-              <Link 
+              <Link
                 href="/portfolio"
-                className="btn btn-secondary"
+                className="px-8 py-4 border-2 border-fashion-rose text-fashion-rose font-inter font-medium tracking-wide hover:bg-fashion-rose hover:text-fashion-bg transition-colors rounded-lg"
               >
                 {t('viewMore')}
               </Link>

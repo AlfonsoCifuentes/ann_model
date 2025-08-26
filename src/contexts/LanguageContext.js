@@ -16,6 +16,8 @@ const translations = {
     loading: 'Cargando...',
     viewMore: 'Ver más',
     contactMe: 'Contáctame',
+  getInTouch: 'Ponte en contacto',
+  contactDescription: '¿Tienes un proyecto o propuesta? Hablemos y hagámoslo realidad.',
     backToTop: 'Volver arriba',
     
     // Home
@@ -116,6 +118,8 @@ const translations = {
     loading: 'Loading...',
     viewMore: 'View More',
     contactMe: 'Contact Me',
+  getInTouch: 'Get in touch',
+  contactDescription: 'Have a project or proposal? Let’s talk and make it happen.',
     backToTop: 'Back to Top',
     
     // Home

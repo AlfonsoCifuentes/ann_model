@@ -8,7 +8,7 @@
   --font-playfair: 'Playfair Display', serif;
   
   /* Ultra Dark Color Scheme - Gama de Negros */
-  --fashion-bg: #000000;          /* Pure black background */
+  --fashion-bg: #030303;          /* Even darker background for footer */
   --fashion-bg-secondary: #0a0a0a; /* Almost black */
   --fashion-bg-tertiary: #111111; /* Very dark gray */
   --fashion-bg-card: #151515;     /* Card background */
@@ -16,7 +16,7 @@
   /* Text colors */
   --fashion-fg: #FEFEFE;          /* Primary text */
   --fashion-fg-secondary: #E0E0E0; /* Secondary text */
-  --fashion-fg-muted: #B0B0B0;    /* Muted text */
+  --fashion-fg-muted: #C8C8C8;    /* Muted text - made lighter */
   --fashion-fg-subtle: #808080;   /* Subtle text */
   
   /* Unified Copper Theme */
@@ -103,58 +103,97 @@ body {
   letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #000000 !important;
-  color: #FFFFFF !important;
+  /* background-color forced removed to allow layered backgrounds */
+  background-color: #000; /* fallback only */
+  color: #FFFFFF;
 }
 
 /* FORZAR GAMA DE NEGROS EN TODA LA WEB */
-.bg-gray-900 {
-  background-color: #000000 !important;
-}
+/* .bg-gray-900 { background-color: #000000 !important; } */
 
-.bg-gray-800 {
-  background-color: #0a0a0a !important;
-}
+/* .bg-gray-800 { background-color: #0a0a0a !important; } */
 
-.bg-gray-950 {
-  background-color: #030303 !important;
-}
+/* .bg-gray-950 { background-color: #030303 !important; } */
 
-.bg-black {
-  background-color: #000000 !important;
-}
+/* .bg-black { background-color: #000000 !important; } */
 
 /* Forzar fondos de secciones */
-section {
+/* section background forced removed to allow hero images */
+/* section {
   background-color: #000000 !important;
+} */
+
+/* Allow explicit hero backgrounds */
+.hero-with-bg {
+  background-color: transparent !important;
+  /* Ensure background-image shows */
+  background-blend-mode: normal;
 }
 
-section.bg-gray-900 {
-  background-color: #000000 !important;
+/* Ensure hero content surface stays transparent even if .min-h-screen or other classes are globally overridden */
+.hero-content-surface {
+  background-color: transparent !important;
+  isolation: isolate;
 }
 
-section.bg-gray-800 {
-  background-color: #0a0a0a !important;
+/* --- Global Button Styles (coherent across site) --- */
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem; /* px-8 py-4 */
+  border-radius: 9999px; /* rounded-full */
+  font-family: var(--font-inter);
+  font-weight: 500; /* medium */
+  letter-spacing: 0.02em; /* tracking-wide-ish */
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-section.bg-gray-950 {
-  background-color: #030303 !important;
+.btn-primary {
+  background-color: #ff5e1e; /* updated primary orange */
+  color: #ffffff;
 }
+.btn-primary:hover {
+  background-color: #e5541a; /* slightly darker on hover */
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid #d8732f; /* softer orange */
+  color: #d8732f;
+}
+.btn-secondary:hover {
+  background-color: #d8732f;
+  color: #000000;
+}
+
+/* Paler secondary for hero (slightly lighter orange than primary) */
+.btn-secondary-hero {
+  background-color: #ff712b; /* specific orange color */
+  border: 2px solid #ff712b;
+  color: #ffffff;
+}
+.btn-secondary-hero:hover {
+  background-color: #ff8851; /* slightly paler on hover */
+  border-color: #ff8851;
+  color: #ffffff;
+}
+
+/* section.bg-gray-900 { background-color: #000000 !important; } */
+
+/* section.bg-gray-800 { background-color: #0a0a0a !important; } */
+
+/* section.bg-gray-950 { background-color: #030303 !important; } */
 
 /* Forzar todos los divs principales */
-main {
-  background-color: #000000 !important;
-}
+/* main { background-color: #000000 !important; } */
 
 /* Layout containers */
-.min-h-screen {
+/* Remove global min-h-screen background override so hero can show background image */
+/* .min-h-screen {
   background-color: #000000 !important;
-}
+} */
 
 /* Override any remaining backgrounds */
-[class*="bg-gray"] {
-  background-color: #000000 !important;
-}
+/* [class*="bg-gray"] { background-color: #000000 !important; } */
 
 /* Remove default link colors and use custom copper/orange colors */
 a, a:visited, a:hover, a:active {
@@ -186,6 +225,11 @@ nav a:visited,
 /* Typography */
 .font-playfair {
   font-family: var(--font-playfair);
+}
+
+/* Text color utilities */
+.text-fashion-muted {
+  color: var(--fashion-fg-muted);
 }
 
 /* Navbar Style Typography - para usar en todo el sitio */
@@ -283,11 +327,14 @@ nav a:visited,
 
 /* Button Styles - Rounded */
 .btn-primary {
-  @apply px-6 py-3 bg-orange-600 text-white font-medium tracking-wide transition-all duration-300 rounded-full;
+  @apply px-6 py-3 font-medium tracking-wide transition-all duration-300 rounded-full;
+  background-color: #ff5e1e; /* updated primary orange */
+  color: #ffffff;
 }
 
 .btn-primary:hover {
-  @apply bg-orange-700 transform scale-105;
+  background-color: #e5541a; /* slightly darker on hover */
+  @apply transform scale-105;
 }
 
 .btn-primary:disabled {

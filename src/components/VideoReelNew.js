@@ -86,7 +86,7 @@ export default function VideoReel() {
           {/* Main Video Player */}
           <FadeInUp delay={0.2}>
             <div className="relative mb-12">
-              <div className="relative aspect-video bg-gray-900 rounded-lg overflow-hidden">
+              <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
                 
                 {/* Video Element */}
                 <video
@@ -195,7 +195,7 @@ export default function VideoReel() {
                     </div>
                   </div>
                   
-                  <div className="p-4 bg-gray-900">
+                  <div className="p-4 bg-black">
                     <h3 className="font-playfair text-lg font-medium mb-1">
                       {video.title}
                     </h3>

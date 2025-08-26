@@ -137,8 +137,8 @@ export default function BlogPage() {
 
         {/* Blog Posts Grid */}
         <div className="py-16 border-t border-gray-800">
-          <div className="max-w-6xl mx-auto px-8 lg:px-16">
-            <div className="text-center mb-12">
+          <div className="w-full">
+            <div className="text-center mb-12 px-8">
               <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-inter text-white">
                 {otherPosts.length > 0 ? 'Más Artículos' : 'Próximamente'}
               </h2>
@@ -148,12 +148,12 @@ export default function BlogPage() {
             </div>
 
             {otherPosts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
                 {otherPosts.map((post) => (
                   <Link 
                     key={post._id} 
                     href={`/blog/${post.slug}`}
-                    className="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden hover:border-orange-400 transition-colors cursor-pointer block"
+                    className="bg-gray-900 hover:bg-gray-800 transition-colors cursor-pointer block h-full"
                   >
                     <div className="aspect-video relative">
                       <Image
@@ -164,7 +164,7 @@ export default function BlogPage() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     </div>
-                    <div className="p-6">
+                    <div className="p-8">
                       <h3 className="text-xl font-light tracking-wide mb-3 font-inter text-white">
                         {post.title}
                       </h3>
@@ -181,10 +181,10 @@ export default function BlogPage() {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
                 {/* Placeholder para futuros artículos */}
                 {[1, 2, 3].map((placeholder) => (
-                  <div key={placeholder} className="bg-gray-900 border border-gray-800 rounded-lg p-6 opacity-50">
+                  <div key={placeholder} className="bg-gray-900 p-8 opacity-50">
                     <div className="aspect-video bg-gray-800 rounded-lg mb-4"></div>
                     <div className="h-4 bg-gray-800 rounded mb-2"></div>
                     <div className="h-3 bg-gray-800 rounded w-3/4 mb-4"></div>

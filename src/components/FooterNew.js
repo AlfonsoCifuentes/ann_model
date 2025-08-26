@@ -40,7 +40,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-gray-900 text-white">
+      <footer className="bg-black text-white">
         <div className="max-w-6xl mx-auto px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             
@@ -158,7 +158,7 @@ export default function Footer() {
           scale: showScrollTop ? 1 : 0 
         }}
         onClick={scrollToTop}
-        className="fixed bottom-8 right-8 z-40 w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-700 transition-colors"
+        className="fixed bottom-8 right-8 z-40 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-900 transition-colors"
       >
         <ArrowUp size={20} />
       </motion.button>

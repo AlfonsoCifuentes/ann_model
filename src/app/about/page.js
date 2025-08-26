@@ -92,7 +92,7 @@ export default function AboutPage() {
               
               {/* Professional Details */}
               <StaggerItem>
-                <div className="bg-black border border-gray-700 rounded-2xl p-8 h-80 flex flex-col">
+                <div className="bg-gray-950 border border-gray-800 rounded-2xl p-8 h-80 flex flex-col">
                   <div className="flex items-center mb-6">
                     <div className="w-1 h-6 bg-orange-500 mr-4"></div>
                     <h3 className="text-xl font-light tracking-wide text-white">
@@ -101,15 +101,15 @@ export default function AboutPage() {
                   </div>
                   
                   <div className="flex-1 space-y-4">
-                    <div className="flex justify-between items-center py-2 border-b border-gray-800">
+                    <div className="flex justify-between items-center py-2 border-b border-gray-900">
                       <span className="text-gray-400 font-light">{t('height')}</span>
                       <span className="text-orange-500 font-medium">175 cm</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-gray-800">
+                    <div className="flex justify-between items-center py-2 border-b border-gray-900">
                       <span className="text-gray-400 font-light">{t('eyes')}</span>
                       <span className="text-orange-500 font-medium">{t('green')}</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-gray-800">
+                    <div className="flex justify-between items-center py-2 border-b border-gray-900">
                       <span className="text-gray-400 font-light">{t('hair')}</span>
                       <span className="text-orange-500 font-medium">{t('darkBrown')}</span>
                     </div>
@@ -123,7 +123,7 @@ export default function AboutPage() {
 
               {/* Experience */}
               <StaggerItem>
-                <div className="bg-black border border-gray-700 rounded-2xl p-8 h-80 flex flex-col">
+                <div className="bg-gray-950 border border-gray-800 rounded-2xl p-8 h-80 flex flex-col">
                   <div className="flex items-center mb-6">
                     <div className="w-1 h-6 bg-orange-500 mr-4"></div>
                     <h3 className="text-xl font-light tracking-wide text-white">
@@ -158,7 +158,7 @@ export default function AboutPage() {
 
               {/* Location */}
               <StaggerItem>
-                <div className="bg-black border border-gray-700 rounded-2xl p-8 h-80 flex flex-col">
+                <div className="bg-gray-950 border border-gray-800 rounded-2xl p-8 h-80 flex flex-col">
                   <div className="flex items-center mb-6">
                     <div className="w-1 h-6 bg-orange-500 mr-4"></div>
                     <h3 className="text-xl font-light tracking-wide text-white">

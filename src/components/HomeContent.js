@@ -65,7 +65,7 @@ export default function HomeContent() {
           const photos = result.data
           console.log('Fotos disponibles para página principal:', photos.length)
           
-          // Buscar fotos específicas para Trabajos Recientes
+          // Buscar fotos específicas para Trabajos Recientes - SIN REPETICIONES
           let bodyPaintPhoto = photos.find(photo => 
             photo.filename === 'street_body_paint-2.jpeg'
           )
@@ -74,62 +74,76 @@ export default function HomeContent() {
             photo.filename === 'PolasAna03031.jpg'
           )
           
-          let makeupPhoto = photos.find(photo => 
+          let portraitPhoto = photos.find(photo => 
             photo.filename === 'make-up_close_up-1.JPG'
           )
           
-          // Fallbacks si no se encuentran las fotos específicas
+          // Fallbacks con fotos diferentes para evitar repeticiones
           if (!bodyPaintPhoto) {
             bodyPaintPhoto = photos.find(photo => 
-              photo.workCollection && photo.workCollection.toLowerCase().includes('body paint')
+              photo.workCollection && photo.workCollection.toLowerCase().includes('body paint') &&
+              photo.filename !== 'PolasAna03031.jpg' && 
+              photo.filename !== 'make-up_close_up-1.JPG'
+            ) || photos.find(photo => 
+              photo.filename && photo.filename.toLowerCase().includes('bodypaint')
             ) || { imageUrl: '/photos/street_body_paint-2.jpeg' }
           }
           
           if (!fashionPhoto) {
             fashionPhoto = photos.find(photo => 
-              photo.workCollection && (photo.workCollection.toLowerCase().includes('pola') || photo.workCollection.toLowerCase().includes('moda'))
+              photo.workCollection && (photo.workCollection.toLowerCase().includes('pola') || photo.workCollection.toLowerCase().includes('moda')) &&
+              photo.filename !== bodyPaintPhoto?.filename && 
+              photo.filename !== 'make-up_close_up-1.JPG'
+            ) || photos.find(photo => 
+              photo.filename && (photo.filename.toLowerCase().includes('pola') || photo.filename.toLowerCase().includes('classy'))
             ) || { imageUrl: '/photos/PolasAna03031.jpg' }
           }
           
-          if (!makeupPhoto) {
-            makeupPhoto = photos.find(photo => 
-              photo.workCollection && photo.workCollection.toLowerCase().includes('make')
+          if (!portraitPhoto) {
+            portraitPhoto = photos.find(photo => 
+              photo.workCollection && photo.workCollection.toLowerCase().includes('make') &&
+              photo.filename !== bodyPaintPhoto?.filename && 
+              photo.filename !== fashionPhoto?.filename
+            ) || photos.find(photo => 
+              photo.filename && photo.filename.toLowerCase().includes('portrait') &&
+              photo.filename !== bodyPaintPhoto?.filename && 
+              photo.filename !== fashionPhoto?.filename
             ) || { imageUrl: '/photos/make-up_close_up-1.JPG' }
           }
           
-          console.log('Fotos seleccionadas para Recent Work:', {
+          console.log('Fotos seleccionadas para Recent Work (sin repeticiones):', {
             bodyPaint: bodyPaintPhoto?.filename || 'fallback',
             fashion: fashionPhoto?.filename || 'fallback', 
-            makeup: makeupPhoto?.filename || 'fallback'
+            portrait: portraitPhoto?.filename || 'fallback'
           })
           
           setRecentWorkCollections([
             {
               id: 1,
-              title: "BODY PAINT URBANO",
-              category: "Body Paint",
+              title: "BODY PAINT ARTÍSTICO",
+              category: "Editorial",
               imageUrl: bodyPaintPhoto?.imageUrl || '/photos/street_body_paint-2.jpeg',
-              workCollection: bodyPaintPhoto?.workCollection || 'Street Body Paint',
+              workCollection: bodyPaintPhoto?.workCollection || 'Body Paint Artístico',
               filename: bodyPaintPhoto?.filename || 'street_body_paint-2.jpeg',
               sessionId: getSessionId(bodyPaintPhoto?.filename || 'street_body_paint-2.jpeg')
             },
             {
               id: 2,
-              title: "MODA DE BAÑO",
-              category: "Polas",
+              title: "MODA Y ESTILO",
+              category: "Fashion",
               imageUrl: fashionPhoto?.imageUrl || '/photos/PolasAna03031.jpg',
-              workCollection: fashionPhoto?.workCollection || 'Polas Ana',
+              workCollection: fashionPhoto?.workCollection || 'Moda y Estilo',
               filename: fashionPhoto?.filename || 'PolasAna03031.jpg',
               sessionId: getSessionId(fashionPhoto?.filename || 'PolasAna03031.jpg')
             },
             {
               id: 3,
-              title: "SESIÓN MAKE-UP",
+              title: "MAQUILLAJE PROFESIONAL",
               category: "Retrato",
-              imageUrl: makeupPhoto?.imageUrl || '/photos/make-up_close_up-1.JPG',
-              workCollection: makeupPhoto?.workCollection || 'Make Up Close',
-              filename: makeupPhoto?.filename || 'make-up_close_up-1.JPG',
-              sessionId: getSessionId(makeupPhoto?.filename || 'make-up_close_up-1.JPG')
+              imageUrl: portraitPhoto?.imageUrl || '/photos/make-up_close_up-1.JPG',
+              workCollection: portraitPhoto?.workCollection || 'Maquillaje Profesional',
+              filename: portraitPhoto?.filename || 'make-up_close_up-1.JPG',
+              sessionId: getSessionId(portraitPhoto?.filename || 'make-up_close_up-1.JPG')
             }
           ])
         }
@@ -167,7 +181,7 @@ export default function HomeContent() {
           
           console.log('Todas las fotos disponibles para Services:', photos.length, 'fotos')
           
-          // Buscar fotos específicas por nombre de archivo EXACTO para SERVICIOS
+          // Buscar fotos específicas para SERVICIOS - Diferentes a Recent Work
           let editorialServicePhoto = photos.find(photo => 
             photo.filename === 'bodypaint_tree-2.jpg' || photo.filename === 'bodypaint_tree-2.JPG'
           )
@@ -180,30 +194,45 @@ export default function HomeContent() {
             photo.filename === 'makeup2-portrait1.jpg'
           )
           
-          // Fallbacks usando fotos específicas si no se encuentran en la base de datos
+          // Fallbacks con fotos completamente diferentes para Services
           if (!editorialServicePhoto) {
-            editorialServicePhoto = { imageUrl: '/photos/bodypaint_tree-2.jpg' }
+            editorialServicePhoto = photos.find(photo => 
+              photo.workCollection && photo.workCollection.toLowerCase().includes('body paint') &&
+              photo.filename !== 'street_body_paint-2.jpeg' &&
+              photo.filename !== 'PolasAna03031.jpg' &&
+              photo.filename !== 'make-up_close_up-1.JPG'
+            ) || { imageUrl: '/photos/bodypaint_tree-2.jpg' }
           }
           
           if (!fashionServicePhoto) {
-            fashionServicePhoto = { imageUrl: '/photos/classy-3.jpg' }
+            fashionServicePhoto = photos.find(photo => 
+              photo.filename && photo.filename.toLowerCase().includes('classy') &&
+              photo.filename !== 'street_body_paint-2.jpeg' &&
+              photo.filename !== 'PolasAna03031.jpg' &&
+              photo.filename !== 'make-up_close_up-1.JPG'
+            ) || { imageUrl: '/photos/classy-3.jpg' }
           }
           
           if (!portraitServicePhoto) {
-            portraitServicePhoto = { imageUrl: '/photos/makeup2-portrait1.jpg' }
+            portraitServicePhoto = photos.find(photo => 
+              photo.filename && (photo.filename.toLowerCase().includes('portrait') || photo.filename.toLowerCase().includes('makeup2')) &&
+              photo.filename !== 'street_body_paint-2.jpeg' &&
+              photo.filename !== 'PolasAna03031.jpg' &&
+              photo.filename !== 'make-up_close_up-1.JPG'
+            ) || { imageUrl: '/photos/makeup2-portrait1.jpg' }
           }
           
-          console.log('Fotos seleccionadas para Services:', {
-            editorial: editorialServicePhoto?.filename || 'fallback',
-            fashion: fashionServicePhoto?.filename || 'fallback',
-            portrait: portraitServicePhoto?.filename || 'fallback'
+          console.log('Fotos seleccionadas para Services (diferentes a Recent Work):', {
+            editorial: editorialServicePhoto?.filename || 'fallback bodypaint_tree-2.jpg',
+            fashion: fashionServicePhoto?.filename || 'fallback classy-3.jpg',
+            portrait: portraitServicePhoto?.filename || 'fallback makeup2-portrait1.jpg'
           })
           
           setServices([
             {
               title: t('editorialPhotography'),
               description: t('editorialDescription'),
-              image: editorialServicePhoto?.imageUrl || '/photos/bodypaint_tree-2.JPG'
+              image: editorialServicePhoto?.imageUrl || '/photos/bodypaint_tree-2.jpg'
             },
             {
               title: t('fashion'),
@@ -217,8 +246,8 @@ export default function HomeContent() {
             }
           ])
           
-          console.log('🎯 Fotos específicas encontradas en la base de datos:', {
-            editorial: editorialServicePhoto ? `✅ ${editorialServicePhoto.filename}` : '❌ bodypaint_tree-2.JPG no encontrada',
+          console.log('🎯 Services - Fotos diferentes asignadas:', {
+            editorial: editorialServicePhoto ? `✅ ${editorialServicePhoto.filename}` : '❌ bodypaint_tree-2.jpg no encontrada',
             fashion: fashionServicePhoto ? `✅ ${fashionServicePhoto.filename}` : '❌ classy-3.jpg no encontrada', 
             portrait: portraitServicePhoto ? `✅ ${portraitServicePhoto.filename}` : '❌ makeup2-portrait1.jpg no encontrada'
           })
@@ -251,7 +280,7 @@ export default function HomeContent() {
     <>
       <LoadingScreen isLoading={isInitialLoading} />
       
-      <div className="w-full bg-gray-900 text-white">
+      <div className="w-full bg-black text-white">
         <StaggerContainer>
           {/* Hero Section */}
           <StaggerItem>
@@ -260,7 +289,7 @@ export default function HomeContent() {
 
           {/* Statistics Section */}
           <StaggerItem>
-            <section className="py-16 bg-gray-800" id="statistics">
+            <section className="py-16 bg-gray-950" id="statistics">
               <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   <motion.div 
@@ -302,7 +331,7 @@ export default function HomeContent() {
 
           {/* Services Section */}
           <StaggerItem>
-            <section className="py-20 bg-gray-900" id="services">
+            <section className="py-20 bg-black" id="services">
               <div className="container mx-auto px-6">
                 <FadeInUp>
                   <div className="text-center mb-16">
@@ -365,7 +394,7 @@ export default function HomeContent() {
 
           {/* Recent Work Section */}
           <StaggerItem>
-            <section className="py-20 bg-gray-800" id="recent-work">
+            <section className="py-20 bg-gray-950" id="recent-work">
               <div className="container mx-auto px-6">
                 <FadeInUp>
                   <div className="text-center mb-16">

@@ -7,11 +7,11 @@
   --font-inter: 'Inter', sans-serif;
   --font-playfair: 'Playfair Display', serif;
   
-  /* Consistent Dark Color Scheme */
-  --fashion-bg: #151515;          /* Primary background */
-  --fashion-bg-secondary: #16151C; /* Secondary background */
-  --fashion-bg-tertiary: #242424; /* Tertiary background */
-  --fashion-bg-card: #2b2b2b;     /* Card background */
+  /* Ultra Dark Color Scheme - Gama de Negros */
+  --fashion-bg: #000000;          /* Pure black background */
+  --fashion-bg-secondary: #0a0a0a; /* Almost black */
+  --fashion-bg-tertiary: #111111; /* Very dark gray */
+  --fashion-bg-card: #151515;     /* Card background */
   
   /* Text colors */
   --fashion-fg: #FEFEFE;          /* Primary text */
@@ -103,8 +103,57 @@ body {
   letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #080808 !important;
+  background-color: #000000 !important;
   color: #FFFFFF !important;
+}
+
+/* FORZAR GAMA DE NEGROS EN TODA LA WEB */
+.bg-gray-900 {
+  background-color: #000000 !important;
+}
+
+.bg-gray-800 {
+  background-color: #0a0a0a !important;
+}
+
+.bg-gray-950 {
+  background-color: #030303 !important;
+}
+
+.bg-black {
+  background-color: #000000 !important;
+}
+
+/* Forzar fondos de secciones */
+section {
+  background-color: #000000 !important;
+}
+
+section.bg-gray-900 {
+  background-color: #000000 !important;
+}
+
+section.bg-gray-800 {
+  background-color: #0a0a0a !important;
+}
+
+section.bg-gray-950 {
+  background-color: #030303 !important;
+}
+
+/* Forzar todos los divs principales */
+main {
+  background-color: #000000 !important;
+}
+
+/* Layout containers */
+.min-h-screen {
+  background-color: #000000 !important;
+}
+
+/* Override any remaining backgrounds */
+[class*="bg-gray"] {
+  background-color: #000000 !important;
 }
 
 /* Remove default link colors and use custom copper/orange colors */

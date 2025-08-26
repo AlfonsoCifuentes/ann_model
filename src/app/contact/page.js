@@ -170,7 +170,7 @@ Enviado desde el formulario de contacto de ananicoleta.com`
         <div className="bg-fashion-bg text-fashion-fg py-16 lg:py-24">
           <div className="max-w-4xl mx-auto px-8 lg:px-16">
             <div className="text-center mb-12">
-              <h2 className="font-playfair text-3xl lg:text-4xl font-light tracking-wider mb-4">
+              <h2 className="font-inter text-3xl lg:text-4xl font-light tracking-wider mb-4">
                 Ponte en Contacto
               </h2>
               <p className="font-inter text-fashion-fg-secondary font-light max-w-xl mx-auto">
@@ -201,7 +201,7 @@ Enviado desde el formulario de contacto de ananicoleta.com`
                   <input
                     type="text"
                     placeholder="Asunto"
-                    className="w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light rounded-full"
+                    className="font-inter w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light rounded-full"
                   />
                 </div>
                 
@@ -209,7 +209,7 @@ Enviado desde el formulario de contacto de ananicoleta.com`
                   <textarea
                     rows={6}
                     placeholder="Mensaje"
-                    className="w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light resize-none rounded-3xl"
+                    className="font-inter w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light resize-none rounded-3xl"
                   ></textarea>
                 </div>
                 

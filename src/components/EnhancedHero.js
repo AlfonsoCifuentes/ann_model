@@ -8,10 +8,10 @@ import { ChevronDown } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
 
 const heroImages = [
-  '/photos/SVM05701.jpg',
+  '/photos/classy-test.jpg',
   '/photos/SVM05720.jpg',
-  '/photos/SVM05728.jpg',
-  '/photos/SVM05734.jpg',
+  '/photos/geisha.jpg',
+  '/photos/hero-2.jpg',
   '/photos/SVM05741.jpg'
 ]
 
@@ -47,7 +47,11 @@ export default function EnhancedHero() {
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      <div className="absolute inset-0 transform scale-110 translate-x-[5%]">
+      <div className={`absolute inset-0 ${
+        currentImageIndex === 0 || currentImageIndex === 2 || currentImageIndex === 3
+          ? 'scale-100' 
+          : 'scale-110 transform translate-x-[5%]'
+      }`}>
         <AnimatePresence mode="popLayout">
           <motion.div
             key={currentImageIndex}
@@ -61,11 +65,17 @@ export default function EnhancedHero() {
               src={heroImages[currentImageIndex]}
               alt="Ana Nicoleta - Professional Portfolio"
               fill
-              className={`object-cover ${
-                currentImageIndex === heroImages.length - 1
+              className={`${
+                currentImageIndex === 0
+                  ? 'object-cover object-bottom'
+                  : 'object-cover'
+              } ${
+                currentImageIndex === 0
+                  ? ''
+                  : currentImageIndex === heroImages.length - 1
                   ? 'object-center'
-                  : currentImageIndex === 3
-                  ? 'object-[center_25%]'
+                  : currentImageIndex === 2 || currentImageIndex === 3
+                  ? 'object-center'
                   : 'object-top'
               }`}
               priority
@@ -100,12 +110,12 @@ export default function EnhancedHero() {
 
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-16">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link href="/contact" className="btn btn-primary uppercase text-sm tracking-widest">
+                <Link href="/contact" className="btn btn-primary uppercase text-sm tracking-widest h-14 flex items-center justify-center">
                   {t('contactMe')}
                 </Link>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link href="/portfolio" className="btn btn-secondary-hero uppercase text-sm tracking-widest">
+                <Link href="/portfolio" className="btn btn-secondary-hero uppercase text-sm tracking-widest h-14 flex items-center justify-center">
                   {t('viewFullPortfolio')}
                 </Link>
               </motion.div>

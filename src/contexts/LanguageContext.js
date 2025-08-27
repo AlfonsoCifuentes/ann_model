@@ -94,7 +94,7 @@ const translations = {
     
     // Footer
     followMe: 'Sígueme',
-    copyright: '© 2024 Ana Nicoleta. Todos los derechos reservados.',
+    copyright: '© 2025 Ana Nicoleta. Todos los derechos reservados.',
     
     // Additional
     discussProject: 'Discutir Proyecto',
@@ -196,7 +196,7 @@ const translations = {
     
     // Footer
     followMe: 'Follow Me',
-    copyright: '© 2024 Ana Nicoleta. All rights reserved.',
+    copyright: '© 2025 Ana Nicoleta. All rights reserved.',
     
     // Additional
     discussProject: 'Discuss Project',

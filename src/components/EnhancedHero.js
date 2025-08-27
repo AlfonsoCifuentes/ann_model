@@ -71,7 +71,7 @@ export default function EnhancedHero() {
                   : currentImageIndex === 2
                   ? 'object-center md:object-center object-right' // Imagen 3: alineada al borde DERECHO
                   : currentImageIndex === 3
-                  ? 'object-center md:object-center object-[101%]' // Imagen 4: ajuste muy sutil a la derecha
+                  ? 'object-center md:object-center object-right' // Imagen 4: alineada al borde DERECHO
                   : currentImageIndex === heroImages.length - 1
                   ? 'object-center'
                   : 'object-top'

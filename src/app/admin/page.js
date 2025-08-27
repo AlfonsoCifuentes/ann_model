@@ -58,32 +58,53 @@ export default function AdminPage() {
 
   // Mostrar panel de admin si está autenticado
   return (
-    <div className="min-h-screen bg-fashion-bg py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-fashion-bg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-8">
         {/* Header */}
-        <div className="bg-fashion-bg-secondary rounded-lg shadow-sm border border-fashion-bg-tertiary mb-8">
-          <div className="px-6 py-4 border-b border-fashion-bg-tertiary">
-            <div className="flex justify-between items-center">
-              <div>
-                <h1 className="text-3xl font-bold text-fashion-fg">
+        <div className="bg-fashion-bg-secondary rounded-lg shadow-sm border border-fashion-bg-tertiary mb-4 lg:mb-8">
+          <div className="px-4 sm:px-6 py-4 border-b border-fashion-bg-tertiary">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+              <div className="flex-1 min-w-0">
+                <h1 className="text-2xl sm:text-3xl font-bold text-fashion-fg truncate">
                   Panel de Administración
                 </h1>
-                <p className="mt-2 text-fashion-fg-secondary">
+                <p className="mt-1 sm:mt-2 text-sm sm:text-base text-fashion-fg-secondary">
                   Gestiona el contenido de tu portfolio profesional
                 </p>
               </div>
               <button
                 onClick={logout}
-                className="flex items-center space-x-2 px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-400 rounded-lg transition-colors"
+                className="flex items-center justify-center space-x-2 px-3 sm:px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-400 rounded-lg transition-colors text-sm shrink-0"
               >
                 <LogOut className="w-4 h-4" />
-                <span>Cerrar Sesión</span>
+                <span className="hidden sm:inline">Cerrar Sesión</span>
+                <span className="sm:hidden">Salir</span>
               </button>
             </div>
           </div>
 
-          {/* Tabs */}
-          <div className="px-6">
+          {/* Mobile Tabs - Vertical stack */}
+          <div className="px-4 sm:px-6 lg:hidden">
+            <nav className="grid grid-cols-1 gap-2 py-2" aria-label="Tabs">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center space-x-2 px-3 py-3 rounded-lg font-medium text-sm transition-colors ${
+                    activeTab === tab.id
+                      ? 'bg-fashion-rose/20 text-fashion-rose border border-fashion-rose/30'
+                      : 'bg-fashion-bg-tertiary text-fashion-fg-muted hover:text-fashion-fg hover:bg-fashion-bg-tertiary/80 border border-transparent'
+                  }`}
+                >
+                  <span>{tab.icon}</span>
+                  <span>{tab.name}</span>
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          {/* Desktop Tabs */}
+          <div className="px-6 hidden lg:block">
             <nav className="-mb-px flex space-x-8" aria-label="Tabs">
               {tabs.map((tab) => (
                 <button
@@ -105,15 +126,15 @@ export default function AdminPage() {
 
         {/* Content */}
         <div className="bg-fashion-bg-secondary rounded-lg shadow-sm border border-fashion-bg-tertiary">
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             {renderActiveComponent()}
           </div>
         </div>
 
-        {/* Footer Info */}
-        <div className="mt-8 bg-fashion-bg-tertiary border border-fashion-rose/30 rounded-lg p-4">
-          <h3 className="font-semibold text-fashion-rose mb-2">🚀 Guía Rápida de Administración</h3>
-          <div className="text-sm text-fashion-fg-secondary space-y-1">
+        {/* Footer Info - Collapsible on mobile */}
+        <div className="mt-4 lg:mt-8 bg-fashion-bg-tertiary border border-fashion-rose/30 rounded-lg p-4">
+          <h3 className="font-semibold text-fashion-rose mb-2 text-sm sm:text-base">🚀 Guía Rápida de Administración</h3>
+          <div className="text-xs sm:text-sm text-fashion-fg-secondary space-y-1">
             <p><strong>📤 Subir Fotos:</strong> Sube nuevas fotos agrupándolas por nombre de trabajo</p>
             <p><strong>🎭 Hero Principal:</strong> Selecciona las 5 mejores fotos para el carrusel principal</p>
             <p><strong>⭐ Trabajos Destacados:</strong> Marca hasta 2 colecciones para mostrar en la página principal</p>

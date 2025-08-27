@@ -157,29 +157,29 @@ const PhotoManager = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-fashion-bg-tertiary p-6 rounded-lg border border-fashion-rose/30">
-        <h2 className="text-2xl font-bold text-fashion-fg mb-2">
+      <div className="bg-fashion-bg-tertiary p-4 sm:p-6 rounded-lg border border-fashion-rose/30">
+        <h2 className="text-xl sm:text-2xl font-bold text-fashion-fg mb-2">
           📸 Gestión de Fotos
         </h2>
-        <p className="text-fashion-fg-secondary mb-4">
+        <p className="text-sm sm:text-base text-fashion-fg-secondary mb-4">
           Administra todas tus fotos: ver, editar, archivar y eliminar
         </p>
         
         {/* Estadísticas */}
-        <div className="flex flex-wrap gap-3 text-sm">
-          <span className="bg-blue-900/30 text-blue-400 px-3 py-1 rounded-full border border-blue-500/30">
+        <div className="flex flex-wrap gap-2 sm:gap-3 text-xs sm:text-sm">
+          <span className="bg-blue-900/30 text-blue-400 px-2 sm:px-3 py-1 rounded-full border border-blue-500/30">
             Total: {stats.total}
           </span>
-          <span className="bg-green-900/30 text-green-400 px-3 py-1 rounded-full border border-green-500/30">
+          <span className="bg-green-900/30 text-green-400 px-2 sm:px-3 py-1 rounded-full border border-green-500/30">
             Activas: {stats.active}
           </span>
-          <span className="bg-fashion-bg-secondary text-fashion-fg-muted px-3 py-1 rounded-full border border-fashion-rose/20">
+          <span className="bg-fashion-bg-secondary text-fashion-fg-muted px-2 sm:px-3 py-1 rounded-full border border-fashion-rose/20">
             Archivadas: {stats.archived}
           </span>
-          <span className="bg-fashion-rose/20 text-fashion-rose px-3 py-1 rounded-full border border-fashion-rose/30">
+          <span className="bg-fashion-rose/20 text-fashion-rose px-2 sm:px-3 py-1 rounded-full border border-fashion-rose/30">
             Hero: {stats.hero}
           </span>
-          <span className="bg-purple-900/30 text-purple-400 px-3 py-1 rounded-full border border-purple-500/30">
+          <span className="bg-purple-900/30 text-purple-400 px-2 sm:px-3 py-1 rounded-full border border-purple-500/30">
             Destacadas: {stats.featured}
           </span>
         </div>
@@ -187,17 +187,17 @@ const PhotoManager = () => {
 
       {error && (
         <div className="bg-red-900/50 border border-red-500/50 rounded-lg p-4">
-          <p className="text-red-300">{error}</p>
+          <p className="text-red-300 text-sm sm:text-base">{error}</p>
         </div>
       )}
 
       {/* Filtros y búsqueda */}
-      <div className="bg-fashion-bg-secondary rounded-lg border border-fashion-bg-tertiary p-6">
-        <h3 className="text-lg font-semibold text-fashion-fg mb-4">
+      <div className="bg-fashion-bg-secondary rounded-lg border border-fashion-bg-tertiary p-4 sm:p-6">
+        <h3 className="text-base sm:text-lg font-semibold text-fashion-fg mb-4">
           🔍 Filtros y Búsqueda
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-1 lg:grid-cols-3 sm:gap-4">
           {/* Búsqueda */}
           <div>
             <label className="block text-sm font-medium text-fashion-fg mb-2">
@@ -258,11 +258,11 @@ const PhotoManager = () => {
       {/* Lista de fotos */}
       <div className="bg-fashion-bg-secondary rounded-lg border border-fashion-bg-tertiary p-6">
         {filteredPhotos.length === 0 ? (
-          <div className="text-center py-12 text-fashion-fg-muted">
-            <p>No se encontraron fotos con los filtros aplicados.</p>
+          <div className="text-center py-8 sm:py-12 text-fashion-fg-muted">
+            <p className="text-sm sm:text-base">No se encontraron fotos con los filtros aplicados.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4">
             {filteredPhotos.map((photo) => (
               <div key={photo._id} className="group border border-fashion-rose/20 rounded-lg overflow-hidden hover:border-fashion-rose/40 transition-all duration-200 bg-fashion-bg-tertiary">
                 <div className="relative aspect-[4/5] bg-fashion-bg">
@@ -276,30 +276,30 @@ const PhotoManager = () => {
                   />
                   
                   {/* Status badges */}
-                  <div className="absolute top-2 left-2 flex flex-col gap-1">
+                  <div className="absolute top-1 sm:top-2 left-1 sm:left-2 flex flex-col gap-1">
                     {photo.isHero && (
-                      <span className="bg-fashion-rose text-fashion-bg px-2 py-1 rounded text-xs font-semibold">
+                      <span className="bg-fashion-rose text-fashion-bg px-1 sm:px-2 py-0.5 sm:py-1 rounded text-xs font-semibold">
                         Hero
                       </span>
                     )}
                     {photo.featuredInHome && (
-                      <span className="bg-purple-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                      <span className="bg-purple-600 text-white px-1 sm:px-2 py-0.5 sm:py-1 rounded text-xs font-semibold">
                         Destacada
                       </span>
                     )}
                     {photo.status === 'archived' && (
-                      <span className="bg-fashion-bg-secondary text-fashion-fg-muted px-2 py-1 rounded text-xs font-semibold">
+                      <span className="bg-fashion-bg-secondary text-fashion-fg-muted px-1 sm:px-2 py-0.5 sm:py-1 rounded text-xs font-semibold">
                         Archivada
                       </span>
                     )}
                   </div>
 
-                  {/* Action buttons */}
-                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-1">
+                  {/* Action buttons - Always visible on mobile, hover on desktop */}
+                  <div className="absolute top-1 sm:top-2 right-1 sm:right-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex flex-col gap-1">
                     {photo.status === 'active' ? (
                       <button
                         onClick={() => handleStatusChange(photo._id, 'archived')}
-                        className="bg-yellow-600 hover:bg-yellow-700 text-white p-1.5 rounded-full text-xs transition-colors"
+                        className="bg-yellow-600 hover:bg-yellow-700 text-white p-1 sm:p-1.5 rounded-full text-xs transition-colors touch-manipulation"
                         title="Archivar"
                       >
                         📦
@@ -307,7 +307,7 @@ const PhotoManager = () => {
                     ) : (
                       <button
                         onClick={() => handleStatusChange(photo._id, 'active')}
-                        className="bg-green-600 hover:bg-green-700 text-white p-1.5 rounded-full text-xs transition-colors"
+                        className="bg-green-600 hover:bg-green-700 text-white p-1 sm:p-1.5 rounded-full text-xs transition-colors touch-manipulation"
                         title="Activar"
                       >
                         ✅
@@ -317,7 +317,7 @@ const PhotoManager = () => {
                     <button
                       onClick={() => handleDelete(photo._id)}
                       disabled={deleting === photo._id}
-                      className="bg-red-600 hover:bg-red-700 text-white p-1.5 rounded-full text-xs transition-colors disabled:opacity-50"
+                      className="bg-red-600 hover:bg-red-700 text-white p-1 sm:p-1.5 rounded-full text-xs transition-colors disabled:opacity-50 touch-manipulation"
                       title="Eliminar"
                     >
                       {deleting === photo._id ? '⏳' : '🗑️'}
@@ -326,28 +326,28 @@ const PhotoManager = () => {
                 </div>
                 
                 {/* Photo info */}
-                <div className="p-3">
-                  <h4 className="font-semibold text-fashion-fg text-sm mb-1 truncate">
+                <div className="p-2 sm:p-3">
+                  <h4 className="font-semibold text-fashion-fg text-xs sm:text-sm mb-1 truncate">
                     {photo.title}
                   </h4>
-                  <p className="text-xs text-fashion-fg-secondary mb-2 truncate">
+                  <p className="text-xs text-fashion-fg-secondary mb-1 sm:mb-2 truncate">
                     {photo.category} • {formatDate(photo.createdAt)}
                   </p>
                   
                   {photo.description && (
-                    <p className="text-xs text-fashion-fg-muted line-clamp-2 mb-2">
+                    <p className="text-xs text-fashion-fg-muted line-clamp-2 mb-1 sm:mb-2 hidden sm:block">
                       {photo.description}
                     </p>
                   )}
                   
                   {photo.metadata?.size && (
-                    <p className="text-xs text-fashion-fg-muted">
+                    <p className="text-xs text-fashion-fg-muted hidden sm:block">
                       {formatFileSize(photo.metadata.size)}
                     </p>
                   )}
                   
                   {photo.tags && photo.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-2">
+                    <div className="flex flex-wrap gap-1 mt-1 sm:mt-2 hidden sm:flex">
                       {photo.tags.slice(0, 2).map((tag, index) => (
                         <span
                           key={index}

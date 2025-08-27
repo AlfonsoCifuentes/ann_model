@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function RecentWorks() {
+  const { t } = useLanguage()
   const [recentWorks, setRecentWorks] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -85,10 +87,10 @@ export default function RecentWorks() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-light mb-6 text-gray-800">
-            Trabajos Recientes
+            {t('recentWork')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Una selección de mis últimos proyectos artísticos y colaboraciones profesionales
+            {t('recentWorkSubtitle')}
           </p>
         </motion.div>
 
@@ -150,7 +152,7 @@ export default function RecentWorks() {
               href="/portfolio"
               className="inline-flex items-center px-8 py-3 border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white transition-colors duration-300 rounded-full"
             >
-              Ver Todo el Portfolio
+              {t('viewAllWork')}
               <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

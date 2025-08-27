@@ -104,7 +104,56 @@ const translations = {
     // Language Toggle
     language: 'Idioma',
     spanish: 'Español',
-    english: 'English'
+    english: 'English',
+
+    // Blog specific translations
+    behindScenes: 'Perspectivas detrás de escena, consejos de modelaje y reflexiones personales de mi trayectoria en la industria de la moda.',
+    featuredArticle: 'Artículo Destacado',
+    readFullArticle: 'Leer Artículo Completo',
+    moreArticles: 'Más Artículos',
+    comingSoon: 'Próximamente',
+    discoverMore: 'Descubre más contenido',
+    moreArticlesInDev: 'Más artículos y reflexiones en desarrollo',
+    stayUpdatedFemale: 'Mantente Actualizada',
+    subscribeUpdates: 'Suscríbete para recibir las últimas actualizaciones sobre mis proyectos y reflexiones del mundo de la moda.',
+    yourEmail: 'Tu correo electrónico',
+    subscribeButton: 'Suscribirse',
+    articleNotFound: 'Artículo no encontrado',
+    articleNotFoundDesc: 'Lo sentimos, no pudimos encontrar el artículo que buscas.',
+    backToBlog: 'Volver al Blog',
+    
+    // Contact page translations
+    workTogether: 'Trabajemos Juntos',
+    generalInquiries: 'Consultas Generales',
+    bookingsCollaborations: 'Para reservas, colaboraciones y consultas generales',
+    socialNetworks: 'Redes Sociales',
+    getInTouchContact: 'Ponte en Contacto',
+    readyToStart: '¿Listo para comenzar un proyecto? Envíame un mensaje y hablemos sobre tu visión.',
+    namePlaceholder: 'Nombre',
+    emailPlaceholder: 'Email',
+    subjectPlaceholder: 'Asunto',
+    messagePlaceholder: 'Mensaje',
+    sendMessage: 'ENVIAR MENSAJE',
+    
+    // Portfolio page translations
+    artisticPhotos: 'Colección de fotografías artísticas',
+    allCategories: 'Todos los Trabajos',
+    editorialCat: 'Editorial',
+    fashionCat: 'Moda',
+    portraitCat: 'Retrato',
+    commercialCat: 'Comercial',
+    
+    // Footer translations
+    contactFooter: 'Contacto',
+    allRightsReserved: 'Todos los derechos reservados',
+    
+    // About page additional translations
+    aboutExtended1: 'Mi carrera me ha llevado a trabajar en diversos proyectos internacionales.',
+    aboutExtended2: 'Con años de experiencia en la industria de la moda y el entretenimiento, me especializo en fotografía editorial, desfiles de moda, campañas comerciales y proyectos de actuación.',
+    aboutExtended3: 'Mi trabajo ha sido destacado en importantes publicaciones de moda y he colaborado con reconocidos fotógrafos y directores de todo el mundo.',
+    
+    // CTA Section
+    bookSession: 'Reservar Sesión'
   },
   en: {
     // Navigation
@@ -206,7 +255,56 @@ const translations = {
     // Language Toggle
     language: 'Language',
     spanish: 'Español',
-    english: 'English'
+    english: 'English',
+
+    // Blog specific translations
+    behindScenes: 'Behind the scenes insights, modeling tips, and personal reflections from my journey in the fashion industry.',
+    featuredArticle: 'Featured Article',
+    readFullArticle: 'Read Full Article',
+    moreArticles: 'More Articles',
+    comingSoon: 'Coming Soon',
+    discoverMore: 'Discover more content',
+    moreArticlesInDev: 'More articles and reflections in development',
+    stayUpdatedFemale: 'Stay Updated',
+    subscribeUpdates: 'Subscribe to receive the latest updates about my projects and reflections from the fashion world.',
+    yourEmail: 'Your email address',
+    subscribeButton: 'Subscribe',
+    articleNotFound: 'Article Not Found',
+    articleNotFoundDesc: 'Sorry, we couldn\'t find the article you\'re looking for.',
+    backToBlog: 'Back to Blog',
+    
+    // Contact page translations
+    workTogether: 'Let\'s Work Together',
+    generalInquiries: 'General Inquiries',
+    bookingsCollaborations: 'For bookings, collaborations and general inquiries',
+    socialNetworks: 'Social Networks',
+    getInTouchContact: 'Get in Touch',
+    readyToStart: 'Ready to start a project? Send me a message and let\'s talk about your vision.',
+    namePlaceholder: 'Name',
+    emailPlaceholder: 'Email',
+    subjectPlaceholder: 'Subject',
+    messagePlaceholder: 'Message',
+    sendMessage: 'SEND MESSAGE',
+    
+    // Portfolio page translations
+    artisticPhotos: 'Artistic photography collection',
+    allCategories: 'All Work',
+    editorialCat: 'Editorial',
+    fashionCat: 'Fashion',
+    portraitCat: 'Portrait',
+    commercialCat: 'Commercial',
+    
+    // Footer translations
+    contactFooter: 'Contact',
+    allRightsReserved: 'All rights reserved',
+    
+    // About page additional translations
+    aboutExtended1: 'My career has taken me to work on diverse international projects.',
+    aboutExtended2: 'With years of experience in the fashion and entertainment industry, I specialize in editorial photography, runway shows, commercial campaigns and acting projects.',
+    aboutExtended3: 'My work has been featured in major fashion publications and I have collaborated with renowned photographers and directors from around the world.',
+    
+    // CTA Section
+    bookSession: 'Book Session'
   }
 }
 

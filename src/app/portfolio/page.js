@@ -1,13 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import MainLayout from '../../components/MainLayout'
 import Lightbox from '../../components/Lightbox'
 import OptimizedImage from '../../components/OptimizedImage'
+import { useLanguage } from '../../contexts/LanguageContext'
 
-export default function PortfolioPage() {
+function PortfolioContent() {
+  const { t } = useLanguage()
   const searchParams = useSearchParams()
   const filterParam = searchParams.get('filter')
   
@@ -76,7 +78,7 @@ export default function PortfolioPage() {
               collections.set(normId, {
                 id: normId,
                 title: formattedName,
-                description: photo.description || 'Colección de fotografías artísticas',
+                description: photo.description || t('artisticPhotos'),
                 category: photo.category,
                 photos: [],
                 coverImage: photo.imageUrl
@@ -189,7 +191,7 @@ export default function PortfolioPage() {
     }
     
     fetchWorkCollections()
-  }, [filterParam])
+  }, [filterParam, t])
 
   const formatCollectionName = (collectionId) => {
     // Casos especiales de nombres
@@ -287,10 +289,10 @@ export default function PortfolioPage() {
 
   const getCategoryLabel = (category) => {
     const labels = {
-      editorial: 'Editorial',
-      fashion: 'Moda',
-      portrait: 'Retrato',
-      commercial: 'Comercial'
+      editorial: t('editorialCat'),
+      fashion: t('fashionCat'),
+      portrait: t('portraitCat'),
+      commercial: t('commercialCat')
     }
     return labels[category] || category
   }
@@ -307,10 +309,10 @@ export default function PortfolioPage() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="font-inter text-5xl md:text-6xl font-light mb-6 text-fashion-fg tracking-wide">
-              Portfolio
+              {t('portfolioTitle')}
             </h1>
             <p className="font-inter text-xl text-fashion-fg-secondary max-w-3xl mx-auto">
-              Una colección curada de mis trabajos más representativos, organizados por proyectos y estilos artísticos.
+              {t('portfolioDescription')}
             </p>
           </motion.div>
 
@@ -331,7 +333,7 @@ export default function PortfolioPage() {
                     : 'bg-fashion-bg-secondary text-fashion-fg-secondary hover:bg-fashion-bg-tertiary'
                 }`}
               >
-                {category === 'all' ? 'Todos los Trabajos' : getCategoryLabel(category)}
+                {category === 'all' ? t('allCategories') : getCategoryLabel(category)}
               </button>
             ))}
           </motion.div>
@@ -446,5 +448,19 @@ export default function PortfolioPage() {
         />
       </div>
     </MainLayout>
+  )
+}
+
+export default function PortfolioPage() {
+  return (
+    <Suspense fallback={
+      <MainLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-fashion-rose"></div>
+        </div>
+      </MainLayout>
+    }>
+      <PortfolioContent />
+    </Suspense>
   )
 }

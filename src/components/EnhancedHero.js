@@ -65,16 +65,14 @@ export default function EnhancedHero() {
               src={heroImages[currentImageIndex]}
               alt="Ana Nicoleta - Professional Portfolio"
               fill
-              className={`${
+              className={`object-cover ${
                 currentImageIndex === 0
-                  ? 'object-cover object-bottom'
-                  : 'object-cover'
-              } ${
-                currentImageIndex === 0
-                  ? ''
+                  ? 'object-bottom md:object-bottom object-left' // Imagen 1: hacia la IZQUIERDA en móvil
+                  : currentImageIndex === 2
+                  ? 'object-center md:object-center object-[75%]' // Imagen 3: más hacia la DERECHA (75% desde la izquierda)
+                  : currentImageIndex === 3
+                  ? 'object-center md:object-center object-right' // Imagen 4: hacia la DERECHA en móvil
                   : currentImageIndex === heroImages.length - 1
-                  ? 'object-center'
-                  : currentImageIndex === 2 || currentImageIndex === 3
                   ? 'object-center'
                   : 'object-top'
               }`}

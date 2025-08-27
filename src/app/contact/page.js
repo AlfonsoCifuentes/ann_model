@@ -90,7 +90,7 @@ Enviado desde el formulario de contacto de ananicoleta.com`
             <div className="max-w-lg">
               <FadeInUp>
                 <h1 className="font-inter font-light tracking-widest text-3xl lg:text-4xl mb-8 uppercase">
-                  Trabajemos Juntos
+                  {t('workTogether')}
                 </h1>
               </FadeInUp>
               
@@ -98,10 +98,10 @@ Enviado desde el formulario de contacto de ananicoleta.com`
                 <StaggerItem>
                   <div>
                     <h3 className="font-inter font-light tracking-wider text-lg mb-4 uppercase">
-                      Consultas Generales
+                      {t('generalInquiries')}
                     </h3>
                     <p className="font-inter text-fashion-fg-secondary font-light mb-2 tracking-wide">
-                      Para reservas, colaboraciones y consultas generales
+                      {t('bookingsCollaborations')}
                     </p>
                     <a 
                       href="mailto:anngsesiones@gmail.com"
@@ -116,11 +116,11 @@ Enviado desde el formulario de contacto de ananicoleta.com`
                 <StaggerItem>
                   <div>
                     <h3 className="font-inter font-light tracking-wider text-lg mb-4 uppercase">
-                      Ubicación
+                      {t('location')}
                     </h3>
                     <p className="text-fashion-fg-secondary font-light font-inter tracking-wide">
-                      Con base en España<br />
-                      Disponible en todo el mundo para proyectos
+                      {t('basedInSpain')}<br />
+                      {t('availableWorldwide')}
                     </p>
                   </div>
                 </StaggerItem>
@@ -128,7 +128,7 @@ Enviado desde el formulario de contacto de ananicoleta.com`
                 <StaggerItem>
                   <div>
                     <h3 className="font-inter font-light tracking-wider text-lg mb-4 uppercase">
-                      Redes Sociales
+                      {t('socialNetworks')}
                     </h3>
                     <div className="flex space-x-4">
                       <a 
@@ -171,10 +171,10 @@ Enviado desde el formulario de contacto de ananicoleta.com`
           <div className="max-w-4xl mx-auto px-8 lg:px-16">
             <div className="text-center mb-12">
               <h2 className="font-inter text-3xl lg:text-4xl font-light tracking-wider mb-4">
-                Ponte en Contacto
+                {t('getInTouchContact')}
               </h2>
               <p className="font-inter text-fashion-fg-secondary font-light max-w-xl mx-auto">
-                ¿Listo para comenzar un proyecto? Envíame un mensaje y hablemos sobre tu visión.
+                {t('readyToStart')}
               </p>
             </div>
 
@@ -184,14 +184,14 @@ Enviado desde el formulario de contacto de ananicoleta.com`
                   <div>
                     <input
                       type="text"
-                      placeholder="Nombre"
+                      placeholder={t('namePlaceholder')}
                       className="font-inter w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light rounded-full"
                     />
                   </div>
                   <div>
                     <input
                       type="email"
-                      placeholder="Email"
+                      placeholder={t('emailPlaceholder')}
                       className="font-inter w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light rounded-full"
                     />
                   </div>
@@ -200,7 +200,7 @@ Enviado desde el formulario de contacto de ananicoleta.com`
                 <div>
                   <input
                     type="text"
-                    placeholder="Asunto"
+                    placeholder={t('subjectPlaceholder')}
                     className="font-inter w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light rounded-full"
                   />
                 </div>
@@ -208,7 +208,7 @@ Enviado desde el formulario de contacto de ananicoleta.com`
                 <div>
                   <textarea
                     rows={6}
-                    placeholder="Mensaje"
+                    placeholder={t('messagePlaceholder')}
                     className="font-inter w-full px-4 py-3 bg-transparent border border-fashion-fg-muted text-fashion-fg placeholder-fashion-fg-muted focus:border-fashion-rose focus:outline-none transition-colors font-light resize-none rounded-3xl"
                   ></textarea>
                 </div>
@@ -218,7 +218,7 @@ Enviado desde el formulario de contacto de ananicoleta.com`
                     type="submit"
                     className="btn-fashion btn-fashion-primary"
                   >
-                    ENVIAR MENSAJE
+                    {t('sendMessage')}
                   </button>
                 </div>
               </form>

@@ -6,9 +6,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, Clock, Calendar } from 'lucide-react'
 import MainLayout from '../../../components/MainLayout'
+import { useLanguage } from '../../../contexts/LanguageContext'
 import { FadeInUp } from '../../../components/animations/MicroAnimations'
 
 export default function BlogPostPage() {
+  const { t } = useLanguage()
   const params = useParams()
   const router = useRouter()
   const { slug } = params
@@ -25,15 +27,15 @@ export default function BlogPostPage() {
       if (result.success) {
         setPost(result.data)
       } else {
-        setError('Artículo no encontrado')
+        setError(t('articleNotFound'))
       }
     } catch (error) {
       console.error('Error fetching post:', error)
-      setError('Error al cargar el artículo')
+      setError(t('articleNotFound'))
     } finally {
       setLoading(false)
     }
-  }, [slug])
+  }, [slug, t])
 
   useEffect(() => {
     if (slug) {
@@ -79,17 +81,17 @@ export default function BlogPostPage() {
           <div className="max-w-4xl mx-auto px-8 lg:px-16 text-center">
             <FadeInUp>
               <h1 className="text-4xl font-light mb-8 text-fashion-fg">
-                Artículo no encontrado
+                {t('articleNotFound')}
               </h1>
               <p className="text-fashion-fg-secondary mb-8">
-                Lo sentimos, no pudimos encontrar el artículo que buscas.
+                {t('articleNotFoundDesc')}
               </p>
               <Link 
                 href="/blog"
                 className="inline-flex items-center space-x-2 px-8 py-3 border border-fashion-rose text-fashion-rose hover:bg-fashion-rose hover:text-fashion-bg transition-colors tracking-wide font-light rounded-full"
               >
                 <ArrowLeft size={16} />
-                <span>Volver al Blog</span>
+                <span>{t('backToBlog')}</span>
               </Link>
             </FadeInUp>
           </div>
@@ -109,7 +111,7 @@ export default function BlogPostPage() {
             className="inline-flex items-center space-x-2 text-fashion-fg-secondary hover:text-fashion-rose transition-colors"
           >
             <ArrowLeft size={16} />
-            <span>Volver al Blog</span>
+            <span>{t('backToBlog')}</span>
           </Link>
         </div>
 

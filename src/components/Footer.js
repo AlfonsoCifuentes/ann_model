@@ -157,7 +157,7 @@ export default function Footer() {
               <FadeInUp delay={0.4}>
                 <div className="flex flex-col">
                   <h4 className="font-medium text-base mb-4 tracking-wide text-white">
-                    Contacto
+                    {t('contactFooter')}
                   </h4>
                   <div className="mb-6">
                     <p className="text-[#b8b8b8] text-sm flex items-center leading-6">
@@ -172,7 +172,7 @@ export default function Footer() {
                       © 2025 Ana Nicoleta
                     </p>
                     <p className="text-[#888] text-xs leading-5">
-                      Todos los derechos reservados
+                      {t('allRightsReserved')}
                     </p>
                   </div>
                 </div>

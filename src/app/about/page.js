@@ -28,23 +28,19 @@ export default function AboutPage() {
               <StaggerContainer className="space-y-6 text-fashion-fg-secondary leading-relaxed tracking-wide">
                 <StaggerItem>
                   <p>
-                    {t('aboutDescription')} Mi carrera me ha llevado a trabajar 
-                    en diversos proyectos internacionales.
+                    {t('aboutDescription')} {t('aboutExtended1')}
                   </p>
                 </StaggerItem>
                 
                 <StaggerItem>
                   <p>
-                    Con años de experiencia en la industria de la moda y el entretenimiento, 
-                    me especializo en fotografía editorial, desfiles de moda, campañas comerciales 
-                    y proyectos de actuación.
+                    {t('aboutExtended2')}
                   </p>
                 </StaggerItem>
                 
                 <StaggerItem>
                   <p>
-                    Mi trabajo ha sido destacado en importantes publicaciones de moda y he 
-                    colaborado con reconocidos fotógrafos y directores de todo el mundo.
+                    {t('aboutExtended3')}
                   </p>
                 </StaggerItem>
               </StaggerContainer>
@@ -92,30 +88,30 @@ export default function AboutPage() {
               
               {/* Professional Details */}
               <StaggerItem>
-                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-8 h-80 flex flex-col shadow-xl">
+                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-6 lg:p-8 min-h-[280px] flex flex-col shadow-xl">
                   <div className="flex items-center mb-6">
-                    <div className="w-1 h-6 bg-orange-500 mr-4"></div>
-                    <h3 className="text-xl font-light tracking-wide text-neutral-100">
+                    <div className="w-1 h-6 bg-orange-500 mr-4 flex-shrink-0"></div>
+                    <h3 className="text-lg lg:text-xl font-light tracking-wide text-neutral-100 break-words">
                       {t('professionalDetails')}
                     </h3>
                   </div>
                   
-                  <div className="flex-1 space-y-4">
-                    <div className="flex justify-between items-center py-2 border-b border-neutral-800">
-                      <span className="text-neutral-400 font-light">{t('height')}</span>
-                      <span className="text-orange-500 font-medium">175 cm</span>
+                  <div className="flex-1 space-y-3 lg:space-y-4">
+                    <div className="flex justify-between items-center py-2 border-b border-neutral-800 min-h-[44px]">
+                      <span className="text-neutral-400 font-light text-sm lg:text-base break-words pr-2">{t('height')}</span>
+                      <span className="text-orange-500 font-medium text-sm lg:text-base flex-shrink-0">175 cm</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-neutral-800">
-                      <span className="text-neutral-400 font-light">{t('eyes')}</span>
-                      <span className="text-orange-500 font-medium">{t('green')}</span>
+                    <div className="flex justify-between items-center py-2 border-b border-neutral-800 min-h-[44px]">
+                      <span className="text-neutral-400 font-light text-sm lg:text-base break-words pr-2">{t('eyes')}</span>
+                      <span className="text-orange-500 font-medium text-sm lg:text-base flex-shrink-0">{t('green')}</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-neutral-800">
-                      <span className="text-neutral-400 font-light">{t('hair')}</span>
-                      <span className="text-orange-500 font-medium">{t('darkBrown')}</span>
+                    <div className="flex justify-between items-center py-2 border-b border-neutral-800 min-h-[44px]">
+                      <span className="text-neutral-400 font-light text-sm lg:text-base break-words pr-2">{t('hair')}</span>
+                      <span className="text-orange-500 font-medium text-sm lg:text-base flex-shrink-0">{t('darkBrown')}</span>
                     </div>
-                    <div className="flex justify-between items-center py-2">
-                      <span className="text-neutral-400 font-light">{t('shoe')}</span>
-                      <span className="text-orange-500 font-medium">EU 38</span>
+                    <div className="flex justify-between items-center py-2 min-h-[44px]">
+                      <span className="text-neutral-400 font-light text-sm lg:text-base break-words pr-2">{t('shoe')}</span>
+                      <span className="text-orange-500 font-medium text-sm lg:text-base flex-shrink-0">EU 38</span>
                     </div>
                   </div>
                 </div>
@@ -123,34 +119,34 @@ export default function AboutPage() {
 
               {/* Experience */}
               <StaggerItem>
-                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-8 h-80 flex flex-col shadow-xl">
+                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-6 lg:p-8 min-h-[280px] flex flex-col shadow-xl">
                   <div className="flex items-center mb-6">
-                    <div className="w-1 h-6 bg-orange-500 mr-4"></div>
-                    <h3 className="text-xl font-light tracking-wide text-neutral-100">
+                    <div className="w-1 h-6 bg-orange-500 mr-4 flex-shrink-0"></div>
+                    <h3 className="text-lg lg:text-xl font-light tracking-wide text-neutral-100 break-words">
                       {t('experience')}
                     </h3>
                   </div>
                   
-                  <div className="flex-1 space-y-3">
-                    <div className="flex items-center py-1 text-neutral-400">
-                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
-                      <span className="font-light text-sm">{t('editorialPhotography')}</span>
+                  <div className="flex-1 space-y-2 lg:space-y-3">
+                    <div className="flex items-start py-1 text-neutral-400 min-h-[32px]">
+                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                      <span className="font-light text-sm break-words leading-relaxed">{t('editorialPhotography')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-neutral-400">
-                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
-                      <span className="font-light text-sm">{t('runwayShows')}</span>
+                    <div className="flex items-start py-1 text-neutral-400 min-h-[32px]">
+                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                      <span className="font-light text-sm break-words leading-relaxed">{t('runwayShows')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-neutral-400">
-                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
-                      <span className="font-light text-sm">{t('commercialCampaigns')}</span>
+                    <div className="flex items-start py-1 text-neutral-400 min-h-[32px]">
+                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                      <span className="font-light text-sm break-words leading-relaxed">{t('commercialCampaigns')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-neutral-400">
-                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
-                      <span className="font-light text-sm">{t('actingProjects')}</span>
+                    <div className="flex items-start py-1 text-neutral-400 min-h-[32px]">
+                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                      <span className="font-light text-sm break-words leading-relaxed">{t('actingProjects')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-neutral-400">
-                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
-                      <span className="font-light text-sm">{t('internationalWork')}</span>
+                    <div className="flex items-start py-1 text-neutral-400 min-h-[32px]">
+                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                      <span className="font-light text-sm break-words leading-relaxed">{t('internationalWork')}</span>
                     </div>
                   </div>
                 </div>
@@ -158,26 +154,26 @@ export default function AboutPage() {
 
               {/* Location */}
               <StaggerItem>
-                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-8 h-80 flex flex-col shadow-xl">
+                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-6 lg:p-8 min-h-[280px] flex flex-col shadow-xl">
                   <div className="flex items-center mb-6">
-                    <div className="w-1 h-6 bg-orange-500 mr-4"></div>
-                    <h3 className="text-xl font-light tracking-wide text-neutral-100">
+                    <div className="w-1 h-6 bg-orange-500 mr-4 flex-shrink-0"></div>
+                    <h3 className="text-lg lg:text-xl font-light tracking-wide text-neutral-100 break-words">
                       {t('location')}
                     </h3>
                   </div>
                   
-                  <div className="flex-1 space-y-3">
-                    <div className="flex items-center py-1 text-neutral-400">
-                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
-                      <span className="font-light text-sm">{t('basedInSpain')}</span>
+                  <div className="flex-1 space-y-2 lg:space-y-3">
+                    <div className="flex items-start py-1 text-neutral-400 min-h-[32px]">
+                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                      <span className="font-light text-sm break-words leading-relaxed">{t('basedInSpain')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-neutral-400">
-                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
-                      <span className="font-light text-sm">{t('availableWorldwide')}</span>
+                    <div className="flex items-start py-1 text-neutral-400 min-h-[32px]">
+                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                      <span className="font-light text-sm break-words leading-relaxed">{t('availableWorldwide')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-neutral-400">
-                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
-                      <span className="font-light text-sm">{t('fluentLanguages')}</span>
+                    <div className="flex items-start py-1 text-neutral-400 min-h-[32px]">
+                      <div className="w-1 h-1 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                      <span className="font-light text-sm break-words leading-relaxed">{t('fluentLanguages')}</span>
                     </div>
                   </div>
                 </div>

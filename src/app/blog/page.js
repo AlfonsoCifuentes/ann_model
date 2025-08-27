@@ -48,10 +48,10 @@ export default function BlogPage() {
             <div className="text-center mb-16">
               <FadeInUp>
                 <h1 className="text-4xl lg:text-5xl font-light tracking-wider mb-6 font-inter text-white">
-                  Blog
+                  {t('blogTitle')}
                 </h1>
                 <p className="text-gray-300 font-light max-w-2xl mx-auto leading-relaxed font-inter">
-                  Perspectivas detrás de escena, consejos de modelaje y reflexiones personales de mi trayectoria en la industria de la moda.
+                  {t('behindScenes')}
                 </p>
               </FadeInUp>
             </div>
@@ -107,7 +107,7 @@ export default function BlogPage() {
                     <div>
                       <div className="mb-4">
                         <span className="text-orange-400 text-sm font-light tracking-wide uppercase">
-                          Artículo Destacado
+                          {t('featuredArticle')}
                         </span>
                       </div>
                       <h2 className="text-3xl lg:text-4xl font-light tracking-wide mb-4 font-inter text-white">
@@ -125,7 +125,7 @@ export default function BlogPage() {
                         href={`/blog/${featuredPost.slug}`}
                         className="btn-fashion btn-fashion-primary"
                       >
-                        Leer Artículo Completo
+                        {t('readFullArticle')}
                       </Link>
                     </div>
                   </div>
@@ -140,10 +140,10 @@ export default function BlogPage() {
           <div className="w-full px-8 lg:px-16">
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-inter text-white">
-                {otherPosts.length > 0 ? 'Más Artículos' : 'Próximamente'}
+                {otherPosts.length > 0 ? t('moreArticles') : t('comingSoon')}
               </h2>
               <p className="text-gray-400 font-light font-inter">
-                {otherPosts.length > 0 ? 'Descubre más contenido' : 'Más artículos y reflexiones en desarrollo'}
+                {otherPosts.length > 0 ? t('discoverMore') : t('moreArticlesInDev')}
               </p>
             </div>
 
@@ -202,21 +202,21 @@ export default function BlogPage() {
             
             <FadeInUp>
               <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-inter text-white">
-                Mantente Actualizada
+                {t('stayUpdatedFemale')}
               </h2>
               <p className="text-gray-300 font-light mb-8 leading-relaxed font-inter">
-                Suscríbete para recibir las últimas actualizaciones sobre mis proyectos y reflexiones del mundo de la moda.
+                {t('subscribeUpdates')}
               </p>
 
               <div className="max-w-lg mx-auto">
                 <div className="flex">
                   <input
                     type="email"
-                    placeholder="Tu correo electrónico"
+                    placeholder={t('yourEmail')}
                     className="flex-1 px-6 py-4 bg-gray-800 border border-gray-700 text-white font-light text-sm focus:outline-none focus:border-orange-400 rounded-l-full placeholder-gray-400 min-w-0"
                   />
                   <button className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-black font-medium text-sm tracking-wider uppercase transition-colors duration-200 rounded-r-full whitespace-nowrap">
-                    Suscribirse
+                    {t('subscribeButton')}
                   </button>
                 </div>
               </div>

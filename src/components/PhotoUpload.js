@@ -143,10 +143,10 @@ export default function PhotoUpload({ onUploadSuccess }) {
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* File Upload Area */}
       <div 
-        className="border-2 border-dashed border-fashion-rose/30 rounded-lg p-8 text-center hover:border-fashion-rose transition-colors cursor-pointer bg-fashion-bg-tertiary"
+        className="border-2 border-dashed border-fashion-rose/30 rounded-lg p-6 sm:p-8 text-center hover:border-fashion-rose transition-colors cursor-pointer bg-fashion-bg-tertiary"
         onClick={() => fileInputRef.current?.click()}
       >
         <input
@@ -158,9 +158,12 @@ export default function PhotoUpload({ onUploadSuccess }) {
           className="hidden"
         />
         
-        <Upload className="mx-auto w-12 h-12 text-fashion-fg-muted mb-4" />
-        <p className="text-fashion-fg text-lg mb-2">Arrastra fotos aquí o haz clic para seleccionar</p>
-        <p className="text-fashion-fg-secondary text-sm">PNG, JPG, WEBP hasta 10MB cada una</p>
+        <Upload className="mx-auto w-10 sm:w-12 h-10 sm:h-12 text-fashion-fg-muted mb-4" />
+        <p className="text-fashion-fg text-base sm:text-lg mb-2">
+          <span className="sm:hidden">Toca para seleccionar fotos</span>
+          <span className="hidden sm:inline">Arrastra fotos aquí o haz clic para seleccionar</span>
+        </p>
+        <p className="text-fashion-fg-secondary text-xs sm:text-sm">PNG, JPG, WEBP hasta 10MB cada una</p>
       </div>
 
       {/* Upload Status */}
@@ -170,18 +173,18 @@ export default function PhotoUpload({ onUploadSuccess }) {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className={`p-4 rounded-lg flex items-center gap-3 ${
+            className={`p-3 sm:p-4 rounded-lg flex items-center gap-3 ${
               uploadStatus.type === 'success' 
                 ? 'bg-green-500/10 border border-green-500/20 text-green-400' 
                 : 'bg-red-500/10 border border-red-500/20 text-red-400'
             }`}
           >
             {uploadStatus.type === 'success' ? (
-              <Check className="w-5 h-5" />
+              <Check className="w-4 sm:w-5 h-4 sm:h-5" />
             ) : (
-              <AlertCircle className="w-5 h-5" />
+              <AlertCircle className="w-4 sm:w-5 h-4 sm:h-5" />
             )}
-            <span>{uploadStatus.message}</span>
+            <span className="text-sm sm:text-base">{uploadStatus.message}</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -189,26 +192,26 @@ export default function PhotoUpload({ onUploadSuccess }) {
       {/* Selected Files */}
       {selectedFiles.length > 0 && (
         <div className="space-y-4">
-          <h3 className="text-white text-lg font-medium">Fotos seleccionadas ({selectedFiles.length})</h3>
+          <h3 className="text-white text-base sm:text-lg font-medium">Fotos seleccionadas ({selectedFiles.length})</h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 max-h-96 overflow-y-auto">
             {selectedFiles.map((fileData) => (
               <motion.div
                 key={fileData.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-gray-800 rounded-lg p-4 space-y-3"
+                className="bg-gray-800 rounded-lg p-3 sm:p-4 space-y-3"
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-16 h-16 bg-gray-700 rounded overflow-hidden">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                    <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gray-700 rounded overflow-hidden shrink-0">
                       <img
                         src={fileData.preview}
                         alt="Preview"
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="text-sm">
+                    <div className="text-xs sm:text-sm min-w-0 flex-1">
                       <p className="text-white font-medium truncate">{fileData.file.name}</p>
                       <p className="text-gray-400">{(fileData.file.size / 1024 / 1024).toFixed(2)} MB</p>
                     </div>
@@ -216,9 +219,9 @@ export default function PhotoUpload({ onUploadSuccess }) {
                   
                   <button
                     onClick={() => removeFile(fileData.id)}
-                    className="text-gray-400 hover:text-red-400 transition-colors"
+                    className="text-gray-400 hover:text-red-400 transition-colors p-1 shrink-0"
                   >
-                    <Trash2 size={18} />
+                    <Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" />
                   </button>
                 </div>
 
@@ -228,7 +231,7 @@ export default function PhotoUpload({ onUploadSuccess }) {
                     placeholder="Título de la foto"
                     value={fileData.title}
                     onChange={(e) => updateFileData(fileData.id, 'title', e.target.value)}
-                    className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white text-sm focus:border-orange-500 focus:outline-none"
+                    className="w-full bg-gray-700 border border-gray-600 rounded px-2 sm:px-3 py-1.5 sm:py-2 text-white text-xs sm:text-sm focus:border-orange-500 focus:outline-none"
                   />
                   
                   <input
@@ -236,13 +239,13 @@ export default function PhotoUpload({ onUploadSuccess }) {
                     placeholder="Nombre del trabajo/colección (ej: Editorial-Vogue-2024)"
                     value={fileData.workCollection || ''}
                     onChange={(e) => updateFileData(fileData.id, 'workCollection', e.target.value)}
-                    className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white text-sm focus:border-orange-500 focus:outline-none"
+                    className="w-full bg-gray-700 border border-gray-600 rounded px-2 sm:px-3 py-1.5 sm:py-2 text-white text-xs sm:text-sm focus:border-orange-500 focus:outline-none"
                   />
                   
                   <select
                     value={fileData.category}
                     onChange={(e) => updateFileData(fileData.id, 'category', e.target.value)}
-                    className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white text-sm focus:border-orange-500 focus:outline-none"
+                    className="w-full bg-gray-700 border border-gray-600 rounded px-2 sm:px-3 py-1.5 sm:py-2 text-white text-xs sm:text-sm focus:border-orange-500 focus:outline-none"
                   >
                     {categories.map(cat => (
                       <option key={cat.value} value={cat.value}>{cat.label}</option>
@@ -266,17 +269,19 @@ export default function PhotoUpload({ onUploadSuccess }) {
             disabled={uploading || selectedFiles.length === 0}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-gray-600 text-white py-3 rounded font-medium transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-orange-600 hover:bg-orange-700 disabled:bg-gray-600 text-white py-2 sm:py-3 rounded font-medium transition-colors flex items-center justify-center gap-2 text-sm sm:text-base"
           >
             {uploading ? (
               <>
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Subiendo...
+                <div className="w-4 sm:w-5 h-4 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span className="hidden sm:inline">Subiendo...</span>
+                <span className="sm:hidden">Subiendo</span>
               </>
             ) : (
               <>
-                <ImageIcon size={20} />
-                Subir {selectedFiles.length} foto(s)
+                <ImageIcon size={16} className="sm:w-5 sm:h-5" />
+                <span className="hidden sm:inline">Subir {selectedFiles.length} foto(s)</span>
+                <span className="sm:hidden">Subir ({selectedFiles.length})</span>
               </>
             )}
           </motion.button>

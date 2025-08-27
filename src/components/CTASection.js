@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function CTASection() {
+  const { t } = useLanguage()
+  
   return (
     <section className="luxury-header-spacing">
       <div className="container-custom">
@@ -15,18 +18,17 @@ export default function CTASection() {
           viewport={{ once: true }}
         >
           <h2 className="text-luxury-elegant mb-6">
-            Ready to Work Together?
+            {t('workTogether')}
           </h2>
           <p className="text-luxury-body mb-8 leading-relaxed">
-            Let's create something extraordinary. Get in touch to discuss your next project 
-            and see how we can bring your vision to life.
+            {t('contactDescription')}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link href="/booking" className="w-full sm:w-auto luxury-card inline-block px-8 py-4 text-luxury-body font-medium rounded-full hover:scale-105 transition-all duration-300 bg-gradient-to-r from-fashion-rose/20 to-fashion-gold/20 text-center">
-              Book a Session
+              {t('bookSession')}
             </Link>
             <Link href="/contact" className="w-full sm:w-auto luxury-card inline-block px-8 py-4 text-luxury-body font-medium rounded-full hover:scale-105 transition-all duration-300 text-center">
-              Get in Touch
+              {t('getInTouch')}
             </Link>
           </div>
         </motion.div>

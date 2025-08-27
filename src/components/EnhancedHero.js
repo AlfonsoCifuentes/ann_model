@@ -74,8 +74,8 @@ export default function EnhancedHero() {
             />
           </motion.div>
         </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/50 via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/20 via-transparent to-black/25" />
       </div>
 
       {/* Content overlay - force transparent bg to avoid global .min-h-screen black overlay */}
@@ -86,15 +86,15 @@ export default function EnhancedHero() {
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-widest mb-2 text-white">
                 ANA<span className="font-bold">NICOLETA</span>
               </h1>
-              <p className="font-sans text-base md:text-xl lg:text-2xl font-thin text-white/80 uppercase text-center" style={{ letterSpacing: '0.65em', transform: 'scaleX(1.05)' }}>
+              <p className="font-sans text-base md:text-xl lg:text-2xl font-thin text-white uppercase text-center" style={{ letterSpacing: '0.65em', transform: 'scaleX(1.05)' }}>
                 DE PEDRO SANCHEZ
               </p>
             </motion.div>
 
-            <motion.p variants={itemVariants} className="text-lg md:text-xl font-light tracking-wider mb-4 text-white/90 uppercase">
+            <motion.p variants={itemVariants} className="text-lg md:text-xl font-light tracking-wider mb-4 text-white uppercase">
               {t('heroSubtitle')}
             </motion.p>
-            <motion.p variants={itemVariants} className="text-base md:text-lg font-light max-w-lg mb-12 text-white/80 leading-relaxed tracking-wide">
+            <motion.p variants={itemVariants} className="text-base md:text-lg font-light max-w-lg mb-12 text-white leading-relaxed tracking-wide">
               {t('heroDescription')}
             </motion.p>
 

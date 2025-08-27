@@ -86,8 +86,8 @@ export default function Footer() {
                   </motion.a>
                 </div>
 
-                <Link href="/" className="inline-block mb-6">
-                  <div className="flex flex-col items-center">
+                <div className="mb-6">
+                  <Link href="/" className="block">
                     <h1 className="text-2xl font-light tracking-widest text-white">
                       ANA<span className="font-bold">NICOLETA</span>
                     </h1>
@@ -100,8 +100,8 @@ export default function Footer() {
                     >
                       DE PEDRO SANCHEZ
                     </p>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
                 
                 <div className="mt-auto">
                   <p className="text-[#b8b8b8] leading-relaxed text-sm">

@@ -67,7 +67,7 @@ export default function EnhancedHero() {
               fill
               className={`object-cover ${
                 currentImageIndex === 0
-                  ? 'object-bottom md:object-bottom object-left' // Imagen 1: hacia la IZQUIERDA en móvil
+                  ? 'object-left md:object-bottom object-top' // Imagen 1: alineada a la IZQUIERDA y ajustada al alto en móvil
                   : currentImageIndex === 2
                   ? 'object-center md:object-center object-right' // Imagen 3: alineada al borde DERECHO
                   : currentImageIndex === 3

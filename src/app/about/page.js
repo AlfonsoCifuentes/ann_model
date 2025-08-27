@@ -92,29 +92,29 @@ export default function AboutPage() {
               
               {/* Professional Details */}
               <StaggerItem>
-                <div className="bg-gray-950 border border-gray-800 rounded-2xl p-8 h-80 flex flex-col">
+                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-8 h-80 flex flex-col shadow-xl">
                   <div className="flex items-center mb-6">
                     <div className="w-1 h-6 bg-orange-500 mr-4"></div>
-                    <h3 className="text-xl font-light tracking-wide text-white">
+                    <h3 className="text-xl font-light tracking-wide text-neutral-100">
                       {t('professionalDetails')}
                     </h3>
                   </div>
                   
                   <div className="flex-1 space-y-4">
-                    <div className="flex justify-between items-center py-2 border-b border-gray-900">
-                      <span className="text-gray-400 font-light">{t('height')}</span>
+                    <div className="flex justify-between items-center py-2 border-b border-neutral-800">
+                      <span className="text-neutral-400 font-light">{t('height')}</span>
                       <span className="text-orange-500 font-medium">175 cm</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-gray-900">
-                      <span className="text-gray-400 font-light">{t('eyes')}</span>
+                    <div className="flex justify-between items-center py-2 border-b border-neutral-800">
+                      <span className="text-neutral-400 font-light">{t('eyes')}</span>
                       <span className="text-orange-500 font-medium">{t('green')}</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-gray-900">
-                      <span className="text-gray-400 font-light">{t('hair')}</span>
+                    <div className="flex justify-between items-center py-2 border-b border-neutral-800">
+                      <span className="text-neutral-400 font-light">{t('hair')}</span>
                       <span className="text-orange-500 font-medium">{t('darkBrown')}</span>
                     </div>
                     <div className="flex justify-between items-center py-2">
-                      <span className="text-gray-400 font-light">{t('shoe')}</span>
+                      <span className="text-neutral-400 font-light">{t('shoe')}</span>
                       <span className="text-orange-500 font-medium">EU 38</span>
                     </div>
                   </div>
@@ -123,32 +123,32 @@ export default function AboutPage() {
 
               {/* Experience */}
               <StaggerItem>
-                <div className="bg-gray-950 border border-gray-800 rounded-2xl p-8 h-80 flex flex-col">
+                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-8 h-80 flex flex-col shadow-xl">
                   <div className="flex items-center mb-6">
                     <div className="w-1 h-6 bg-orange-500 mr-4"></div>
-                    <h3 className="text-xl font-light tracking-wide text-white">
+                    <h3 className="text-xl font-light tracking-wide text-neutral-100">
                       {t('experience')}
                     </h3>
                   </div>
                   
                   <div className="flex-1 space-y-3">
-                    <div className="flex items-center py-1 text-gray-400">
+                    <div className="flex items-center py-1 text-neutral-400">
                       <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
                       <span className="font-light text-sm">{t('editorialPhotography')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-gray-400">
+                    <div className="flex items-center py-1 text-neutral-400">
                       <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
                       <span className="font-light text-sm">{t('runwayShows')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-gray-400">
+                    <div className="flex items-center py-1 text-neutral-400">
                       <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
                       <span className="font-light text-sm">{t('commercialCampaigns')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-gray-400">
+                    <div className="flex items-center py-1 text-neutral-400">
                       <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
                       <span className="font-light text-sm">{t('actingProjects')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-gray-400">
+                    <div className="flex items-center py-1 text-neutral-400">
                       <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
                       <span className="font-light text-sm">{t('internationalWork')}</span>
                     </div>
@@ -158,24 +158,24 @@ export default function AboutPage() {
 
               {/* Location */}
               <StaggerItem>
-                <div className="bg-gray-950 border border-gray-800 rounded-2xl p-8 h-80 flex flex-col">
+                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-8 h-80 flex flex-col shadow-xl">
                   <div className="flex items-center mb-6">
                     <div className="w-1 h-6 bg-orange-500 mr-4"></div>
-                    <h3 className="text-xl font-light tracking-wide text-white">
+                    <h3 className="text-xl font-light tracking-wide text-neutral-100">
                       {t('location')}
                     </h3>
                   </div>
                   
                   <div className="flex-1 space-y-3">
-                    <div className="flex items-center py-1 text-gray-400">
+                    <div className="flex items-center py-1 text-neutral-400">
                       <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
                       <span className="font-light text-sm">{t('basedInSpain')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-gray-400">
+                    <div className="flex items-center py-1 text-neutral-400">
                       <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
                       <span className="font-light text-sm">{t('availableWorldwide')}</span>
                     </div>
-                    <div className="flex items-center py-1 text-gray-400">
+                    <div className="flex items-center py-1 text-neutral-400">
                       <div className="w-1 h-1 bg-orange-500 rounded-full mr-3"></div>
                       <span className="font-light text-sm">{t('fluentLanguages')}</span>
                     </div>

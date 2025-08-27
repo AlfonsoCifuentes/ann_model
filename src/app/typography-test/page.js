@@ -80,7 +80,7 @@ export default function TypographyTest() {
                 reconocidos fotógrafos y marcas de prestigio a nivel mundial.
               </p>
               <p className="font-inter text-sm font-light text-gray-500 tracking-wide uppercase">
-                Available Worldwide • Based in Spain • Fluent in Spanish & English
+                Available Worldwide • Based in Spain • Based in Madrid
               </p>
             </div>
           </motion.div>

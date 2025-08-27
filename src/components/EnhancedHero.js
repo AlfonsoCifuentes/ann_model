@@ -71,7 +71,7 @@ export default function EnhancedHero() {
                   : currentImageIndex === 2
                   ? 'object-center md:object-center object-right' // Imagen 3: alineada al borde DERECHO
                   : currentImageIndex === 3
-                  ? 'object-center md:object-center object-right' // Imagen 4: alineada al borde DERECHO
+                  ? 'hero-image-4-mobile md:object-center' // Imagen 4: 40px a la derecha en móvil, centrada en desktop
                   : currentImageIndex === heroImages.length - 1
                   ? 'object-center'
                   : 'object-top'

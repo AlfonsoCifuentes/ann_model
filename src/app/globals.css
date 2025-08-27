@@ -1253,3 +1253,14 @@ nav a:link,
     }
   }
 }
+
+/* Custom class for hero 4th image positioning on mobile */
+.hero-image-4-mobile {
+  object-position: calc(100% + 40px) center;
+}
+
+@media (min-width: 768px) {
+  .hero-image-4-mobile {
+    object-position: center center;
+  }
+}

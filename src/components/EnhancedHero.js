@@ -69,9 +69,9 @@ export default function EnhancedHero() {
                 currentImageIndex === 0
                   ? 'object-bottom md:object-bottom object-left' // Imagen 1: hacia la IZQUIERDA en móvil
                   : currentImageIndex === 2
-                  ? 'object-center md:object-center object-[75%]' // Imagen 3: más hacia la DERECHA (75% desde la izquierda)
+                  ? 'object-center md:object-center object-[65%]' // Imagen 3: más hacia la IZQUIERDA (65% desde la izquierda)
                   : currentImageIndex === 3
-                  ? 'object-center md:object-center object-right' // Imagen 4: hacia la DERECHA en móvil
+                  ? 'object-center md:object-center object-[85%]' // Imagen 4: más hacia la DERECHA (85% desde la izquierda)
                   : currentImageIndex === heroImages.length - 1
                   ? 'object-center'
                   : 'object-top'

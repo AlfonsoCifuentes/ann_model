@@ -137,8 +137,8 @@ export default function BlogPage() {
 
         {/* Blog Posts Grid */}
         <div className="py-16 border-t border-gray-800">
-          <div className="w-full">
-            <div className="text-center mb-12 px-8">
+          <div className="w-full px-8 lg:px-16">
+            <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-light tracking-wider mb-4 font-inter text-white">
                 {otherPosts.length > 0 ? 'Más Artículos' : 'Próximamente'}
               </h2>
@@ -148,12 +148,12 @@ export default function BlogPage() {
             </div>
 
             {otherPosts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-none">
                 {otherPosts.map((post) => (
                   <Link 
                     key={post._id} 
                     href={`/blog/${post.slug}`}
-                    className="bg-gray-900 hover:bg-gray-800 transition-colors cursor-pointer block h-full"
+                    className="bg-gray-900 hover:bg-gray-800 transition-colors cursor-pointer block h-full rounded-lg overflow-hidden"
                   >
                     <div className="aspect-video relative">
                       <Image
@@ -161,7 +161,7 @@ export default function BlogPage() {
                         alt={post.title}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                       />
                     </div>
                     <div className="p-8">
@@ -181,10 +181,10 @@ export default function BlogPage() {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-none">
                 {/* Placeholder para futuros artículos */}
-                {[1, 2, 3].map((placeholder) => (
-                  <div key={placeholder} className="bg-gray-900 p-8 opacity-50">
+                {[1, 2].map((placeholder) => (
+                  <div key={placeholder} className="bg-gray-900 p-8 opacity-50 rounded-lg">
                     <div className="aspect-video bg-gray-800 rounded-lg mb-4"></div>
                     <div className="h-4 bg-gray-800 rounded mb-2"></div>
                     <div className="h-3 bg-gray-800 rounded w-3/4 mb-4"></div>
@@ -208,14 +208,14 @@ export default function BlogPage() {
                 Suscríbete para recibir las últimas actualizaciones sobre mis proyectos y reflexiones del mundo de la moda.
               </p>
 
-              <div className="max-w-md mx-auto">
+              <div className="max-w-lg mx-auto">
                 <div className="flex">
                   <input
                     type="email"
                     placeholder="Tu correo electrónico"
-                    className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 text-white font-light text-sm focus:outline-none focus:border-orange-400 rounded-l-full placeholder-gray-400"
+                    className="flex-1 px-6 py-4 bg-gray-800 border border-gray-700 text-white font-light text-sm focus:outline-none focus:border-orange-400 rounded-l-full placeholder-gray-400 min-w-0"
                   />
-                  <button className="btn-fashion btn-fashion-primary" style={{borderRadius: '0 50px 50px 0'}}>
+                  <button className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-black font-medium text-sm tracking-wider uppercase transition-colors duration-200 rounded-r-full whitespace-nowrap">
                     Suscribirse
                   </button>
                 </div>

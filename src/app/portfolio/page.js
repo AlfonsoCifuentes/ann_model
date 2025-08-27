@@ -22,36 +22,149 @@ export default function PortfolioPage() {
   useEffect(() => {
     const fetchWorkCollections = async () => {
       try {
-        const response = await fetch('/api/photos?portfolioSection=portfolio&status=active')
+        // Traer TODAS las fotos activas de todas las secciones
+        const response = await fetch('/api/photos?status=active')
         const result = await response.json()
         
         if (result.success) {
-          // Agrupar fotos por workCollection
+          // Helpers de normalización y deduplicación
+          const normalizeCollectionId = (id) =>
+            String(id)
+              .trim()
+              .toLowerCase()
+              .replace(/[_\s]+/g, '-')
+              .replace(/-+/g, '-')
+              .replace(/[^a-z0-9-]/g, '')
+              .replace(/^-+|-+$/g, '')
+
+          const uniqueBy = (arr, keyFn) => {
+            const seen = new Set()
+            return arr.filter(item => {
+              const key = keyFn(item)
+              if (seen.has(key)) return false
+              seen.add(key)
+              return true
+            })
+          }
+
+          // Agrupar fotos por workCollection normalizado
           const collections = new Map()
-          
+
           result.data.forEach(photo => {
-            if (photo.workCollection) {
-              if (!collections.has(photo.workCollection)) {
-                collections.set(photo.workCollection, {
-                  id: photo.workCollection,
-                  title: photo.title?.split(' ').slice(0, -1).join(' ') || formatCollectionName(photo.workCollection),
-                  description: photo.description || 'Colección de fotografías artísticas',
-                  category: photo.category,
-                  photos: [],
-                  coverImage: photo.imageUrl
-                })
-              }
-              collections.get(photo.workCollection).photos.push(photo)
+            if (!photo?.workCollection || !photo?.imageUrl) return
+            
+            // Filtrar solo fotos del portfolio O fotos SVM de cualquier sección
+            const imageFileName = photo.imageUrl.split('/').pop() || ''
+            const isSVMPhoto = imageFileName.toUpperCase().startsWith('SVM')
+            const isPortfolioSection = photo.portfolioSection === 'portfolio'
+            
+            if (!isPortfolioSection && !isSVMPhoto) return
+            
+            // Lógica especial: asignar fotos SVM* a la colección "Polas"
+            let workCollectionToUse = photo.workCollection
+            if (isSVMPhoto) {
+              workCollectionToUse = 'polaroids-vintage' // Asignar a Polas
+            }
+            
+            const normId = normalizeCollectionId(workCollectionToUse)
+            const formattedName = formatCollectionName(normId)
+            
+            // Saltar colecciones excluidas
+            if (formattedName === null) return
+            
+            if (!collections.has(normId)) {
+              collections.set(normId, {
+                id: normId,
+                title: formattedName,
+                description: photo.description || 'Colección de fotografías artísticas',
+                category: photo.category,
+                photos: [],
+                coverImage: photo.imageUrl
+              })
+            }
+            const col = collections.get(normId)
+            
+            // Aplicar descripción personalizada SIEMPRE para colecciones específicas
+            if (normId.includes('artistico') || normId.includes('artstico') || formattedName === 'Make-up creativo') {
+              col.description = 'Sesión de make-up creativo, fusionando arte corporal con naturaleza'
+            }
+            
+            col.photos.push(photo)
+            // Preferir primera imagen válida como cover si no está definida
+            if (!col.coverImage && photo.imageUrl) {
+              col.coverImage = photo.imageUrl
+            }
+            // Mantener la primera categoría definida si cambia
+            if (!col.category && photo.category) {
+              col.category = photo.category
             }
           })
-          
-          // Ordenar fotos dentro de cada colección por order
+
+          // Deduplicar fotos por imageUrl y ordenar por order dentro de cada colección
           collections.forEach(collection => {
+            collection.photos = uniqueBy(collection.photos, (p) => p.imageUrl)
             collection.photos.sort((a, b) => (a.order || 0) - (b.order || 0))
+            // Asegurar coverImage consistente con el primer elemento tras ordenar
+            if (collection.photos.length > 0) {
+              collection.coverImage = collection.photos[0].imageUrl
+            }
           })
+
+          // Convertir a array y eliminar colecciones duplicadas por título mostrado y portada
+          let collectionsArray = Array.from(collections.values())
+          const usedTitles = new Set()
+          const usedCovers = new Set()
+          collectionsArray = collectionsArray.filter(c => {
+            const displayTitle = formatCollectionName(c.id).trim()
+            if (!c.coverImage) return false
+            if (usedTitles.has(displayTitle)) return false
+            if (usedCovers.has(c.coverImage)) return false
+            usedTitles.add(displayTitle)
+            usedCovers.add(c.coverImage)
+            return true
+          })
+
+          // Filtro específico para "Body Paint Japonés" - mantener solo el primero
+          const bodyPaintJapones = collectionsArray.filter(c => 
+            formatCollectionName(c.id) === 'Body Paint Japonés'
+          )
           
-          const collectionsArray = Array.from(collections.values())
+          if (bodyPaintJapones.length > 1) {
+            // Mantener solo el primero y remover los demás del array
+            const firstBodyPaint = bodyPaintJapones[0]
+            collectionsArray = collectionsArray.filter(c => {
+              if (formatCollectionName(c.id) === 'Body Paint Japonés') {
+                return c.id === firstBodyPaint.id
+              }
+              return true
+            })
+          }
+
+          // Ordenar colecciones: "Polas" siempre primero, luego el resto alfabéticamente
+          collectionsArray.sort((a, b) => {
+            const aTitle = formatCollectionName(a.id)
+            const bTitle = formatCollectionName(b.id)
+            
+            // "Polas" siempre va primero
+            if (aTitle === 'Polas') return -1
+            if (bTitle === 'Polas') return 1
+            
+            // El resto ordenado alfabéticamente
+            return aTitle.localeCompare(bTitle)
+          })
+
           setWorkCollections(collectionsArray)
+          
+          // Debug final: contar fotos SVM en la colección Polas
+          const polasCollection = collectionsArray.find(c => c.id === 'polaroids-vintage')
+          if (polasCollection) {
+            const svmPhotos = polasCollection.photos.filter(photo => {
+              const fileName = photo.imageUrl.split('/').pop() || ''
+              return fileName.toUpperCase().startsWith('SVM')
+            })
+            console.log('DEBUG FINAL - Fotos SVM en Polas:', svmPhotos.length, 'de', polasCollection.photos.length, 'total')
+            console.log('DEBUG FINAL - Archivos SVM en Polas:', svmPhotos.map(p => p.imageUrl.split('/').pop()).slice(0, 10))
+          }
           
           // Si hay un filtro específico y solo hay una colección, abrirla automáticamente
           if (filterParam && collectionsArray.length > 0) {
@@ -82,12 +195,29 @@ export default function PortfolioPage() {
     // Casos especiales de nombres
     const specialNames = {
       'polaroids-vintage': 'Polas',
-      'body-paint-japones': 'Body Paint Japonés',
-      'body-paint-natural': 'Body Paint Natural',
+      'body-paint-japones': 'Body Paint Japonés', // Versión correcta con acento
+      'body-paint-artistico': 'Make-up creativo',  // Sin acento (normalizado)
+      'body-paint-artstico': 'Make-up creativo',   // Variante sin 'i'
       'body-paint-urbano': 'Body Paint Urbano',
-      'maquillaje-artistico': 'Maquillaje Artístico',
-      'elegancia-clasica': 'Elegancia Clásica',
-      'sesion-profesional': 'Sesión Profesional'
+      'elegancia-clasica': 'Elegancia Clásica'
+    }
+    
+    // Colecciones a excluir
+    const excludedCollections = new Set([
+      'maquillaje-artistico',
+      'maquillaje-artístico',
+      'maquillaje_artistico',
+      'body-paint-japons',   // Sin acento - a excluir (nombre incorrecto)
+      'body_paint_japons',   // Variante con guiones bajos
+      'body-paint-natural',  // Eliminar Body Paint Natural
+      'body_paint_natural',  // Variante con guiones bajos
+      'sesion-profesional',  // Eliminar Sesión Profesional
+      'sesión-profesional',  // Variante con acento
+      'sesion_profesional'   // Variante con guiones bajos
+    ])
+    
+    if (excludedCollections.has(collectionId)) {
+      return null // Marcamos para exclusión
     }
     
     if (specialNames[collectionId]) {
@@ -124,6 +254,19 @@ export default function PortfolioPage() {
     return collections
   })()
 
+  // Calcular qué categorías tienen colecciones disponibles
+  const availableCategories = (() => {
+    const categoriesWithCollections = new Set(['all']) // 'all' siempre está disponible
+    
+    workCollections.forEach(collection => {
+      if (collection.category) {
+        categoriesWithCollections.add(collection.category)
+      }
+    })
+    
+    return categories.filter(category => categoriesWithCollections.has(category))
+  })()
+
   const openLightbox = (photoIndex, collection) => {
     setCurrentLightboxPhotos(collection.photos)
     setLightboxIndex(photoIndex)
@@ -134,6 +277,13 @@ export default function PortfolioPage() {
     setActiveCategory(category)
     setInitialFilterApplied(true) // Marcar que el usuario ha interactuado con los filtros
   }
+
+  // Resetear a "all" si la categoría activa no está disponible
+  useEffect(() => {
+    if (workCollections.length > 0 && !availableCategories.includes(activeCategory)) {
+      setActiveCategory('all')
+    }
+  }, [workCollections, availableCategories, activeCategory])
 
   const getCategoryLabel = (category) => {
     const labels = {
@@ -171,7 +321,7 @@ export default function PortfolioPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {categories.map(category => (
+            {availableCategories.map(category => (
               <button
                 key={category}
                 onClick={() => handleCategoryChange(category)}

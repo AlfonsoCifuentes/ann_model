@@ -91,6 +91,11 @@ function PortfolioContent() {
               col.description = 'Sesión de make-up creativo, fusionando arte corporal con naturaleza'
             }
             
+            // Descripción específica para Elegancia Clásica
+            if (normId === 'elegancia-clasica' || normId === 'elegancia-clsica' || formattedName === 'Elegancia Clásica') {
+              col.description = 'Elegancia atemporal y sofisticación en sesiones de moda clásica'
+            }
+            
             col.photos.push(photo)
             // Preferir primera imagen válida como cover si no está definida
             if (!col.coverImage && photo.imageUrl) {
@@ -201,7 +206,8 @@ function PortfolioContent() {
       'body-paint-artistico': 'Make-up creativo',  // Sin acento (normalizado)
       'body-paint-artstico': 'Make-up creativo',   // Variante sin 'i'
       'body-paint-urbano': 'Body Paint Urbano',
-      'elegancia-clasica': 'Elegancia Clásica'
+      'elegancia-clasica': 'Elegancia Clásica',   // Con guión y sin tilde
+      'elegancia-clsica': 'Elegancia Clásica'     // Sin tilde (normalizado por replace)
     }
     
     // Colecciones a excluir

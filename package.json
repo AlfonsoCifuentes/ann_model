@@ -21,7 +21,7 @@
     "lucide-react": "^0.400.0",
     "mongodb": "^6.18.0",
     "mongoose": "^8.18.0",
-    "next": "^14.2.32",
+    "next": "14.2.35",
     "next-cloudinary": "^6.16.0",
     "next-mdx-remote": "^4.4.1",
     "node-fetch": "^2.6.7",
